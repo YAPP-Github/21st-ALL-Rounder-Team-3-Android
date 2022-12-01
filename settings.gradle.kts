@@ -14,6 +14,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "all-rounder-3"
-include (":app")
+include(":app")
 include(":presentation")
 include(":domain")
+include(":data")
