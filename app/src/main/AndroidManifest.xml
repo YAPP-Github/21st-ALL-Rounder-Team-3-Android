@@ -3,12 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="AllRounder3Application"
+        android:name="com.yapp.app.App"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:hardwareAccelerated="true"
         android:supportsRtl="true"
         tools:ignore="MissingApplicationIcon">
+        <activity
+            android:name="com.yapp.presentation.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 

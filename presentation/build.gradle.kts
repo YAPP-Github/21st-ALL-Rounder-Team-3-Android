@@ -3,7 +3,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.kapt)
 }
+
 android {
     namespace = "com.yapp.presentation"
     compileSdk = 33
@@ -47,9 +50,10 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(libs.kotlin.coroutines)
-    implementation(libs.kotlin.collections)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.ktx)
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.kapt)
     implementation(libs.timber)
 }

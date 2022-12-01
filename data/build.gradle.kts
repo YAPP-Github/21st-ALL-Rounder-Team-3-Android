@@ -20,6 +20,6 @@ dependencies {
     implementation(libs.kotlin.coroutines)
     implementation(libs.bundles.network)
     implementation(libs.hilt.android)
-    implementation(libs.timber)
     kapt(libs.hilt.kapt)
+    implementation(libs.timber)
 }
