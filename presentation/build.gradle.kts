@@ -1,8 +1,9 @@
-plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-}
+@file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+}
 android {
     namespace = "com.yapp.presentation"
     compileSdk = 33
@@ -12,7 +13,6 @@ android {
         targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -45,7 +45,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.bundles.compose)
     implementation(libs.bundles.ktx)
 }
