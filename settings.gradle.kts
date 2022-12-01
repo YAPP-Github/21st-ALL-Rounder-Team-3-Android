@@ -13,7 +13,7 @@ dependencyResolutionManagement {
         gradlePluginPortal()
     }
 }
-
 rootProject.name = "all-rounder-3"
 include (":app")
 include(":presentation")
+include(":domain")
