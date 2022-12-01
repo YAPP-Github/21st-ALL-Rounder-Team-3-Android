@@ -1,4 +1,5 @@
-@Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
+@file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,7 +7,6 @@ plugins {
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlinx.serialization)
 }
-
 
 android {
     namespace = "com.yapp.all_rounder_3"
@@ -51,7 +51,6 @@ android {
         }
     }
 }
-
 
 dependencies {
     implementation(libs.timber)
