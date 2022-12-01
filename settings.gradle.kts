@@ -10,7 +10,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
 }
+
 rootProject.name = "all-rounder-3"
-include ':app'
+include (":app")
