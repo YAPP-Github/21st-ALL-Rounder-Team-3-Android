@@ -1,7 +1,7 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
 }
 android {
@@ -45,6 +45,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(libs.kotlin.coroutines)
+    implementation(libs.kotlin.collections)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.ktx)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.timber)
 }

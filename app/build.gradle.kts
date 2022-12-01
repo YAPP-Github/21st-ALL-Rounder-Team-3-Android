@@ -53,7 +53,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":presentation"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
     implementation(libs.timber)
-    implementation(libs.hilt)
+    implementation(libs.hilt.android)
     kapt(libs.hilt.kapt)
 }
