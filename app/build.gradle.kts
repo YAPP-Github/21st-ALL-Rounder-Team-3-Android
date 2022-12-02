@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yapp.all_rounder_3"
+    namespace = "com.yapp.app"
     compileSdk = 33
 
     defaultConfig {
