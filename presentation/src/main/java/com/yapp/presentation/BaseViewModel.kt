@@ -35,7 +35,7 @@ abstract class BaseViewModel<
         }
     }
 
-    fun SharedFlow<INTENT>.mutate(): Flow<INTENT> {
+    private fun SharedFlow<INTENT>.mutate(): Flow<INTENT> {
         val middlewareList = registerMiddleware()
         return if (middlewareList.isEmpty()) {
             intentFlow
@@ -65,6 +65,7 @@ abstract class BaseViewModel<
             .catch { processError(it) }
             .stateIn(
                 viewModelScope,
+                // 바로 생산 시작.
                 SharingStarted.Eagerly,
                 initialViewState
             )

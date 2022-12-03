@@ -20,7 +20,19 @@ class MainMiddleware @Inject constructor(
             merge(
                 filterIsInstance<MainIntent.CompleteLoading>()
                     .onEach {
-                        Timber.e("MainIntent.CompleteLoading")
+                        Timber.e(it.toString())
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed()),
+
+                filterIsInstance<MainIntent.ChangeTopButtonText>()
+                    .onEach {
+                        Timber.e(it.toString())
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed()),
+
+                filterIsInstance<MainIntent.ChangeBottomButtonText>()
+                    .onEach {
+                        Timber.e(it.toString())
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
                 )

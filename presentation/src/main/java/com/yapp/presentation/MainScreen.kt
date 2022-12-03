@@ -9,16 +9,18 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.channels.Channel
 
 @Composable
 fun MainScreen(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
-    viewModel: MainViewModel = MainViewModel() //todo should change by inject viewModel()
+    viewModel: MainViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
     val state = viewModel.viewState.collectAsState()

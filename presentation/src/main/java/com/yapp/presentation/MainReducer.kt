@@ -6,7 +6,6 @@ import timber.log.Timber
 
 class MainReducer : Reducer<MainState> {
     override fun invoke(action: BaseIntent, state: MainState): MainState {
-        Timber.e("invoke: $action")
         var newState = state
         when (action) {
             is MainIntent.CompleteLoading -> {
@@ -28,6 +27,7 @@ class MainReducer : Reducer<MainState> {
             }
         }
 
+        Timber.e(newState.toString())
         return newState
     }
 }

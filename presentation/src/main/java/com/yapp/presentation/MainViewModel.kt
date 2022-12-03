@@ -2,14 +2,20 @@ package com.yapp.presentation
 
 import com.yapp.presentation.redux.BaseMiddleware
 import com.yapp.presentation.redux.Reducer
+import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(): BaseViewModel<
-        MainIntent, MainState>() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val mainMiddleware: MainMiddleware
+): BaseViewModel<MainIntent, MainState>() {
+    init {
+        start()
+    }
 
     override fun registerMiddleware(): List<BaseMiddleware<MainIntent>> {
-        return listOf(MainMiddleware())
+        return listOf(mainMiddleware)
     }
 
     override fun registerReducer(): Reducer<MainState> {
@@ -22,9 +28,5 @@ class MainViewModel @Inject constructor(): BaseViewModel<
 
     override fun getInitialState(): MainState {
         return MainState()
-    }
-
-    init {
-        start()
     }
 }
