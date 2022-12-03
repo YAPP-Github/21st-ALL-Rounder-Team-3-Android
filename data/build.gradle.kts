@@ -8,10 +8,10 @@ plugins {
 }
 
 android {
-    compileSdk = 33
+    compileSdk = libs.versions.compile.sdk.get().toInt()
     namespace = "com.yapp.data"
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_11.majorVersion
     }
 }
 

@@ -9,13 +9,11 @@ plugins {
 
 android {
     namespace = "com.yapp.presentation"
-    compileSdk = 33
+    compileSdk = libs.versions.compile.sdk.get().toInt()
 
     defaultConfig {
-        minSdk = 23
-        targetSdk = 33
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = libs.versions.min.sdk.get().toInt()
+        targetSdk = libs.versions.target.sdk.get().toInt()
     }
 
     buildTypes {
@@ -32,7 +30,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_11.majorVersion
     }
     buildFeatures {
         compose = true

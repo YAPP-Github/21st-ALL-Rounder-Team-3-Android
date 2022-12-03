@@ -1,4 +1,12 @@
 [versions]
+# app constants
+compile-sdk = "33"
+min-sdk = "23"
+target-sdk = "33"
+app-version-code = "1"
+app-version-name = "1.0"
+app-id = "com.yapp.allrounder3"
+
 # plugin
 gradle-plugin = "8.0.0-alpha08"
 
@@ -99,8 +107,8 @@ androidx-test-espresso = { module = "androidx.test.espresso:espresso-core", vers
 
 login-kakao = { module = "com.kakao.sdk:v2-user", version.ref = "login-kakao" }
 
-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp"  }
-okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp"  }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx-serialization-converter" }

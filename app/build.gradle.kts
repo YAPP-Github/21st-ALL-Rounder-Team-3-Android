@@ -9,14 +9,17 @@ plugins {
 }
 
 android {
-    namespace = "com.yapp.all_rounder_3"
+    namespace = "com.yapp.app"
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 23
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        with(libs.versions) {
+            applicationId = app.id.get()
+            minSdk = min.sdk.get().toInt()
+            targetSdk = target.sdk.get().toInt()
+            versionCode = app.version.code.get().toInt()
+            versionName = app.version.name.get()
+        }
     }
 
     buildTypes {
