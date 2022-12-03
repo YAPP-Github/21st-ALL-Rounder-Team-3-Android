@@ -1,11 +1,11 @@
-package com.yapp.presentation
+package com.yapp.core.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yapp.presentation.redux.BaseIntent
-import com.yapp.presentation.redux.BaseMiddleware
-import com.yapp.presentation.redux.BaseState
-import com.yapp.presentation.redux.Reducer
+import com.yapp.core.redux.BaseIntent
+import com.yapp.core.redux.BaseMiddleware
+import com.yapp.core.redux.BaseState
+import com.yapp.core.redux.Reducer
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

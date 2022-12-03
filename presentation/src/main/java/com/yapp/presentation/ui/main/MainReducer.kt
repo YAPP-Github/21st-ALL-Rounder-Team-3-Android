@@ -1,16 +1,15 @@
-package com.yapp.presentation
+package com.yapp.presentation.ui.main
 
-import com.yapp.presentation.redux.BaseIntent
-import com.yapp.presentation.redux.Reducer
+import com.yapp.core.redux.BaseIntent
 import timber.log.Timber
 
-class MainReducer : Reducer<MainState> {
+class MainReducer : com.yapp.core.redux.Reducer<MainState> {
     override fun invoke(action: BaseIntent, state: MainState): MainState {
         var newState = state
         when (action) {
             is MainIntent.CompleteLoading -> {
                 newState = newState.copy(
-                    text = "complete init"
+                    text = "complete init",
                 )
             }
             is MainIntent.ChangeTopButtonText -> {

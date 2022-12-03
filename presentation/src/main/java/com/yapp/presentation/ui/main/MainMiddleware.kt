@@ -1,6 +1,6 @@
-package com.yapp.presentation
+package com.yapp.presentation.ui.main
 
-import com.yapp.presentation.redux.BaseMiddleware
+import com.yapp.core.redux.BaseMiddleware
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -35,7 +35,7 @@ class MainMiddleware @Inject constructor(
                         Timber.e(it.toString())
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
-                )
+            )
         }
     }
 }

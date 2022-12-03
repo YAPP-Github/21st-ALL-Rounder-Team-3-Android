@@ -1,6 +1,6 @@
-package com.yapp.presentation
+package com.yapp.presentation.ui.main
 
-import com.yapp.presentation.redux.BaseState
+import com.yapp.core.redux.BaseState
 
 data class MainState(
     val text: String = "",

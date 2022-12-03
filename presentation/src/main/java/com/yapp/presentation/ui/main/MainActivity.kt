@@ -1,4 +1,4 @@
-package com.yapp.presentation
+package com.yapp.presentation.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

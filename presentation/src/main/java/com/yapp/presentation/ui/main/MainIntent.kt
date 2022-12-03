@@ -1,6 +1,6 @@
-package com.yapp.presentation
+package com.yapp.presentation.ui.main
 
-import com.yapp.presentation.redux.BaseIntent
+import com.yapp.core.redux.BaseIntent
 
 sealed interface MainIntent : BaseIntent {
     object ShowToast: MainIntent

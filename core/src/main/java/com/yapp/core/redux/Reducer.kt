@@ -1,4 +1,4 @@
-package com.yapp.presentation.redux
+package com.yapp.core.redux
 
 interface Reducer<State> {
     fun invoke(action: BaseIntent, state: State): State

@@ -1,7 +1,7 @@
-package com.yapp.presentation
+package com.yapp.presentation.ui.main
 
-import com.yapp.presentation.redux.BaseMiddleware
-import com.yapp.presentation.redux.Reducer
+import com.yapp.core.base.BaseViewModel
+import com.yapp.core.redux.BaseMiddleware
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(
         return listOf(mainMiddleware)
     }
 
-    override fun registerReducer(): Reducer<MainState> {
+    override fun registerReducer(): com.yapp.core.redux.Reducer<MainState> {
         return MainReducer()
     }
 

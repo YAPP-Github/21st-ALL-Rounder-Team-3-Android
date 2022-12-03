@@ -1,4 +1,4 @@
-package com.yapp.presentation.redux
+package com.yapp.core.redux
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
