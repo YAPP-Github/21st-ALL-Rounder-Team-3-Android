@@ -2,15 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name="com.yapp.app.App"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:hardwareAccelerated="true"
         android:supportsRtl="true"
+        android:theme="@style/Theme.AllRounder3"
         tools:ignore="MissingApplicationIcon">
         <activity
-            android:name="com.yapp.presentation.ui.login.LoginActivity"
+            android:name="com.yapp.presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
