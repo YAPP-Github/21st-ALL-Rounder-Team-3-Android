@@ -1,9 +1,10 @@
 package com.yapp.presentation.ui.main
 
 import com.yapp.core.redux.BaseIntent
+import com.yapp.core.redux.Reducer
 import timber.log.Timber
 
-class MainReducer : com.yapp.core.redux.Reducer<MainState> {
+class MainReducer : Reducer<MainState> {
     override fun invoke(action: BaseIntent, state: MainState): MainState {
         var newState = state
         when (action) {
@@ -25,8 +26,6 @@ class MainReducer : com.yapp.core.redux.Reducer<MainState> {
                 )
             }
         }
-
-        Timber.e(newState.toString())
         return newState
     }
 }
