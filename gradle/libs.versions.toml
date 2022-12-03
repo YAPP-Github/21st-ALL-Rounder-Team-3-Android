@@ -135,6 +135,7 @@ compose = [
     "compose-runtime",
     "compose-ui-tooling-preview",
     "compose-hilt-navigation",
+    "compose-navigation"
 ]
 compose-debug = ["compose-ui-tooling"] # debugImplementation
 ktx = [
