@@ -8,7 +8,7 @@ app-version-name = "1.0"
 app-id = "com.yapp.allrounder3"
 
 # plugin
-gradle-plugin = "8.0.0-alpha08"
+gradle-plugin = "8.0.0-alpha09"
 
 # kotlin
 kotlin = "1.7.20"

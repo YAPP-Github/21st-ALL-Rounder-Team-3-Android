@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         tools:ignore="MissingApplicationIcon">
         <activity
-            android:name="com.yapp.presentation.MainActivity"
+            android:name="com.yapp.presentation.ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
