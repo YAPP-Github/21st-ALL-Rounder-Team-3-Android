@@ -12,7 +12,7 @@
         android:theme="@style/Theme.AllRounder3"
         tools:ignore="MissingApplicationIcon">
         <activity
-            android:name="com.yapp.presentation.MainActivity"
+            android:name="com.yapp.presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

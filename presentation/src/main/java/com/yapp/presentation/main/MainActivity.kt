@@ -1,4 +1,4 @@
-package com.yapp.presentation
+package com.yapp.presentation.main
 
 import android.os.Bundle
 import android.view.WindowManager

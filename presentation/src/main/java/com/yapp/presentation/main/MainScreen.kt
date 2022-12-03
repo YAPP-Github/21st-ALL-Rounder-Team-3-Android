@@ -1,4 +1,4 @@
-package com.yapp.presentation
+package com.yapp.presentation.main
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Canvas
