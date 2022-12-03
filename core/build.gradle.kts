@@ -1,9 +1,10 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.kapt)
 }
 
@@ -47,12 +48,9 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":core"))
     implementation(libs.kotlin.coroutines)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.ktx)
     implementation(libs.accompanist.systemuicontroller)
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.kapt)
     implementation(libs.timber)
 }

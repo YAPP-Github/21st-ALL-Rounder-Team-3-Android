@@ -21,6 +21,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.yapp.presentation.ui.main.MainActivity"/>
+        <activity
+            android:name="com.yapp.presentation.ui.createproject.CreateProjectActivity"
+            android:windowSoftInputMode="adjustResize"
+            />
+
     </application>
 
 </manifest>
