@@ -10,32 +10,67 @@ class CreateProjectReducer @Inject constructor() : Reducer<CreateProjectState> {
         when (action) {
             is CreateProjectIntent.ChangeProjectName -> {
                 newState = newState.copy(
-                    projectName = action.name,
-                    isButtonEnabled = action.name.isNotEmpty()
+                    projectName = action.name
                 )
             }
             is CreateProjectIntent.ChangeProjectStartDate -> {
                 newState = newState.copy(
-                    projectName = action.date,
+                    projectStartDate = action.date,
                 )
             }
             is CreateProjectIntent.ChangeProjectEndDate -> {
                 newState = newState.copy(
-                    projectName = action.date,
+                    projectEndDate = action.date,
                 )
             }
             is CreateProjectIntent.ChangeProjectGoal -> {
                 newState = newState.copy(
-                    projectName = action.goal,
+                    projectGoal = action.goal,
                 )
             }
 
             is CreateProjectIntent.OnClickDropDown -> {
                 newState = newState.copy(
-                    isDropDownVisible = newState.isDropDownVisible.not()
+                    isDropDownVisible = newState.isDropDownVisible.not(),
+                )
+            }
+
+            is CreateProjectIntent.OnClickDropDownItem -> {
+                newState = newState.copy(
+                    projectDifficulty = action.difficulty,
+                    isDropDownVisible = newState.isDropDownVisible.not(),
+                )
+            }
+
+            is CreateProjectIntent.ChangeProjectNameTextFieldFocused -> {
+                newState = newState.copy(
+                    hasProjectNameFieldFocused = action.hasFocused
+                )
+            }
+
+            is CreateProjectIntent.ClearProjectName -> {
+                newState = newState.copy(
+                    projectName = ""
+                )
+            }
+
+            is CreateProjectIntent.ClearProjectGoal -> {
+                newState = newState.copy(
+                    projectGoal = ""
+                )
+            }
+
+            is CreateProjectIntent.ChangeProjectGoalTextFieldFocused -> {
+                newState = newState.copy(
+                    hasProjectGoalFocused = action.hasFocused
                 )
             }
         }
+
+        newState = newState.copy(
+            isButtonEnabled = newState.isFilledAllField()
+        )
+
         return newState
     }
 }

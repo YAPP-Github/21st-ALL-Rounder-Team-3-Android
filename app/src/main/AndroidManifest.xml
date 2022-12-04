@@ -9,10 +9,9 @@
         android:fullBackupOnly="true"
         android:hardwareAccelerated="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AllRounder3"
         tools:ignore="MissingApplicationIcon">
         <activity
-            android:name="com.yapp.presentation.main.MainActivity"
+            android:name="com.yapp.presentation.ui.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.yapp.presentation.ui.main.MainActivity"/>
+        <activity android:name="com.yapp.presentation.main.MainActivity"/>
         <activity
             android:name="com.yapp.presentation.ui.createproject.CreateProjectActivity"
             android:windowSoftInputMode="adjustResize"
