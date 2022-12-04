@@ -9,9 +9,9 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 val LightColors = lightColors(
     primary = Purple700,
-    primaryVariant = Color.White,
-    secondary = Purple100,
-    secondaryVariant = Color.White
+    primaryVariant = Purple100,
+    secondary = Green600,
+    secondaryVariant = Green100
 )
 
 @Composable
