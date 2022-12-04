@@ -13,16 +13,19 @@ class CreateProjectReducer @Inject constructor() : Reducer<CreateProjectState> {
                     projectName = action.name
                 )
             }
+
             is CreateProjectIntent.ChangeProjectStartDate -> {
                 newState = newState.copy(
                     projectStartDate = action.date,
                 )
             }
+
             is CreateProjectIntent.ChangeProjectEndDate -> {
                 newState = newState.copy(
                     projectEndDate = action.date,
                 )
             }
+
             is CreateProjectIntent.ChangeProjectGoal -> {
                 newState = newState.copy(
                     projectGoal = action.goal,
@@ -63,6 +66,36 @@ class CreateProjectReducer @Inject constructor() : Reducer<CreateProjectState> {
             is CreateProjectIntent.ChangeProjectGoalTextFieldFocused -> {
                 newState = newState.copy(
                     hasProjectGoalFocused = action.hasFocused
+                )
+            }
+
+            is CreateProjectIntent.OpenDueDateCalendar
+            -> {
+                newState = newState.copy(
+                    hasProjectGoalFocused = false,
+                    hasProjectNameFieldFocused = false,
+                    isCalendarVisible = true,
+                    openCalendarType = action.dueDateType
+                )
+            }
+
+            is CreateProjectIntent.CloseCalendar -> {
+                newState = newState.copy(
+                    isCalendarVisible = false
+                )
+            }
+
+            is CreateProjectIntent.SelectStartProjectDate -> {
+                newState = newState.copy(
+                    projectStartDate = "${action.year}.${action.month}.${action.day}",
+                    isCalendarVisible = false
+                )
+            }
+
+            is CreateProjectIntent.SelectEndProjectDate -> {
+                newState = newState.copy(
+                    projectEndDate = "${action.year}.${action.month}.${action.day}",
+                    isCalendarVisible = false
                 )
             }
         }
