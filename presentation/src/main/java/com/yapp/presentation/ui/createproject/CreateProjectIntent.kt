@@ -16,4 +16,24 @@ sealed interface CreateProjectIntent : BaseIntent {
 
     object ClearProjectName: CreateProjectIntent
     object ClearProjectGoal: CreateProjectIntent
+    data class OpenDueDateCalendar(val dueDateType: DueDateType): CreateProjectIntent
+    object CloseCalendar: CreateProjectIntent
+
+    data class SelectStartProjectDate(
+        val day: Int,
+        val month: Int,
+        val year: Int
+    ): CreateProjectIntent
+
+    data class SelectEndProjectDate(
+        val day: Int,
+        val month: Int,
+        val year: Int
+    ): CreateProjectIntent
+
+
+    enum class DueDateType {
+        NONE, START, END
+    }
+
 }

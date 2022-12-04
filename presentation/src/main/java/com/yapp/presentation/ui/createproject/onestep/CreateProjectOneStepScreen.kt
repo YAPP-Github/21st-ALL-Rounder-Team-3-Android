@@ -1,6 +1,7 @@
 package com.yapp.presentation.ui.createproject.onestep
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -74,71 +75,79 @@ fun CreateProjectOneStepScreen(
         onBackPressed()
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
-        Text(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 40.dp),
-            text = stringResource(id = R.string.create_project_onestep_title),
-        )
-
-        CreateProjectInputField(
-            viewModel = viewModel,
-            focusRequester = focusRequester,
-            focusManager = focusManager,
-            title = stringResource(id = R.string.project_name),
-            placeholder = "프로젝트 이름을 입력하세요.",
-            strokeColor = if (state.value.hasProjectNameFieldFocused) MaterialTheme.colors.primary else Gray6,
-            input = state.value.projectName,
-            onFocusChanged = {
-                viewModel.dispatch(CreateProjectIntent.ChangeProjectNameTextFieldFocused(it))
-            },
-            onTextCleared = {
-                viewModel.dispatch(CreateProjectIntent.ClearProjectName)
-            },
-            onInputChange = {
-                viewModel.dispatch(CreateProjectIntent.ChangeProjectName(it))
-            }
-        )
-        Spacing()
-        CreateProjectDueDate(state.value)
-        Spacing()
-        CreateProjectInputField(
-            viewModel = viewModel,
-            focusRequester = focusRequester,
-            focusManager = focusManager,
-            title = stringResource(id = R.string.project_goal),
-            placeholder = "학기 성적 A+ 도전 :fire:",
-            strokeColor = if (state.value.hasProjectGoalFocused) MaterialTheme.colors.primary else Gray6,
-            input = state.value.projectGoal,
-            onFocusChanged = {
-                viewModel.dispatch(CreateProjectIntent.ChangeProjectGoalTextFieldFocused(it))
-            },
-            onTextCleared = {
-                viewModel.dispatch(CreateProjectIntent.ClearProjectGoal)
-            },
-            onInputChange = {
-                viewModel.dispatch(CreateProjectIntent.ChangeProjectGoal(it))
-            })
-        Spacing()
-        CreateProjectDropDown(
-            viewModel,
-            state.value
+                .padding(16.dp)
         ) {
-            viewModel.dispatch(CreateProjectIntent.OnClickDropDown)
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 40.dp),
+                text = stringResource(id = R.string.create_project_onestep_title),
+            )
+
+            CreateProjectInputField(
+                viewModel = viewModel,
+                focusRequester = focusRequester,
+                focusManager = focusManager,
+                title = stringResource(id = R.string.project_name),
+                placeholder = "프로젝트 이름을 입력하세요.",
+                strokeColor = if (state.value.hasProjectNameFieldFocused) MaterialTheme.colors.primary else Gray6,
+                input = state.value.projectName,
+                onFocusChanged = {
+                    viewModel.dispatch(CreateProjectIntent.ChangeProjectNameTextFieldFocused(it))
+                },
+                onTextCleared = {
+                    viewModel.dispatch(CreateProjectIntent.ClearProjectName)
+                },
+                onInputChange = {
+                    viewModel.dispatch(CreateProjectIntent.ChangeProjectName(it))
+                }
+            )
+            Spacing()
+            CreateProjectDueDate(viewModel, state.value)
+            Spacing()
+            CreateProjectInputField(
+                viewModel = viewModel,
+                focusRequester = focusRequester,
+                focusManager = focusManager,
+                title = stringResource(id = R.string.project_goal),
+                placeholder = "학기 성적 A+ 도전 \uD83D\uDD25",
+                strokeColor = if (state.value.hasProjectGoalFocused) MaterialTheme.colors.primary else Gray6,
+                input = state.value.projectGoal,
+                onFocusChanged = {
+                    viewModel.dispatch(CreateProjectIntent.ChangeProjectGoalTextFieldFocused(it))
+                },
+                onTextCleared = {
+                    viewModel.dispatch(CreateProjectIntent.ClearProjectGoal)
+                },
+                onInputChange = {
+                    viewModel.dispatch(CreateProjectIntent.ChangeProjectGoal(it))
+                })
+            Spacing()
+            CreateProjectDropDown(
+                viewModel,
+                state.value
+            ) {
+                viewModel.dispatch(CreateProjectIntent.OnClickDropDown)
+            }
+
+            BottomLargeButton(
+                title = "다음",
+                state,
+                navigate
+            )
         }
 
-        BottomLargeButton(
-            title = "다음",
-            state,
-            navigate
-        )
     }
 
+    if (state.value.isCalendarVisible) {
+        SelectProjectDateCalendar(viewModel, state.value.openCalendarType)
+    }
 }
 
 @Composable
@@ -170,7 +179,10 @@ fun Spacing(
 }
 
 @Composable
-fun CreateProjectDueDate(state: CreateProjectState) {
+fun CreateProjectDueDate(
+    viewModel: CreateProjectViewModel,
+    state: CreateProjectState
+) {
     Text(
         modifier = Modifier
             .fillMaxWidth()
@@ -183,21 +195,35 @@ fun CreateProjectDueDate(state: CreateProjectState) {
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        DateTextBox(text = state.projectStartDate)
+        DateTextBox(
+            onDueDateClick = {
+                viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CreateProjectIntent.DueDateType.START))
+            },
+            text = state.projectStartDate,
+            color = if (state.isNotInitializedStartDate()) Gray7 else Black
+
+        )
 
         Text(
             modifier = Modifier.padding(horizontal = 10.dp),
             text = "~",
             color = Black
         )
-
-        DateTextBox(text = state.projectEndDate)
+        DateTextBox(
+            onDueDateClick = {
+                viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CreateProjectIntent.DueDateType.END))
+            },
+            text = state.projectEndDate,
+            color = if (state.isNotInitializedEndDate()) Gray7 else Black
+        )
     }
 }
 
 @Composable
 fun RowScope.DateTextBox(
+    onDueDateClick: () -> Unit,
     text: String,
+    color: Color
 ) {
     Box(
         modifier = Modifier
@@ -208,7 +234,9 @@ fun RowScope.DateTextBox(
                 width = 1.dp,
                 color = Gray6,
                 shape = RoundedCornerShape(8.dp)
-            ),
+            )
+            .clickable { onDueDateClick() }
+        ,
     ) {
         Text(
             text = text,
@@ -216,7 +244,7 @@ fun RowScope.DateTextBox(
                 .padding(horizontal = 12.dp)
                 .align(Alignment.CenterStart),
             style = MaterialTheme.typography.body1,
-            color = Gray4
+            color = color
         )
     }
 
@@ -359,8 +387,8 @@ fun CreateProjectDropDown(
         }
     }
 
-    if (state.isDropDownVisible) {
-        Spacing(4.dp)
+    Spacing(4.dp)
+    AnimatedVisibility(visible = state.isDropDownVisible) {
         ChildDropDownList(viewModel)
     }
 }
