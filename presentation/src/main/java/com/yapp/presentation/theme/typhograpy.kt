@@ -5,21 +5,23 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.yapp.presentation.R
 
 val NotoSansKr = FontFamily(
+    Font(R.font.notosans_bold, FontWeight.Bold),
+    Font(R.font.notosans_semibold, FontWeight.SemiBold),
     Font(R.font.notosans_medium, FontWeight.Medium),
     Font(R.font.notosans_regular, FontWeight.Normal),
-    Font(R.font.notosans_light, FontWeight.Light)
+    Font(R.font.notosans_light, FontWeight.Light),
 )
 
 val H1 = TextStyle(
     fontFamily = NotoSansKr,
-    fontWeight = FontWeight.Light,
-    fontSize = 96.sp,
-    letterSpacing = (-1.5).sp,
+    fontWeight = FontWeight.W600,
+    fontSize = 24.sp,
+    lineHeight = 33.6.sp,
+    letterSpacing = 0.16.sp
 )
 
 val H2 = TextStyle(
@@ -27,82 +29,72 @@ val H2 = TextStyle(
     fontWeight = FontWeight.W600,
     fontSize = 20.sp,
     lineHeight = 28.sp,
-    letterSpacing = (0.5).sp,
+    letterSpacing = 0.16.sp
 )
 
 val H3 = TextStyle(
     fontFamily = NotoSansKr,
-    fontWeight = FontWeight.Normal,
-    fontSize = 48.sp,
-    letterSpacing = 0.sp,
+    fontWeight = FontWeight.W600,
+    fontSize = 16.sp,
+    lineHeight = 22.4.sp,
+    letterSpacing = 0.16.sp
 )
 
 val H4 = TextStyle(
     fontFamily = NotoSansKr,
-    fontWeight = FontWeight.Normal,
-    fontSize = 34.sp,
-    letterSpacing = (0.25).sp
-)
-
-val H5 = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.Light,
-    fontSize = 24.sp,
-    letterSpacing = 0.sp
-)
-
-val H6 = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.Medium,
-    fontSize = 20.sp,
-    letterSpacing = (0.15).sp
-)
-
-val Subtitle1 = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.Normal,
-    fontSize = 16.sp,
-    letterSpacing = (0.15).sp
-)
-
-val Subtitle2 = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.Medium,
+    fontWeight = FontWeight.W600,
     fontSize = 14.sp,
-    letterSpacing = (0.1).sp
+    lineHeight = 19.6.sp,
+    letterSpacing = 0.16.sp
 )
 
 val Body1 = TextStyle(
-    fontWeight = FontWeight.Normal,
-    fontSize = 16.sp,
-    letterSpacing = (0.5).sp
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.W500,
+    fontSize = 14.sp,
+    lineHeight = (19.6).sp
 )
 
 val Body2 = TextStyle(
-    fontWeight = FontWeight.Normal,
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.W400,
     fontSize = 14.sp,
-    letterSpacing = (0.25).sp
+    lineHeight = (19.6).sp
 )
 
-val Button = TextStyle(
+val Body3 = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.W400,
+    fontSize = 12.sp,
+    lineHeight = (16.8).sp
+)
+
+val Caption1 = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.W400,
+    fontSize = 12.sp,
+    lineHeight = (16.8).sp
+)
+
+val Caption2 = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.W400,
+    fontSize = 10.sp,
+    lineHeight = (14).sp
+)
+
+val Button1 = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.W600,
+    fontSize = 16.sp,
+    lineHeight= (22.4).sp
+)
+
+val Button2 = TextStyle(
     fontFamily = NotoSansKr,
     fontWeight = FontWeight.Medium,
     fontSize = 14.sp,
-    letterSpacing = (1.25).sp
-)
-
-val Caption = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.Normal,
-    fontSize = 12.sp,
-    letterSpacing = (0.4).sp
-)
-
-val OverLine = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.Normal,
-    fontSize = 10.sp,
-    letterSpacing = (1.5).sp
+    lineHeight = (19.6).sp
 )
 
 val Typography = Typography(
@@ -110,13 +102,6 @@ val Typography = Typography(
     h2 = H2,
     h3 = H3,
     h4 = H4,
-    h5 = H5,
-    h6 = H6,
-    subtitle1 = Subtitle1,
-    subtitle2 = Subtitle2,
     body1 = Body1,
     body2 = Body2,
-    button = Button,
-    caption = Caption,
-    overline = OverLine,
 )
