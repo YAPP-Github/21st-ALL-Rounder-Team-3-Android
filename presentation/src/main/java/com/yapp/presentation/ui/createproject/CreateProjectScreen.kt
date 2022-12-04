@@ -1,7 +1,9 @@
 package com.yapp.presentation.ui.createproject
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,9 +17,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -27,11 +26,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,12 +38,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.yapp.presentation.main.MainActivity
+import com.yapp.presentation.theme.Gray6
 import com.yapp.presentation.ui.createproject.onestep.CreateProjectOneStepScreen
 import com.yapp.presentation.ui.createproject.twostep.CreateProjectTwoStepScreen
 
 @Composable
 fun CreateProjectScreen(
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    context: Context = LocalContext.current
 ) {
     val viewModel: CreateProjectViewModel = hiltViewModel()
     var progress by remember { mutableStateOf(0.5f) }
@@ -56,7 +56,15 @@ fun CreateProjectScreen(
 
     Scaffold(
         topBar = {
-            AppBar()
+            AppBar() {
+                //todo
+                if (progress == 1f) {
+                    progress = 0.5f
+                    navController.popBackStack()
+                } else {
+                    (context as? Activity)?.finish()
+                }
+            }
         }
     ) { contentPadding ->
         Column(
@@ -66,7 +74,8 @@ fun CreateProjectScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(contentPadding),
-                progress = animatedProgress
+                progress = animatedProgress,
+                backgroundColor = Gray6
             )
 
             NavHost(
@@ -74,14 +83,21 @@ fun CreateProjectScreen(
                 startDestination = CreateProjectScreenRoute.STEP_ONE.route
             ) {
                 composable(CreateProjectScreenRoute.STEP_ONE.route) {
-                    CreateProjectOneStepScreen(viewModel) {
+                    CreateProjectOneStepScreen(viewModel, {
                         progress = 1f
                         navController.navigate(CreateProjectScreenRoute.STEP_TWO.route)
-                    }
+                    }, {
+                        (context as? Activity)?.finish()
+                    })
                 }
                 composable(CreateProjectScreenRoute.STEP_TWO.route) {
-                    CreateProjectTwoStepScreen(viewModel) {
-                    }
+                    CreateProjectTwoStepScreen(viewModel, {
+                        context.startActivity(Intent(context, MainActivity::class.java))
+                        (context as? Activity)?.finish()
+                    }, {
+                        progress = 0.5f
+                        navController.popBackStack()
+                    })
                 }
             }
         }
@@ -89,7 +105,9 @@ fun CreateProjectScreen(
 }
 
 @Composable
-private fun AppBar() {
+private fun AppBar(
+    onBackIconClicked: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -104,7 +122,9 @@ private fun AppBar() {
             contentDescription = null,
             modifier = Modifier
                 .clip(RoundedCornerShape(30.dp))
-                .clickable {}
+                .clickable {
+                    onBackIconClicked()
+                }
         )
 
         Text(
