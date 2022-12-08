@@ -29,6 +29,7 @@ fun AllRounder3Theme(
     MaterialTheme(
         colors = colors,
         typography = typography,
+        shapes = shapes,
         content = content
     )
 }
