@@ -1,4 +1,4 @@
-package com.yapp.presentation.theme
+package com.yapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

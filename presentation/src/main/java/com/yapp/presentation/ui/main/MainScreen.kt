@@ -20,9 +20,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -31,7 +31,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.scale
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
@@ -43,8 +48,10 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.yapp.core.compose.drawColoredShadow
 import com.yapp.presentation.R
 import me.onebone.toolbar.CollapsingToolbarScaffold
+import me.onebone.toolbar.CollapsingToolbarScope
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
@@ -69,65 +76,62 @@ fun MainScreen(
         }
     }
 
+    val rememberCollapsingToolbarState = rememberCollapsingToolbarScaffoldState()
     CollapsingToolbarScaffold(
         modifier = Modifier.fillMaxSize(),
-        state = rememberCollapsingToolbarScaffoldState(),
-        scrollStrategy = ScrollStrategy.EnterAlwaysCollapsed,
+        state = rememberCollapsingToolbarState,
+        scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
         toolbar = {
-            Surface(
-                shape = RoundedCornerShape(
-                    bottomStart = 10.dp,
-                    bottomEnd = 10.dp,
-                ),
-            ) {
-                Header()
-            }
+            Header()
         }
     ) {
-       Tasks(title = "나의 할일")
-
+        Tasks(title = "나의 할일")
     }
 }
 
-
 @Composable
-fun Header() {
-    Column(
-        Modifier.padding(horizontal = 16.dp),
+fun CollapsingToolbarScope.Header() {
+    Card(
+        modifier = Modifier
+            .padding(bottom = 8.dp)
+            .drawColoredShadow(),
     ) {
-        TopAppBar(
-            onClickLeftArrow = {},
-            onClickNotification = {},
-            hasNotification = true,
-        )
-        Spacer(modifier = Modifier.height(6.dp))
-        Text(
-            text = "2022-2 4차 산업 혁명의 이해 팀플",
-            style = MaterialTheme.typography.h2,
-            color = Color.Black
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        BadgeString(
-            title = "학기 성적 A+ 도전",
-            badgeText = "여유 있게",
-            borderColor = MaterialTheme.colors.primary,
-            badgeColor = Color.White,
-            badgeFontColor = MaterialTheme.colors.primary,
-            space = 11.dp
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        TaskBar(
-            badgeText = "D-10",
-            title = "11/16 ~ 12/7"
-        )
-        Spacer(modifier = Modifier.height(14.dp))
-        MemberContents(
-            title = "팀원 7명",
-            memebers = dummyMembers
-        )
-        Spacer(modifier = Modifier.height(18.dp))
+        Column(
+            Modifier.padding(horizontal = 16.dp),
+        ) {
+            TopAppBar(
+                onClickLeftArrow = {},
+                onClickNotification = {},
+                hasNotification = true,
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = "2022-2 4차 산업 혁명의 이해 팀플",
+                style = MaterialTheme.typography.h2,
+                color = Color.Black
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            BadgeString(
+                title = "학기 성적 A+ 도전",
+                badgeText = "여유 있게",
+                borderColor = MaterialTheme.colors.primary,
+                badgeColor = Color.White,
+                badgeFontColor = MaterialTheme.colors.primary,
+                space = 11.dp
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            TaskBar(
+                badgeText = "D-10",
+                title = "11/16 ~ 12/7"
+            )
+            Spacer(modifier = Modifier.height(14.dp))
+            MemberContents(
+                title = "팀원 7명",
+                memebers = dummyMembers
+            )
+            Spacer(modifier = Modifier.height(18.dp))
+        }
     }
-
 }
 
 
