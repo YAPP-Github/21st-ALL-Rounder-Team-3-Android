@@ -35,11 +35,11 @@ import com.yapp.presentation.ui.theme.Caption2
 
 data class TaskItem(
     val profile: String,
-    val name: String,
-    val startDate: String,
-    val endDate: String,
-    val title: String,
-    val content: String,
+    val name: String = "상록",
+    val startDate: String = "11.27",
+    val endDate: String= "11.29",
+    val title: String = "DBpia, RISS 논문 리서치",
+    val content: String = "워드로 정리해서 넘기기"
 )
 
 @Composable
@@ -79,60 +79,34 @@ fun Tasks(
 val dummyTaskItems = listOf(
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
-    )
+    ),
+    TaskItem(
+        profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
+    ),
+    TaskItem(
+        profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
+    ),
+    TaskItem(
+        profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
+    ),
 )
 
 @Composable
