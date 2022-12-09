@@ -18,7 +18,7 @@ fun Modifier.drawColoredShadow(
     alpha: Float = 0.13f,
     borderRadius: Dp = 10.dp,
     offsetX: Dp = 0.dp,
-    offsetY: Dp = 3.dp,
+    offsetY: Dp = 0.dp,
     blurRadius: Dp = 8.dp,
     spread: Dp = 0.dp,
     enabled: Boolean = true,
