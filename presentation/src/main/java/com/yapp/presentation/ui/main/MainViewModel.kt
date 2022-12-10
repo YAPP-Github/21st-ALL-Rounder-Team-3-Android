@@ -11,9 +11,9 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val mainMiddleware: MainMiddleware
 ): BaseViewModel<MainIntent, MainState, BaseSingleEvent>() {
-//    init {
-//        start()
-//    }
+    init {
+        start()
+    }
 
     override fun registerMiddleware(): List<BaseMiddleware<MainIntent, BaseSingleEvent>> {
         return listOf(mainMiddleware)

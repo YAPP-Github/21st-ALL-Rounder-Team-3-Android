@@ -75,9 +75,7 @@ abstract class BaseViewModel<
     abstract fun registerMiddleware(): List<BaseMiddleware<INTENT, EVENT>>
     abstract fun registerReducer(): Reducer<STATE>
     abstract fun processError(throwable: Throwable)
-    open fun getInitialState(): STATE {
-        start()
-    }
+    abstract fun getInitialState(): STATE
 
     open fun start() {
         val initialViewState = getInitialState()
