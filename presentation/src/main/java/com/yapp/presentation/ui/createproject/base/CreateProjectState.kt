@@ -1,4 +1,4 @@
-package com.yapp.presentation.ui.createproject
+package com.yapp.presentation.ui.createproject.base
 
 import com.yapp.core.redux.BaseState
 import com.yapp.presentation.ui.createproject.onestep.ProjectDifficulty

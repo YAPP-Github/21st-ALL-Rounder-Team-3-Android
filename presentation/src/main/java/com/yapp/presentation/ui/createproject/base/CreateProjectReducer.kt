@@ -1,4 +1,4 @@
-package com.yapp.presentation.ui.createproject
+package com.yapp.presentation.ui.createproject.base
 
 import com.yapp.core.redux.BaseIntent
 import com.yapp.core.redux.Reducer

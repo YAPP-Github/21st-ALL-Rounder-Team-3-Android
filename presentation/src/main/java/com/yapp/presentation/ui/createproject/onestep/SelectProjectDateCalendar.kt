@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
-import com.yapp.presentation.ui.createproject.CreateProjectIntent
+import com.yapp.presentation.ui.createproject.base.CreateProjectIntent
 import com.yapp.presentation.ui.createproject.CreateProjectViewModel
 
 
