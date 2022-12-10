@@ -1,4 +1,4 @@
-package com.yapp.presentation.ui.createproject
+package com.yapp.presentation.ui.createproject.base
 
 import com.yapp.core.redux.BaseIntent
 import com.yapp.presentation.ui.createproject.onestep.ProjectDifficulty
@@ -19,6 +19,15 @@ sealed interface CreateProjectIntent : BaseIntent {
     data class OpenDueDateCalendar(val dueDateType: DueDateType): CreateProjectIntent
     object CloseCalendar: CreateProjectIntent
 
+    object ClickBackButton: CreateProjectIntent
+
+    object ClickNextButton: CreateProjectIntent
+
+    data class ClickAppBarBackButton(
+        val progress: Float
+    ): CreateProjectIntent
+
+    
     data class SelectStartProjectDate(
         val day: Int,
         val month: Int,

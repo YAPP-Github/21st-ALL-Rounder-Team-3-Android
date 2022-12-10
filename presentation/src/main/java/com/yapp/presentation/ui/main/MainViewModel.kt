@@ -2,6 +2,7 @@ package com.yapp.presentation.ui.main
 
 import com.yapp.core.base.BaseViewModel
 import com.yapp.core.redux.BaseMiddleware
+import com.yapp.core.redux.BaseSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -9,12 +10,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val mainMiddleware: MainMiddleware
-): BaseViewModel<MainIntent, MainState>() {
-    init {
-        start()
-    }
+): BaseViewModel<MainIntent, MainState, BaseSingleEvent>() {
+//    init {
+//        start()
+//    }
 
-    override fun registerMiddleware(): List<BaseMiddleware<MainIntent>> {
+    override fun registerMiddleware(): List<BaseMiddleware<MainIntent, BaseSingleEvent>> {
         return listOf(mainMiddleware)
     }
 
