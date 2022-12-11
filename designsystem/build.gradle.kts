@@ -3,27 +3,14 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.dagger.hilt)
-    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
-    namespace = "com.yapp.presentation"
+    namespace = "com.yapp.designsystem"
     compileSdk = libs.versions.compile.sdk.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.min.sdk.get().toInt()
-        targetSdk = libs.versions.target.sdk.get().toInt()
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -38,23 +25,14 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
-    implementation(project(":domain"))
-    implementation(project(":core"))
-    implementation(project(":designsystem"))
     implementation(libs.kotlin.coroutines)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.ktx)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.hilt.android)
     implementation("com.google.android.material:material:1.5.0")
-    kapt(libs.hilt.kapt)
     implementation(libs.timber)
 }
