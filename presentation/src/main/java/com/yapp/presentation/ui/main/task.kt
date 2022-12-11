@@ -30,8 +30,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.yapp.presentation.R
-import com.yapp.presentation.ui.theme.Body3
-import com.yapp.presentation.ui.theme.Caption2
 
 data class TaskItem(
     val profile: String,
@@ -169,7 +167,6 @@ fun TaskContent(
         Spacer(modifier = Modifier.width(2.dp))
         Text(
             text = taskItem.title,
-            style = Body3,
         )
     }
 }
@@ -232,7 +229,6 @@ fun TaskProgress(
             modifier = Modifier.align(Alignment.Center),
             text = "D-day",
             color = color,
-            style = Caption2,
         )
     }
 }

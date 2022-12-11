@@ -16,92 +16,114 @@ val NotoSansKr = FontFamily(
     Font(R.font.notosans_light, FontWeight.Light),
 )
 
-val H1 = TextStyle(
+val H1_Bold = TextStyle(
     fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W600,
+    fontWeight = FontWeight.Bold,
     fontSize = 24.sp,
-    lineHeight = 33.6.sp,
-    letterSpacing = 0.16.sp
+    lineHeight = (33.6).sp,
 )
 
-val H2 = TextStyle(
+val H1_SemiBold = TextStyle(
     fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W600,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 24.sp,
+    lineHeight = (33.6).sp,
+)
+
+val H2_SemiBold = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.SemiBold,
     fontSize = 20.sp,
     lineHeight = 28.sp,
-    letterSpacing = 0.16.sp
 )
 
-val H3 = TextStyle(
+val H3_SemiBold = TextStyle(
     fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W600,
+    fontWeight = FontWeight.SemiBold,
     fontSize = 16.sp,
-    lineHeight = 22.4.sp,
-    letterSpacing = 0.16.sp
+    lineHeight = (22.4).sp,
 )
 
-val H4 = TextStyle(
+val H4_SemiBold = TextStyle(
     fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W600,
+    fontWeight = FontWeight.SemiBold,
     fontSize = 14.sp,
-    lineHeight = 19.6.sp,
-    letterSpacing = 0.16.sp
+    lineHeight = (19.6).sp,
 )
 
-val Body1 = TextStyle(
+val Body1_Medium = TextStyle(
     fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W500,
-    fontSize = 14.sp,
-    lineHeight = (19.6).sp
-)
-
-val Body2 = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W400,
-    fontSize = 14.sp,
-    lineHeight = (19.6).sp
-)
-
-val Body3 = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W400,
-    fontSize = 12.sp,
-    lineHeight = (16.8).sp
-)
-
-val Caption1 = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W400,
-    fontSize = 12.sp,
-    lineHeight = (16.8).sp
-)
-
-val Caption2 = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W400,
-    fontSize = 10.sp,
-    lineHeight = (14).sp
-)
-
-val Button1 = TextStyle(
-    fontFamily = NotoSansKr,
-    fontWeight = FontWeight.W600,
+    fontWeight = FontWeight.Medium,
     fontSize = 16.sp,
-    lineHeight= (22.4).sp
+    lineHeight = (22.4).sp
 )
 
-val Button2 = TextStyle(
+val Body2_Medium = TextStyle(
     fontFamily = NotoSansKr,
     fontWeight = FontWeight.Medium,
     fontSize = 14.sp,
     lineHeight = (19.6).sp
 )
 
-val Typography = Typography(
-    h1 = H1,
-    h2 = H2,
-    h3 = H3,
-    h4 = H4,
-    body1 = Body1,
-    body2 = Body2,
+val Body3_Regular = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp,
+    lineHeight = (19.6).sp
+)
+
+val Body4_Regular = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.Normal,
+    fontSize = 12.sp,
+    lineHeight = (16.8).sp
+)
+
+val Caption1_SemiBold = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 12.sp,
+    lineHeight = (16.8).sp
+)
+
+val Caption1_Regular = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.Normal,
+    fontSize = 12.sp,
+    lineHeight = (16.8).sp
+)
+
+val Caption2_SemiBold = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 10.sp,
+    lineHeight = 14.sp
+)
+
+val Caption2_Regular = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.Normal,
+    fontSize = 10.sp,
+    lineHeight = 14.sp
+)
+
+val Caption3_Regular = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.Normal,
+    fontSize = 8.sp,
+    lineHeight = (11.2).sp
+)
+
+val Button1_SemiBold = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = 16.sp,
+    lineHeight= (22.4).sp
+)
+
+val Button2_Medium = TextStyle(
+    fontFamily = NotoSansKr,
+    fontWeight = FontWeight.Medium,
+    fontSize = 14.sp,
+    lineHeight = (19.6).sp
 )
