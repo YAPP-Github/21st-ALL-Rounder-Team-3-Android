@@ -28,9 +28,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yapp.presentation.R
-import com.yapp.presentation.theme.Black
-import com.yapp.presentation.theme.Gray2
-import com.yapp.presentation.theme.Gray7
+import com.yapp.designsystem.theme.Black
+import com.yapp.designsystem.theme.Gray2
+import com.yapp.designsystem.theme.Gray7
 import com.yapp.presentation.ui.createproject.CreateProjectViewModel
 import com.yapp.presentation.ui.createproject.onestep.BottomLargeButton
 import com.yapp.presentation.ui.createproject.onestep.Spacing

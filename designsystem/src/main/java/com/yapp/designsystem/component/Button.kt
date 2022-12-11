@@ -1,4 +1,4 @@
-package com.yapp.designsystem
+package com.yapp.designsystem.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -55,7 +55,6 @@ fun TimiPrimaryButton(
 
         Text(
             text = text,
-
             color = textColor
         )
     }

@@ -49,11 +49,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.yapp.presentation.R
-import com.yapp.presentation.theme.Black
-import com.yapp.presentation.theme.Gray2
-import com.yapp.presentation.theme.Gray4
-import com.yapp.presentation.theme.Gray6
-import com.yapp.presentation.theme.Gray7
+import com.yapp.designsystem.theme.Black
+import com.yapp.designsystem.theme.Gray2
+import com.yapp.designsystem.theme.Gray4
+import com.yapp.designsystem.theme.Gray6
+import com.yapp.designsystem.theme.Gray7
 import com.yapp.presentation.ui.createproject.CreateProjectIntent
 import com.yapp.presentation.ui.createproject.CreateProjectState
 import com.yapp.presentation.ui.createproject.CreateProjectViewModel
