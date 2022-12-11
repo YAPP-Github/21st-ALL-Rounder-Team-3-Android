@@ -3,6 +3,7 @@ package com.yapp.presentation.ui.createproject
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -79,6 +80,10 @@ fun CreateProjectScreen(
 
                     CreateProjectSingleEvent.Exit -> {
                         (context as? Activity)?.finish()
+                    }
+
+                    is CreateProjectSingleEvent.ShowToast -> {
+                        Toast.makeText(context, event.msg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

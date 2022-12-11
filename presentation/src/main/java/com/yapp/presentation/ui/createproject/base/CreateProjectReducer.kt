@@ -69,8 +69,7 @@ class CreateProjectReducer @Inject constructor() : Reducer<CreateProjectState> {
                 )
             }
 
-            is CreateProjectIntent.OpenDueDateCalendar
-            -> {
+            is CreateProjectIntent.OpenDueDateCalendar -> {
                 newState = newState.copy(
                     hasProjectGoalFocused = false,
                     hasProjectNameFieldFocused = false,
@@ -82,6 +81,12 @@ class CreateProjectReducer @Inject constructor() : Reducer<CreateProjectState> {
             is CreateProjectIntent.CloseCalendar -> {
                 newState = newState.copy(
                     isCalendarVisible = false
+                )
+            }
+
+            is CreateProjectIntent.CloseDropDownList -> {
+                newState = newState.copy(
+                    isDropDownVisible = false
                 )
             }
 
@@ -101,7 +106,7 @@ class CreateProjectReducer @Inject constructor() : Reducer<CreateProjectState> {
         }
 
         newState = newState.copy(
-            isButtonEnabled = newState.isFilledAllField()
+            isButtonEnabled = newState.isAllFieldCompleted()
         )
 
         return newState

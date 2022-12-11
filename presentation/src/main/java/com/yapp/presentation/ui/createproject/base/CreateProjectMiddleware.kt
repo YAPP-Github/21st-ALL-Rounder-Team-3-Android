@@ -36,6 +36,13 @@ class CreateProjectMiddleware @Inject constructor(
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
+                filterIsInstance<CreateProjectIntent.ShowToast>()
+                    .onEach {
+                        Timber.e(it.toString())
+                        eventFlow.emit(CreateProjectSingleEvent.ShowToast(it.msg))
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed()),
+
                 filterIsInstance<CreateProjectIntent.ClickNextButton>()
                     .onEach {
                         Timber.e(it.toString())
@@ -54,7 +61,6 @@ class CreateProjectMiddleware @Inject constructor(
                         eventFlow.emit(event)
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
-
                 )
         }
     }

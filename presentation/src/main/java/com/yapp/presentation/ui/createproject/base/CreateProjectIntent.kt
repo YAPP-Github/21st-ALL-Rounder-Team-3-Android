@@ -19,6 +19,8 @@ sealed interface CreateProjectIntent : BaseIntent {
     data class OpenDueDateCalendar(val dueDateType: DueDateType): CreateProjectIntent
     object CloseCalendar: CreateProjectIntent
 
+    object CloseDropDownList: CreateProjectIntent
+
     object ClickBackButton: CreateProjectIntent
 
     object ClickNextButton: CreateProjectIntent
@@ -33,6 +35,8 @@ sealed interface CreateProjectIntent : BaseIntent {
         val month: Int,
         val year: Int
     ): CreateProjectIntent
+
+    data class ShowToast(val msg: String): CreateProjectIntent
 
     data class SelectEndProjectDate(
         val day: Int,
