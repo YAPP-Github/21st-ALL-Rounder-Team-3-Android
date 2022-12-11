@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.yapp.presentation.R
@@ -50,8 +51,9 @@ fun CreateProjectTwoStepScreen(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 40.dp),
-            text = "팀원을 초대해볼까요?",
+                .padding(bottom = 10.dp),
+            text = stringResource(id = R.string.create_project_invite_title),
+            style = MaterialTheme.typography.h1,
             color = Black
         )
         Spacing(10.dp)
@@ -59,7 +61,8 @@ fun CreateProjectTwoStepScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 40.dp),
-            text = "나중에 팀원을 초대해도 괜찮아요!",
+            style = MaterialTheme.typography.body2,
+            text = stringResource(id = R.string.create_project_invite_description),
             color = Gray2
         )
 
