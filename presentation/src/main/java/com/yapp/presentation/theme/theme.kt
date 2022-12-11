@@ -2,7 +2,11 @@ package com.yapp.presentation.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
+import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -28,7 +32,26 @@ fun AllRounder3Theme(
     }
     MaterialTheme(
         colors = colors,
-        typography = typography,
-        content = content
+        typography = typography
+    ) {
+        CompositionLocalProvider(
+            LocalRippleTheme provides PrimaryRippleTheme,
+            content = content
+        )
+    }
+}
+
+@Immutable
+private object PrimaryRippleTheme : RippleTheme {
+    @Composable
+    override fun defaultColor() = RippleTheme.defaultRippleColor(
+        contentColor = MaterialTheme.colors.primary,
+        lightTheme = MaterialTheme.colors.isLight
+    )
+
+    @Composable
+    override fun rippleAlpha() = RippleTheme.defaultRippleAlpha(
+        contentColor = MaterialTheme.colors.primary,
+        lightTheme = MaterialTheme.colors.isLight
     )
 }
