@@ -1,4 +1,4 @@
-package com.yapp.presentation.theme
+package com.yapp.presentation.ui.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
@@ -19,7 +19,6 @@ fun AllRounder3Theme(
     content: @Composable () -> Unit,
 ) {
     val colors = LightColors
-    val typography = Typography
     val uiController = rememberSystemUiController()
     SideEffect {
         uiController.setStatusBarColor(
@@ -28,7 +27,7 @@ fun AllRounder3Theme(
     }
     MaterialTheme(
         colors = colors,
-        typography = typography,
+        shapes = shapes,
         content = content
     )
 }

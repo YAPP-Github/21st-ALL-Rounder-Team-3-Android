@@ -3,7 +3,7 @@ package com.yapp.presentation.ui.login
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.yapp.presentation.theme.AllRounder3Theme
+import com.yapp.presentation.ui.theme.AllRounder3Theme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

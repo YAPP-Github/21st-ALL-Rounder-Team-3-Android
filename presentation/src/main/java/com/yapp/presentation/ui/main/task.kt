@@ -30,16 +30,15 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.yapp.presentation.R
-import com.yapp.presentation.theme.Body3
-import com.yapp.presentation.theme.Caption2
+import com.yapp.presentation.ui.theme.H4_SemiBold
 
 data class TaskItem(
     val profile: String,
-    val name: String,
-    val startDate: String,
-    val endDate: String,
-    val title: String,
-    val content: String,
+    val name: String = "상록",
+    val startDate: String = "11.27",
+    val endDate: String= "11.29",
+    val title: String = "DBpia, RISS 논문 리서치",
+    val content: String = "워드로 정리해서 넘기기"
 )
 
 @Composable
@@ -49,24 +48,14 @@ fun Tasks(
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .padding(top = 22.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Text(text = title)
-            Icon(
-                painter = painterResource(id = R.drawable.down_arrow),
-                contentDescription = "downArrow"
-            )
-        }
         LazyColumn(
             modifier = Modifier.padding(top = 12.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
+            item{
+                TaskTitle(text = "나의 할일")
+            }
             items(
                 items = dummyTaskItems,
             ) { taskItem ->
@@ -79,46 +68,53 @@ fun Tasks(
 val dummyTaskItems = listOf(
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
     ),
     TaskItem(
         profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
-        name = "상록",
-        startDate = "11.27",
-        endDate = "11.29",
-        title = "DBpia, RISS 논문 리서치",
-        content = "워드로 정리해서 넘기기"
-    )
+    ),
+    TaskItem(
+        profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
+    ),
+    TaskItem(
+        profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
+    ),
+    TaskItem(
+        profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
+    ),
+    TaskItem(
+        profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
+    ),
+    TaskItem(
+        profile = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
+    ),
 )
 
+@Composable
+fun TaskTitle(
+    text: String
+){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text(text = text)
+        Icon(
+            painter = painterResource(id = R.drawable.down_arrow),
+            contentDescription = "downArrow"
+        )
+    }
+}
 @Composable
 fun Task(
     taskItem: TaskItem
@@ -174,12 +170,11 @@ fun TaskContent(
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = taskItem.title,
-            style = MaterialTheme.typography.h4,
+            style = H4_SemiBold,
         )
         Spacer(modifier = Modifier.width(2.dp))
         Text(
             text = taskItem.title,
-            style = Body3,
         )
     }
 }
@@ -242,7 +237,6 @@ fun TaskProgress(
             modifier = Modifier.align(Alignment.Center),
             text = "D-day",
             color = color,
-            style = Caption2,
         )
     }
 }
