@@ -100,7 +100,7 @@ fun ShareKakaoUrlButton() {
         ) {
 
             Icon(
-                painter = painterResource(R.drawable.icon_share),
+                painter = painterResource(com.yapp.designsystem.R.drawable.icon_share),
                 modifier = Modifier
                     .wrapContentSize(),
                 contentDescription = "kakao url share icon",

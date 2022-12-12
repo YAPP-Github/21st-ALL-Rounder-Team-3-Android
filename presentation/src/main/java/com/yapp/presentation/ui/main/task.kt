@@ -59,7 +59,7 @@ fun Tasks(
         ) {
             Text(text = title)
             Icon(
-                painter = painterResource(id = R.drawable.down_arrow),
+                painter = painterResource(id = com.yapp.designsystem.R.drawable.icon_arrow_down),
                 contentDescription = "downArrow"
             )
         }
