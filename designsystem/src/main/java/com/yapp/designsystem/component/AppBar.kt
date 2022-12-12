@@ -32,6 +32,7 @@ fun TimiTopAppBar(
     rightIcons: @Composable () -> Unit,
     isTextCenterAlignment: Boolean,
     onClickBackButton: () -> Unit,
+    title: String = ""
 ) {
     Box(
         modifier = Modifier
@@ -68,7 +69,7 @@ fun TimiTopAppBar(
                 style = H3,
                 maxLines = 1,
                 textAlign = if (isTextCenterAlignment) TextAlign.Center else TextAlign.Start,
-                text = "테스테스트",
+                text = title,
                 color = Color.Black,
             )
 
