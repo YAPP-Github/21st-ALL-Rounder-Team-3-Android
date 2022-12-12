@@ -1,6 +1,10 @@
 package com.yapp.presentation.ui.main
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
@@ -43,12 +48,12 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.germainkevin.collapsingtopbar.CollapsingTopBarScrollBehavior
+import com.germainkevin.collapsingtopbar.rememberCollapsingTopBarScrollBehavior
 import com.yapp.core.compose.drawColoredShadow
 import com.yapp.presentation.R
-import me.onebone.toolbar.CollapsingToolbarScaffold
-import me.onebone.toolbar.CollapsingToolbarScope
-import me.onebone.toolbar.ScrollStrategy
-import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
+import com.yapp.presentation.ui.theme.H2_SemiBold
+import com.yapp.presentation.ui.theme.H3_SemiBold
 
 @Composable
 fun MainScreen(
@@ -70,26 +75,25 @@ fun MainScreen(
             lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
-
-    val rememberCollapsingToolbarState = rememberCollapsingToolbarScaffoldState()
-    CollapsingToolbarScaffold(
-        modifier = Modifier.fillMaxSize(),
-        state = rememberCollapsingToolbarState,
-        scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
-        toolbar = {
-            Header()
+    val scrollBehavior = rememberCollapsingTopBarScrollBehavior()
+    Column(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) {
+        Header(scrollBehavior = scrollBehavior)
+        Box(modifier = Modifier.fillMaxSize()) {
+            Tasks(title = "나의 할일")
         }
-    ) {
-        Tasks(title = "나의 할일")
+
     }
 }
 
 @Composable
-fun CollapsingToolbarScope.Header() {
+fun Header(
+    scrollBehavior: CollapsingTopBarScrollBehavior
+) {
+    //CollapsingTopBar(scrollBehavior = )
     Card(
         modifier = Modifier
-            .padding(bottom = 8.dp)
-            .drawColoredShadow(),
+            .drawColoredShadow()
+            .animateContentSize(),
     ) {
         Column(
             Modifier.padding(horizontal = 16.dp),
@@ -98,28 +102,43 @@ fun CollapsingToolbarScope.Header() {
                 onClickLeftArrow = {},
                 onClickNotification = {},
                 hasNotification = true,
+                centerContent = {
+                    Text(
+                        text = "2022-2 4차 산업 혁명의 이해 팀플",
+                        style = H3_SemiBold,
+                        color = Color.Black
+                    )
+                },
+                hasCenterContent = scrollBehavior.isCollapsed,
             )
-            Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                text = "2022-2 4차 산업 혁명의 이해 팀플",
-                style = MaterialTheme.typography.h2,
-                color = Color.Black
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            BadgeString(
-                title = "학기 성적 A+ 도전",
-                badgeText = "여유 있게",
-                borderColor = MaterialTheme.colors.primary,
-                badgeColor = Color.White,
-                badgeFontColor = MaterialTheme.colors.primary,
-                space = 11.dp
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            TaskBar(
-                badgeText = "D-10",
-                title = "11/16 ~ 12/7"
-            )
-            Spacer(modifier = Modifier.height(14.dp))
+            AnimatedVisibility(
+                visible = scrollBehavior.isExpanded,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Column {
+                    Text(
+                        text = "2022-2 4차 산업 혁명의 이해 팀플",
+                        style = H2_SemiBold,
+                        color = Color.Black
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    BadgeString(
+                        title = "학기 성적 A+ 도전",
+                        badgeText = "여유 있게",
+                        borderColor = MaterialTheme.colors.primary,
+                        badgeColor = Color.White,
+                        badgeFontColor = MaterialTheme.colors.primary,
+                        space = 11.dp
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    TaskBar(
+                        badgeText = "D-10",
+                        title = "11/16 ~ 12/7"
+                    )
+                    Spacer(modifier = Modifier.height(14.dp))
+                }
+            }
             MemberContents(
                 title = "팀원 7명",
                 memebers = dummyMembers
@@ -135,11 +154,13 @@ fun TopAppBar(
     onClickLeftArrow: () -> Unit,
     onClickNotification: () -> Unit,
     hasNotification: Boolean,
+    centerContent: @Composable () -> Unit = {},
+    hasCenterContent: Boolean,
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(height = 40.dp)
+            .height(height = 48.dp)
             .background(color = Color.White)
     ) {
         Row(
@@ -155,13 +176,23 @@ fun TopAppBar(
                 painter = painterResource(id = R.drawable.left_arrow),
                 contentDescription = "leftArrow"
             )
+            AnimatedVisibility(
+                visible = hasCenterContent,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Text(
+                    text = "2022-2 4차 산업 혁명의 이해 팀플",
+                    style = H2_SemiBold,
+                    color = Color.Black
+                )
+            }
             Notification(
                 hasNotification = hasNotification,
                 onClick = onClickNotification,
             )
         }
     }
-
 }
 
 
