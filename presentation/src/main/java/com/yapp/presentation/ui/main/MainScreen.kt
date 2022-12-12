@@ -43,7 +43,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import com.yapp.presentation.R
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
@@ -153,7 +152,7 @@ fun TopAppBar(
                 modifier = Modifier.clickable(
                     onClick = onClickLeftArrow
                 ),
-                painter = painterResource(id = R.drawable.left_arrow),
+                painter = painterResource(id = com.yapp.designsystem.R.drawable.icon_arrow_left),
                 contentDescription = "leftArrow"
             )
             Notification(
@@ -162,7 +161,6 @@ fun TopAppBar(
             )
         }
     }
-
 }
 
 
@@ -377,7 +375,7 @@ fun Notification(
         )
     ) {
         Image(
-            painter = painterResource(id = R.drawable.bell),
+            painter = painterResource(id = com.yapp.designsystem.R.drawable.icon_notification),
             contentDescription = "bell",
         )
         if (hasNotification) {
@@ -387,7 +385,6 @@ fun Notification(
             )
         }
     }
-
 }
 
 @Composable

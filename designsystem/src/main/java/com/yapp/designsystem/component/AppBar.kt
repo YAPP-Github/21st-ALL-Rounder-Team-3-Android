@@ -55,7 +55,7 @@ fun TimiTopAppBar(
                         interactionSource = MutableInteractionSource(),
                         indication = rememberRipple(bounded = false)
                     ),
-                painter = painterResource(id = R.drawable.icon_back),
+                painter = painterResource(id = R.drawable.icon_arrow_left),
                 contentDescription = "timi top bar"
             )
 

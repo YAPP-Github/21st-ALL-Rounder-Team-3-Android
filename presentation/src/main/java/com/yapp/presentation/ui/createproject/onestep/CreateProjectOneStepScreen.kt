@@ -312,7 +312,7 @@ fun CreateProjectInputField(
 
         if (input.isNotBlank()) {
             Icon(
-                painter = painterResource(R.drawable.icon_input_field_delete),
+                painter = painterResource(com.yapp.designsystem.R.drawable.icon_input_field_delete),
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(16.dp)
