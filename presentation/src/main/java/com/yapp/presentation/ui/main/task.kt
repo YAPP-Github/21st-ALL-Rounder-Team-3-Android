@@ -30,6 +30,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.yapp.presentation.R
+import com.yapp.presentation.ui.theme.H4_SemiBold
 
 data class TaskItem(
     val profile: String,
@@ -47,24 +48,14 @@ fun Tasks(
     Column(
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .padding(top = 22.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Text(text = title)
-            Icon(
-                painter = painterResource(id = R.drawable.down_arrow),
-                contentDescription = "downArrow"
-            )
-        }
         LazyColumn(
             modifier = Modifier.padding(top = 12.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
+            item{
+                TaskTitle(text = "나의 할일")
+            }
             items(
                 items = dummyTaskItems,
             ) { taskItem ->
@@ -107,6 +98,23 @@ val dummyTaskItems = listOf(
     ),
 )
 
+@Composable
+fun TaskTitle(
+    text: String
+){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text(text = text)
+        Icon(
+            painter = painterResource(id = R.drawable.down_arrow),
+            contentDescription = "downArrow"
+        )
+    }
+}
 @Composable
 fun Task(
     taskItem: TaskItem
@@ -162,7 +170,7 @@ fun TaskContent(
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = taskItem.title,
-            style = MaterialTheme.typography.h4,
+            style = H4_SemiBold,
         )
         Spacer(modifier = Modifier.width(2.dp))
         Text(
