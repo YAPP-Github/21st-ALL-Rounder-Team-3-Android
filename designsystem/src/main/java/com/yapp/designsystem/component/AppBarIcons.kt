@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -34,34 +35,40 @@ fun TopBarNotificationIcon(
 ) {
     Box(
         modifier = Modifier
-            .padding(start = 8.dp)
+            .padding(4.dp)
             .clickable(
                 onClick = onClick,
                 interactionSource = MutableInteractionSource(),
                 indication = rememberRipple(bounded = false)
             ),
-        contentAlignment = Alignment.TopCenter,
+        contentAlignment = Alignment.Center,
     ) {
-        Image(
+        Icon(
             painter = painterResource(id = R.drawable.icon_notification),
             contentDescription = "notification icon",
         )
 
         if (count > 0) {
-            Text(
+            Box(
                 modifier = Modifier
-                    .padding(start = 12.dp)
-                    .size(11.dp)
-                    .background(
-                        color = Purple700,
-                        shape = CircleShape
-                    ),
-                text = if (count > 9) "9+" else count.toString(),
-                color = White,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold,
-                fontSize = 7.sp
-            )
+                    .size(30.dp)
+                    .padding(3.dp),
+                contentAlignment = Alignment.TopEnd,
+            ) {
+                Text(
+                    modifier = Modifier
+                        .size(11.dp)
+                        .background(
+                            color = Purple700,
+                            shape = CircleShape
+                        ),
+                    text = if (count > 9) "9+" else count.toString(),
+                    color = White,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 7.sp
+                )
+            }
         }
     }
 }
@@ -72,7 +79,7 @@ fun TopBarEditIcon(
 ) {
     Icon(
         modifier = Modifier
-            .padding(start = 8.dp)
+            .padding(4.dp)
             .clickable(
                 onClick = onClick,
                 interactionSource = MutableInteractionSource(),
@@ -84,14 +91,13 @@ fun TopBarEditIcon(
 }
 
 
-
 @Composable
 fun TopBarDeleteIcon(
     onClick: () -> Unit,
 ) {
     Icon(
         modifier = Modifier
-            .padding(start = 8.dp)
+            .padding(4.dp)
             .clickable(
                 onClick = onClick,
                 interactionSource = MutableInteractionSource(),
@@ -110,10 +116,12 @@ fun TimiAppBarIconsPreview() {
             .fillMaxSize()
             .background(White)
     ) {
-        TimiTopAppBar(rightIcons = {
-            TopBarNotificationIcon(count = 10) {}
-            TopBarEditIcon {}
-            TopBarDeleteIcon {}
-        }, onClickBackButton = {}, isTextCenterAlignment = false)
+        TimiTopAppBar(
+            firstTrailingIcon = { TopBarNotificationIcon(count = 1) {} },
+            secondTrailingIcon = { TopBarEditIcon {} },
+            thirdTrailingIcon = { TopBarDeleteIcon {} },
+            onClickBackButton = {},
+            isTextCenterAlignment = false
+        )
     }
 }

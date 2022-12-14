@@ -29,7 +29,9 @@ import com.yapp.designsystem.theme.H3
 
 @Composable
 fun TimiTopAppBar(
-    rightIcons: @Composable () -> Unit,
+    firstTrailingIcon: (@Composable () -> Unit)? = null,
+    secondTrailingIcon: (@Composable () -> Unit)? = null,
+    thirdTrailingIcon: (@Composable () -> Unit)? = null,
     isTextCenterAlignment: Boolean,
     onClickBackButton: () -> Unit,
     title: String = ""
@@ -72,7 +74,9 @@ fun TimiTopAppBar(
                 color = Color.Black,
             )
 
-            rightIcons()
+            firstTrailingIcon?.let { it() }
+            secondTrailingIcon?.let { it() }
+            thirdTrailingIcon?.let { it() }
         }
     }
 }
@@ -89,11 +93,9 @@ fun TimiAppBarPreview() {
         TimiTopAppBar(
             onClickBackButton = {},
             isTextCenterAlignment = false,
-            rightIcons = {
-                TopBarNotificationIcon(count = 1) {}
-                TopBarEditIcon {}
-                TopBarDeleteIcon {}
-            },
+            firstTrailingIcon = { TopBarNotificationIcon(count = 1) {} },
+            secondTrailingIcon = { TopBarEditIcon {} },
+            thirdTrailingIcon = { TopBarDeleteIcon {} }
         )
     }
 }
