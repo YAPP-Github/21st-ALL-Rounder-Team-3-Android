@@ -8,9 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.yapp.designsystem.modifier.timiClickable
 import com.yapp.designsystem.theme.Black
@@ -37,13 +40,14 @@ fun TimiH1Bold(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = H1_Bold.copy(
@@ -58,13 +62,14 @@ fun TimiH1SemiBold(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = H1_SemiBold.copy(
@@ -79,13 +84,14 @@ fun TimiH2SemiBold(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = H2_SemiBold.copy(
@@ -100,13 +106,14 @@ fun TimiH3SemiBold(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = H3_SemiBold.copy(
@@ -121,13 +128,14 @@ fun TimiH4SemiBold(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = H4_SemiBold.copy(
@@ -142,13 +150,14 @@ fun TimiBody1Medium(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Body1_Medium.copy(
@@ -163,13 +172,14 @@ fun TimiBody2Medium(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Body2_Medium.copy(
@@ -184,13 +194,14 @@ fun TimiBody3Regular(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Body3_Regular.copy(
@@ -205,13 +216,14 @@ fun TimiBody4Regular(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Body4_Regular.copy(
@@ -226,13 +238,14 @@ fun TimiCaption1SemiBold(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Caption1_SemiBold.copy(
@@ -247,13 +260,14 @@ fun TimiCaption1Regular(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Caption1_Regular.copy(
@@ -268,13 +282,14 @@ fun TimiCaption2SemiBold(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Caption2_SemiBold.copy(
@@ -289,13 +304,14 @@ fun TimiCaption2Regular(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Caption2_Regular.copy(
@@ -310,13 +326,14 @@ fun TimiCaption3Regular(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Caption3_Regular.copy(
@@ -331,13 +348,14 @@ fun TimiButton1SemiBold(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Button1_SemiBold.copy(
@@ -352,13 +370,14 @@ fun TimiButton2Medium(
     modifier: Modifier = Modifier,
     text: String,
     onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
     textAlign: TextAlign? = null,
     color: Color = Black,
     singleLine: Boolean = false,
 ) = TimiBasicText(
     modifier = modifier.timiClickable(
         onClick = onClick,
-        rippleEnabled = false
+        rippleEnabled = rippleEnabled,
     ),
     text = text,
     style = Button2_Medium.copy(
@@ -414,21 +433,21 @@ fun TimiTypographyPreview() {
             .fillMaxSize()
             .background(Color.White)
     ) {
-       TimiH1Bold(text = text)
-       TimiH1SemiBold(text = text)
-       TimiH2SemiBold(text = text)
-       TimiH3SemiBold(text = text)
-       TimiH4SemiBold(text = text)
-       TimiBody1Medium(text = text)
-       TimiBody2Medium(text = text)
-       TimiBody3Regular(text = text)
-       TimiBody4Regular(text = text)
-       TimiCaption1SemiBold(text = text)
-       TimiCaption1Regular(text = text)
-       TimiCaption2SemiBold(text = text)
-       TimiCaption2Regular(text = text)
-       TimiCaption3Regular(text = text)
-       TimiButton1SemiBold(text = text)
-       TimiButton2Medium(text = text)
+        TimiH1Bold(text = text)
+        TimiH1SemiBold(text = text)
+        TimiH2SemiBold(text = text)
+        TimiH3SemiBold(text = text)
+        TimiH4SemiBold(text = text)
+        TimiBody1Medium(text = text)
+        TimiBody2Medium(text = text)
+        TimiBody3Regular(text = text)
+        TimiBody4Regular(text = text)
+        TimiCaption1SemiBold(text = text)
+        TimiCaption1Regular(text = text)
+        TimiCaption2SemiBold(text = text)
+        TimiCaption2Regular(text = text)
+        TimiCaption3Regular(text = text)
+        TimiButton1SemiBold(text = text)
+        TimiButton2Medium(text = text)
     }
 }
