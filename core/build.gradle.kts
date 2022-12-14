@@ -1,7 +1,5 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -9,23 +7,9 @@ plugins {
 }
 
 android {
-    namespace = "com.yapp.presentation"
+    namespace = "com.yapp.core"
     compileSdk = libs.versions.compile.sdk.get().toInt()
 
-    defaultConfig {
-        minSdk = libs.versions.min.sdk.get().toInt()
-        targetSdk = libs.versions.target.sdk.get().toInt()
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

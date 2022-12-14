@@ -1,4 +1,4 @@
-package com.yapp.presentation.ui.createproject.onestep
+package com.yapp.presentation.ui.createproject.screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
@@ -49,22 +49,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.yapp.presentation.R
-import com.yapp.designsystem.theme.Black
-import com.yapp.designsystem.theme.Gray2
-import com.yapp.designsystem.theme.Gray4
-import com.yapp.designsystem.theme.Gray6
-import com.yapp.designsystem.theme.Gray7
-import com.yapp.presentation.ui.createproject.CreateProjectIntent
-import com.yapp.presentation.ui.createproject.CreateProjectState
-import com.yapp.presentation.ui.createproject.CreateProjectViewModel
+import com.yapp.designsystem.theme.*
+import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
+import com.yapp.presentation.ui.createproject.redux.CreateProjectState
+import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 import com.yapp.presentation.ui.login.LargeButton
 
 
 @Composable
 fun CreateProjectOneStepScreen(
-    viewModel: CreateProjectViewModel,
-    navigate: () -> Unit,
-    onBackPressed: () -> Unit
+    viewModel: CreateProjectViewModel
 ) {
     val focusRequester by remember { mutableStateOf(FocusRequester()) }
     val focusManager = LocalFocusManager.current
@@ -72,7 +66,7 @@ fun CreateProjectOneStepScreen(
     val state = viewModel.viewState.collectAsState()
 
     BackHandler {
-        onBackPressed()
+        viewModel.dispatch(CreateProjectIntent.ClickBackButton)
     }
 
     Box(
@@ -138,9 +132,10 @@ fun CreateProjectOneStepScreen(
 
             BottomLargeButton(
                 title = "다음",
-                state,
-                navigate
-            )
+                state
+            ) {
+                viewModel.dispatch(CreateProjectIntent.ClickNextButton)
+            }
         }
 
     }
@@ -154,7 +149,7 @@ fun CreateProjectOneStepScreen(
 fun BottomLargeButton(
     title: String,
     state: State<CreateProjectState>,
-    navigate: () -> Unit
+    onClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -163,10 +158,11 @@ fun BottomLargeButton(
     ) {
         LargeButton(
             text = title,
-            backgroundColor = if (state.value.isButtonEnabled) MaterialTheme.colors.primary else Gray4,
-            enabled = state.value.isButtonEnabled,
+          //  backgroundColor = if (state.value.isButtonEnabled) MaterialTheme.colors.primary else Gray4,
+          //  enabled = state.value.isButtonEnabled,
+        enabled = true
         ) {
-            navigate()
+            onClick()
         }
     }
 }

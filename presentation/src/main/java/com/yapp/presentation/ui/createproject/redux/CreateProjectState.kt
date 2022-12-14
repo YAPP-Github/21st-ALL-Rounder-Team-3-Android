@@ -1,7 +1,7 @@
-package com.yapp.presentation.ui.createproject
+package com.yapp.presentation.ui.createproject.redux
 
 import com.yapp.core.redux.BaseState
-import com.yapp.presentation.ui.createproject.onestep.ProjectDifficulty
+import com.yapp.presentation.ui.createproject.screen.ProjectDifficulty
 
 data class CreateProjectState(
     val projectName: String = "",
