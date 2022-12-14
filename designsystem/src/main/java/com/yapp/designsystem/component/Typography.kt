@@ -388,6 +388,29 @@ fun TimiButton2Medium(
 )
 
 @Composable
+fun TimiAnnotatedText(
+    modifier: Modifier = Modifier,
+    text: AnnotatedString,
+    textStyle: TextStyle = TextStyle.Default,
+    onClick: (() -> Unit)? = null,
+    rippleEnabled: Boolean = false,
+    singleLine: Boolean = false,
+) {
+    BasicText(
+        modifier = modifier.timiClickable(
+            onClick = onClick,
+            rippleEnabled = rippleEnabled,
+        ),
+        text = text,
+        style = textStyle,
+        maxLines = when (singleLine) {
+            true -> 1
+            else -> Int.MAX_VALUE
+        },
+    )
+}
+
+@Composable
 private fun TimiBasicText(
     modifier: Modifier = Modifier,
     text: String,
@@ -449,5 +472,17 @@ fun TimiTypographyPreview() {
         TimiCaption3Regular(text = text)
         TimiButton1SemiBold(text = text)
         TimiButton2Medium(text = text)
+        TimiAnnotatedText(
+            text = buildAnnotatedString {
+                withStyle(
+                    SpanStyle(
+                        color = Color.Blue,
+                    )
+                ) {
+                    append("티미 ")
+                }
+                append("타이포 입니다")
+            }
+        )
     }
 }
