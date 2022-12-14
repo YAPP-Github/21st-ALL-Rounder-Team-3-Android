@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -23,29 +22,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.yapp.presentation.R
 import com.yapp.presentation.theme.Black
 import com.yapp.presentation.theme.Gray2
-import com.yapp.presentation.theme.Gray7
-import com.yapp.presentation.ui.createproject.CreateProjectViewModel
-import com.yapp.presentation.ui.createproject.onestep.BottomLargeButton
-import com.yapp.presentation.ui.createproject.onestep.Spacing
-import com.yapp.presentation.ui.login.LargeButton
+import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
+import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
+import com.yapp.presentation.ui.createproject.screen.BottomLargeButton
+import com.yapp.presentation.ui.createproject.screen.Spacing
 
 @Composable
 fun CreateProjectTwoStepScreen(
-    viewModel: CreateProjectViewModel,
-    navigate: () -> Unit,
-    onBackPressed: () -> Unit
+    viewModel: CreateProjectViewModel
 ) {
     val state = viewModel.viewState.collectAsState()
 
     BackHandler {
-        onBackPressed()
+        viewModel.dispatch(CreateProjectIntent.ClickBackButton)
     }
 
     Column(
@@ -72,9 +66,10 @@ fun CreateProjectTwoStepScreen(
         ShareKakaoUrlButton()
         BottomLargeButton(
             title = "프로젝트 시작",
-            state,
-            navigate
-        )
+            state
+        ) {
+         //   viewModel.dispatch(CreateProjectIntent.StartMain)
+        }
     }
 
 }

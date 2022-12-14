@@ -56,19 +56,6 @@ fun MainScreen(
     val navController = rememberNavController()
     val state = viewModel.viewState.collectAsState()
 
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_START) {
-                viewModel.dispatch(MainIntent.CompleteLoading)
-            }
-        }
-
-        lifecycleOwner.lifecycle.addObserver(observer)
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
-
     CollapsingToolbarScaffold(
         modifier = Modifier.fillMaxSize(),
         state = rememberCollapsingToolbarScaffoldState(),

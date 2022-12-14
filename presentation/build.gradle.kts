@@ -54,7 +54,6 @@ dependencies {
     implementation(libs.bundles.ktx)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.hilt.android)
-    implementation("com.google.android.material:material:1.5.0")
     kapt(libs.hilt.kapt)
     implementation(libs.timber)
 }

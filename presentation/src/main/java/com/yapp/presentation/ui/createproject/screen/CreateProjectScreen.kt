@@ -20,6 +20,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,9 +39,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.yapp.presentation.theme.Gray6
-import com.yapp.presentation.ui.createproject.onestep.CreateProjectOneStepScreen
+import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
+import com.yapp.presentation.ui.createproject.redux.CreateProjectSingleEvent
+import com.yapp.presentation.ui.createproject.screen.CreateProjectOneStepScreen
 import com.yapp.presentation.ui.createproject.twostep.CreateProjectTwoStepScreen
+import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 import com.yapp.presentation.ui.main.MainActivity
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun CreateProjectScreen(
@@ -53,16 +59,37 @@ fun CreateProjectScreen(
         targetValue = progress,
     )
 
+    LaunchedEffect(viewModel.singleEventFlow) {
+        viewModel.singleEventFlow
+            .onEach { event ->
+                when (event) {
+                    CreateProjectSingleEvent.NavigateToMain -> {
+                        context.startActivity(Intent(context, MainActivity::class.java))
+                        (context as? Activity)?.finish()
+                    }
+
+                    CreateProjectSingleEvent.NavigateToTwoStepPage -> {
+                        progress = 1f
+                        navController.navigate(CreateProjectScreenRoute.STEP_TWO.route)
+                    }
+
+                    CreateProjectSingleEvent.NavigateOneStopPage -> {
+                        progress = 0.5f
+                        navController.popBackStack()
+                    }
+
+                    CreateProjectSingleEvent.Exit -> {
+                        (context as? Activity)?.finish()
+                    }
+                }
+            }
+            .launchIn(this)
+    }
+
     Scaffold(
         topBar = {
-            AppBar() {
-                //todo
-                if (progress == 1f) {
-                    progress = 0.5f
-                    navController.popBackStack()
-                } else {
-                    (context as? Activity)?.finish()
-                }
+            AppBar {
+                viewModel.dispatch(CreateProjectIntent.ClickAppBarBackButton(progress))
             }
         }
     ) { contentPadding ->
@@ -82,21 +109,10 @@ fun CreateProjectScreen(
                 startDestination = CreateProjectScreenRoute.STEP_ONE.route
             ) {
                 composable(CreateProjectScreenRoute.STEP_ONE.route) {
-                    CreateProjectOneStepScreen(viewModel, {
-                        progress = 1f
-                        navController.navigate(CreateProjectScreenRoute.STEP_TWO.route)
-                    }, {
-                        (context as? Activity)?.finish()
-                    })
+                    CreateProjectOneStepScreen(viewModel)
                 }
                 composable(CreateProjectScreenRoute.STEP_TWO.route) {
-                    CreateProjectTwoStepScreen(viewModel, {
-                        context.startActivity(Intent(context, MainActivity::class.java))
-                        (context as? Activity)?.finish()
-                    }, {
-                        progress = 0.5f
-                        navController.popBackStack()
-                    })
+                    CreateProjectTwoStepScreen(viewModel)
                 }
             }
         }
