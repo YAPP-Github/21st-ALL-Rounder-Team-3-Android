@@ -19,7 +19,6 @@ fun AllRounder3Theme(
     content: @Composable () -> Unit,
 ) {
     val colors = LightColors
-    val typography = Typography
     val uiController = rememberSystemUiController()
     SideEffect {
         uiController.setStatusBarColor(
@@ -28,7 +27,6 @@ fun AllRounder3Theme(
     }
     MaterialTheme(
         colors = colors,
-        typography = typography,
         content = content
     )
 }
