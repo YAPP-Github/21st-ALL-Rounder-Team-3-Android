@@ -52,7 +52,8 @@ fun TimiPrimaryButton(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = backgroundColor
         ),
-        onClick = { onClick() }) {
+        onClick = onClick
+    ) {
 
         Text(
             text = text,

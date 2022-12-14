@@ -46,8 +46,7 @@ fun TimiTopAppBar(
                 .padding(horizontal = 12.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-
-            ) {
+        ) {
             Image(
                 modifier = Modifier
                     .size(20.dp)
