@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yapp.designsystem.R
+import com.yapp.designsystem.modifier.timiClickable
 import com.yapp.designsystem.theme.Purple700
 
 
@@ -80,10 +81,9 @@ fun TopBarEditIcon(
     Icon(
         modifier = Modifier
             .padding(4.dp)
-            .clickable(
+            .timiClickable(
                 onClick = onClick,
-                interactionSource = MutableInteractionSource(),
-                indication = rememberRipple(bounded = false)
+                bounded = false,
             ),
         painter = painterResource(id = R.drawable.icon_edit),
         contentDescription = "edit icon",
@@ -98,10 +98,9 @@ fun TopBarDeleteIcon(
     Icon(
         modifier = Modifier
             .padding(4.dp)
-            .clickable(
+            .timiClickable(
                 onClick = onClick,
-                interactionSource = MutableInteractionSource(),
-                indication = rememberRipple(bounded = false)
+                bounded = false,
             ),
         painter = painterResource(id = R.drawable.icon_delete),
         contentDescription = "delete icon",
