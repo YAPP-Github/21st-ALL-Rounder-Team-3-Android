@@ -1,4 +1,4 @@
-package com.yapp.presentation.ui.createproject.base
+package com.yapp.presentation.ui.createproject.redux
 
 import com.yapp.core.redux.BaseSingleEvent
 

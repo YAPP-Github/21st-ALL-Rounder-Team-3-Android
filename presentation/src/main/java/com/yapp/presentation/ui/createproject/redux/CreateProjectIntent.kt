@@ -1,7 +1,7 @@
-package com.yapp.presentation.ui.createproject.base
+package com.yapp.presentation.ui.createproject.redux
 
 import com.yapp.core.redux.BaseIntent
-import com.yapp.presentation.ui.createproject.onestep.ProjectDifficulty
+import com.yapp.presentation.ui.createproject.screen.ProjectDifficulty
 
 sealed interface CreateProjectIntent : BaseIntent {
     data class ChangeProjectName(val name: String): CreateProjectIntent

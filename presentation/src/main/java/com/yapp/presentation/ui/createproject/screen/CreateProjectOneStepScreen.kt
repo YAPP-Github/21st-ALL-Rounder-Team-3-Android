@@ -1,4 +1,4 @@
-package com.yapp.presentation.ui.createproject.onestep
+package com.yapp.presentation.ui.createproject.screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
@@ -54,9 +54,9 @@ import com.yapp.presentation.theme.Gray2
 import com.yapp.presentation.theme.Gray4
 import com.yapp.presentation.theme.Gray6
 import com.yapp.presentation.theme.Gray7
-import com.yapp.presentation.ui.createproject.base.CreateProjectIntent
-import com.yapp.presentation.ui.createproject.base.CreateProjectState
-import com.yapp.presentation.ui.createproject.CreateProjectViewModel
+import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
+import com.yapp.presentation.ui.createproject.redux.CreateProjectState
+import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 import com.yapp.presentation.ui.login.LargeButton
 
 

@@ -39,10 +39,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.yapp.presentation.theme.Gray6
-import com.yapp.presentation.ui.createproject.base.CreateProjectIntent
-import com.yapp.presentation.ui.createproject.base.CreateProjectSingleEvent
-import com.yapp.presentation.ui.createproject.onestep.CreateProjectOneStepScreen
+import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
+import com.yapp.presentation.ui.createproject.redux.CreateProjectSingleEvent
+import com.yapp.presentation.ui.createproject.screen.CreateProjectOneStepScreen
 import com.yapp.presentation.ui.createproject.twostep.CreateProjectTwoStepScreen
+import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 import com.yapp.presentation.ui.main.MainActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

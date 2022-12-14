@@ -1,4 +1,4 @@
-package com.yapp.presentation.ui.createproject.onestep
+package com.yapp.presentation.ui.createproject.screen
 
 import android.widget.CalendarView
 import androidx.compose.foundation.background
@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
-import com.yapp.presentation.ui.createproject.base.CreateProjectIntent
-import com.yapp.presentation.ui.createproject.CreateProjectViewModel
+import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
+import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 
 
 @Composable

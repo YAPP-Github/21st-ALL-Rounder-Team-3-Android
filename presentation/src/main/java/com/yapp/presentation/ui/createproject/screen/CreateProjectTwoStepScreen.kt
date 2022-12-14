@@ -27,10 +27,10 @@ import androidx.compose.ui.unit.dp
 import com.yapp.presentation.R
 import com.yapp.presentation.theme.Black
 import com.yapp.presentation.theme.Gray2
-import com.yapp.presentation.ui.createproject.base.CreateProjectIntent
-import com.yapp.presentation.ui.createproject.CreateProjectViewModel
-import com.yapp.presentation.ui.createproject.onestep.BottomLargeButton
-import com.yapp.presentation.ui.createproject.onestep.Spacing
+import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
+import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
+import com.yapp.presentation.ui.createproject.screen.BottomLargeButton
+import com.yapp.presentation.ui.createproject.screen.Spacing
 
 @Composable
 fun CreateProjectTwoStepScreen(
