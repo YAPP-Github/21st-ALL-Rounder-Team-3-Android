@@ -49,11 +49,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.yapp.presentation.R
-import com.yapp.presentation.theme.Black
-import com.yapp.presentation.theme.Gray2
-import com.yapp.presentation.theme.Gray4
-import com.yapp.presentation.theme.Gray6
-import com.yapp.presentation.theme.Gray7
+import com.yapp.designsystem.theme.*
 import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.presentation.ui.createproject.redux.CreateProjectState
 import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
@@ -312,7 +308,7 @@ fun CreateProjectInputField(
 
         if (input.isNotBlank()) {
             Icon(
-                painter = painterResource(R.drawable.icon_input_field_delete),
+                painter = painterResource(com.yapp.designsystem.R.drawable.icon_input_field_delete),
                 modifier = Modifier
                     .wrapContentSize()
                     .padding(16.dp)

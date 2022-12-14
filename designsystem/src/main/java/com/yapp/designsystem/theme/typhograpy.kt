@@ -1,4 +1,4 @@
-package com.yapp.presentation.theme
+package com.yapp.designsystem.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.yapp.presentation.R
+import com.yapp.designsystem.R
 
 val NotoSansKr = FontFamily(
     Font(R.font.notosans_bold, FontWeight.Bold),

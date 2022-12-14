@@ -30,8 +30,8 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.yapp.presentation.R
-import com.yapp.presentation.theme.Body3
-import com.yapp.presentation.theme.Caption2
+import com.yapp.designsystem.theme.Body3
+import com.yapp.designsystem.theme.Caption2
 
 data class TaskItem(
     val profile: String,
@@ -59,7 +59,7 @@ fun Tasks(
         ) {
             Text(text = title)
             Icon(
-                painter = painterResource(id = R.drawable.down_arrow),
+                painter = painterResource(id = com.yapp.designsystem.R.drawable.icon_arrow_down),
                 contentDescription = "downArrow"
             )
         }

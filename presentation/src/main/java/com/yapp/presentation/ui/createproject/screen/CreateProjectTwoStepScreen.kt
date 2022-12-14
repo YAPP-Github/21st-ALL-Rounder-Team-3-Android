@@ -24,9 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.yapp.presentation.R
-import com.yapp.presentation.theme.Black
-import com.yapp.presentation.theme.Gray2
+import com.yapp.designsystem.theme.*
 import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 import com.yapp.presentation.ui.createproject.screen.BottomLargeButton
@@ -95,7 +93,7 @@ fun ShareKakaoUrlButton() {
         ) {
 
             Icon(
-                painter = painterResource(R.drawable.icon_share),
+                painter = painterResource(com.yapp.designsystem.R.drawable.icon_share),
                 modifier = Modifier
                     .wrapContentSize(),
                 contentDescription = "kakao url share icon",

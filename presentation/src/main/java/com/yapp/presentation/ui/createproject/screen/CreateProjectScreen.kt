@@ -38,7 +38,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.yapp.presentation.theme.Gray6
+import com.yapp.designsystem.theme.Gray6
 import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.presentation.ui.createproject.redux.CreateProjectSingleEvent
 import com.yapp.presentation.ui.createproject.screen.CreateProjectOneStepScreen
