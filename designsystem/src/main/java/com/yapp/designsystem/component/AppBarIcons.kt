@@ -1,6 +1,5 @@
 package com.yapp.designsystem.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -26,8 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yapp.designsystem.R
 import com.yapp.designsystem.modifier.timiClickable
-import com.yapp.designsystem.theme.Purple700
-
+import com.yapp.designsystem.theme.Purple500
 
 @Composable
 fun TopBarNotificationIcon(
@@ -60,7 +57,7 @@ fun TopBarNotificationIcon(
                     modifier = Modifier
                         .size(11.dp)
                         .background(
-                            color = Purple700,
+                            color = Purple500,
                             shape = CircleShape
                         ),
                     text = if (count > 9) "9+" else count.toString(),

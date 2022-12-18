@@ -15,25 +15,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.yapp.designsystem.border.TimiBorder
 import com.yapp.designsystem.modifier.timiClipBorder
-import com.yapp.designsystem.theme.Gray3
-import com.yapp.designsystem.theme.Gray6
-import com.yapp.designsystem.theme.Gray7
+import com.yapp.designsystem.theme.Gray100
+import com.yapp.designsystem.theme.Gray200
+import com.yapp.designsystem.theme.Gray500
 import com.yapp.designsystem.theme.Green100
-import com.yapp.designsystem.theme.Green200
-import com.yapp.designsystem.theme.Green600
+import com.yapp.designsystem.theme.Green500
 import com.yapp.designsystem.theme.Purple100
-import com.yapp.designsystem.theme.Purple50
-import com.yapp.designsystem.theme.Purple700
+import com.yapp.designsystem.theme.Purple500
 
 @Composable
 fun TimiMediumRoundedBadge(
     modifier: Modifier = Modifier,
     text: String,
     border: TimiBorder? = TimiBorder(
-        color = Purple700,
+        color = Purple500,
     ),
     backgroundColor: Color = Color.White,
-    fontColor: Color = Purple700,
+    fontColor: Color = Purple500,
 ) {
     TimiBasicBadge(
         modifier = modifier,
@@ -50,10 +48,10 @@ fun TimiSmallRoundedBadge(
     modifier: Modifier = Modifier,
     text: String,
     border: TimiBorder? = TimiBorder(
-        color = Purple700,
+        color = Purple500,
     ),
     backgroundColor: Color = Color.White,
-    fontColor: Color = Purple700,
+    fontColor: Color = Purple500,
 ) {
     TimiBasicBadge(
         modifier = modifier,
@@ -108,33 +106,37 @@ fun BadgePreview() {
         TimiMediumRoundedBadge(
             text = "D-10",
             border = null,
-            backgroundColor = Purple700,
+            backgroundColor = Purple500,
             fontColor = Color.White,
         )
 
         TimiSmallRoundedBadge(
             text = "12.2 ~ 12.7",
             border = TimiBorder(
-                color = Purple100
+                color = Purple100,
             ),
-            backgroundColor = Purple50,
-            fontColor = Purple700,
+            backgroundColor = Purple100.copy(
+                alpha = 0.6f
+            ),
+            fontColor = Purple500,
         )
         TimiSmallRoundedBadge(
             text = "12.2 ~ 12.7",
             border = TimiBorder(
-                color = Green200
+                color = Green100
             ),
-            backgroundColor = Green100,
-            fontColor = Green600,
+            backgroundColor = Green100.copy(
+                alpha = 0.6f
+            ),
+            fontColor = Green500,
         )
         TimiSmallRoundedBadge(
             text = "12.2 ~ 12.7",
             border = TimiBorder(
-                color = Gray6
+                color = Gray200
             ),
-            backgroundColor = Gray7,
-            fontColor = Gray3,
+            backgroundColor = Gray100,
+            fontColor = Gray500,
         )
     }
 }

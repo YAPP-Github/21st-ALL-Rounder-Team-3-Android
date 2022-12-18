@@ -8,9 +8,9 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 val LightColors = lightColors(
-    primary = Purple700,
+    primary = Purple500,
     primaryVariant = Purple100,
-    secondary = Green600,
+    secondary = Green500,
     secondaryVariant = Green100
 )
 
