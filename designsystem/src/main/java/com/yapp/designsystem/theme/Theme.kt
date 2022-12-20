@@ -8,9 +8,9 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 val LightColors = lightColors(
-    primary = Purple700,
+    primary = Purple500,
     primaryVariant = Purple100,
-    secondary = Green600,
+    secondary = Green500,
     secondaryVariant = Green100
 )
 
@@ -19,7 +19,6 @@ fun AllRounder3Theme(
     content: @Composable () -> Unit,
 ) {
     val colors = LightColors
-    val typography = Typography
     val uiController = rememberSystemUiController()
     SideEffect {
         uiController.setStatusBarColor(
@@ -28,7 +27,6 @@ fun AllRounder3Theme(
     }
     MaterialTheme(
         colors = colors,
-        typography = typography,
         content = content
     )
 }

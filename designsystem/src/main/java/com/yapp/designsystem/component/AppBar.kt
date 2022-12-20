@@ -2,8 +2,6 @@ package com.yapp.designsystem.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,19 +11,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Text
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.yapp.designsystem.R
-import com.yapp.designsystem.theme.H3
+import com.yapp.designsystem.modifier.timiClickable
 
 @Composable
 fun TimiTopAppBar(
@@ -52,25 +47,21 @@ fun TimiTopAppBar(
             Image(
                 modifier = Modifier
                     .size(20.dp)
-                    .clickable(
+                    .timiClickable(
                         onClick = onClickBackButton,
-                        interactionSource = MutableInteractionSource(),
-                        indication = rememberRipple(bounded = false)
+                        bounded = false,
                     ),
                 painter = painterResource(id = R.drawable.icon_arrow_left),
                 contentDescription = "timi top bar"
             )
 
-            Text(
+            TimiH3SemiBold(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
                     .padding(start = 10.dp),
-                overflow = TextOverflow.Ellipsis,
-                style = H3,
-                maxLines = 1,
-                textAlign = if (isTextCenterAlignment) TextAlign.Center else TextAlign.Start,
                 text = title,
+                textAlign = if (isTextCenterAlignment) TextAlign.Center else TextAlign.Start,
                 color = Color.Black,
             )
 
@@ -95,7 +86,8 @@ fun TimiAppBarPreview() {
             isTextCenterAlignment = false,
             firstTrailingIcon = { TopBarNotificationIcon(count = 1) {} },
             secondTrailingIcon = { TopBarEditIcon {} },
-            thirdTrailingIcon = { TopBarDeleteIcon {} }
+            thirdTrailingIcon = { TopBarDeleteIcon {} },
+            title = "고전문학사 팀플 3조"
         )
     }
 }

@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,9 +19,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.yapp.designsystem.theme.Gray4
-import com.yapp.designsystem.theme.Gray5
-import com.yapp.designsystem.theme.Purple700
+import com.yapp.designsystem.theme.Gray300
+import com.yapp.designsystem.theme.Gray400
+import com.yapp.designsystem.theme.Purple500
 
 enum class TimiButtonUiState {
     ABLE, DISABLE
@@ -35,11 +34,11 @@ fun TimiPrimaryButton(
 ) {
     val (backgroundColor, textColor) = when (buttonUiState) {
         TimiButtonUiState.ABLE -> {
-            Purple700 to Color.White
+            Purple500 to Color.White
         }
 
         TimiButtonUiState.DISABLE -> {
-            Gray4 to Gray5
+            Gray400 to Gray300
         }
     }
 
@@ -76,7 +75,7 @@ fun TimiSecondaryButton(
             .clip(RoundedCornerShape(16.dp))
             .border(
                 width = 1.dp,
-                color = Purple700,
+                color = Purple500,
                 shape = RoundedCornerShape(16.dp)
             ),
         colors = ButtonDefaults.buttonColors(
@@ -86,7 +85,7 @@ fun TimiSecondaryButton(
 
         Text(
             text = text,
-            color = Purple700
+            color = Purple500
         )
     }
 }
