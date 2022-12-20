@@ -33,6 +33,7 @@ import com.yapp.designsystem.theme.H1_SemiBold
 import com.yapp.designsystem.theme.H2_SemiBold
 import com.yapp.designsystem.theme.H3_SemiBold
 import com.yapp.designsystem.theme.H4_SemiBold
+import com.yapp.designsystem.theme.Purple500
 
 
 @Composable
@@ -390,18 +391,29 @@ fun TimiButton2Medium(
 @Composable
 fun TimiAnnotatedText(
     modifier: Modifier = Modifier,
-    text: AnnotatedString,
+    textPairs: List<Pair<String, Color>>,
     textStyle: TextStyle = TextStyle.Default,
     onClick: (() -> Unit)? = null,
     rippleEnabled: Boolean = false,
     singleLine: Boolean = false,
 ) {
+    val annotatedText = buildAnnotatedString {
+        textPairs.forEach {
+            withStyle(
+                SpanStyle(
+                    color = it.second,
+                )
+            ) {
+                append(it.first)
+            }
+        }
+    }
     BasicText(
         modifier = modifier.timiClickable(
             onClick = onClick,
             rippleEnabled = rippleEnabled,
         ),
-        text = text,
+        text = annotatedText,
         style = textStyle,
         maxLines = when (singleLine) {
             true -> 1
@@ -473,16 +485,11 @@ fun TimiTypographyPreview() {
         TimiButton1SemiBold(text = text)
         TimiButton2Medium(text = text)
         TimiAnnotatedText(
-            text = buildAnnotatedString {
-                withStyle(
-                    SpanStyle(
-                        color = Color.Blue,
-                    )
-                ) {
-                    append("티미 ")
-                }
-                append("타이포 입니다")
-            }
+            textPairs = listOf(
+                Pair("가연", Purple500),
+                Pair("님을 삭제 하시겠어요?", Black)
+            ),
+            textStyle = H3_SemiBold
         )
     }
 }
