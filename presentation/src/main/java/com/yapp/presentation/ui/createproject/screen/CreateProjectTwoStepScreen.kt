@@ -58,7 +58,7 @@ fun CreateProjectTwoStepScreen(
                 .fillMaxWidth()
                 .padding(bottom = 40.dp),
             text = "나중에 팀원을 초대해도 괜찮아요!",
-            color = Gray2
+            //color = Gray2
         )
 
         ShareKakaoUrlButton()
