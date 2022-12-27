@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,12 +22,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.yapp.designsystem.R
 import com.yapp.designsystem.border.TimiBorder
 import com.yapp.designsystem.modifier.timiClipBorder
+import com.yapp.designsystem.row.CenterVerticallyRow
 import com.yapp.designsystem.theme.Gray200
 import com.yapp.designsystem.theme.Gray300
 import com.yapp.designsystem.theme.Gray500
@@ -264,19 +263,6 @@ private fun DoneTask(
         }
     }
 }
-
-@Composable
-private fun CenterVerticallyRow(
-    modifier: Modifier = Modifier,
-    horizontalSpace: Dp = 0.dp,
-    content: @Composable (RowScope.() -> Unit),
-) = Row(
-    modifier = modifier,
-    horizontalArrangement = Arrangement.spacedBy(space = horizontalSpace),
-    verticalAlignment = Alignment.CenterVertically,
-    content = content,
-)
-
 
 sealed class TaskType {
     object Progress : TaskType()
