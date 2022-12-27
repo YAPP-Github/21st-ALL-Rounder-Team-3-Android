@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- TaskCard -->
     <string name="remain_check_period">업무 확인 기간이 %s일 남았어요!</string>
     <string name="complete">완료</string>
     <string name="confirmation_status">확인 현황</string>
+
+    <!-- ProjectCard -->
+    <string name="leader">팀장</string>
 </resources>
