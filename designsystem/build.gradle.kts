@@ -18,6 +18,14 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.majorVersion
+        freeCompilerArgs += listOf(
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=$rootDir/designsystem/report/compose-metrics"
+        )
+        freeCompilerArgs += listOf(
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=$rootDir/designsystem/report/compose-metrics"
+        )
     }
     buildFeatures {
         compose = true

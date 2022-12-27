@@ -90,7 +90,7 @@ fun CreateProjectOneStepScreen(
                 focusManager = focusManager,
                 title = stringResource(id = R.string.project_name),
                 placeholder = "프로젝트 이름을 입력하세요.",
-                strokeColor = if (state.value.hasProjectNameFieldFocused) MaterialTheme.colors.primary else Gray6,
+                strokeColor = if (state.value.hasProjectNameFieldFocused) MaterialTheme.colors.primary else Gray600,
                 input = state.value.projectName,
                 onFocusChanged = {
                     viewModel.dispatch(CreateProjectIntent.ChangeProjectNameTextFieldFocused(it))
@@ -111,7 +111,7 @@ fun CreateProjectOneStepScreen(
                 focusManager = focusManager,
                 title = stringResource(id = R.string.project_goal),
                 placeholder = "학기 성적 A+ 도전 \uD83D\uDD25",
-                strokeColor = if (state.value.hasProjectGoalFocused) MaterialTheme.colors.primary else Gray6,
+                strokeColor = if (state.value.hasProjectGoalFocused) MaterialTheme.colors.primary else Gray600,
                 input = state.value.projectGoal,
                 onFocusChanged = {
                     viewModel.dispatch(CreateProjectIntent.ChangeProjectGoalTextFieldFocused(it))
@@ -196,7 +196,7 @@ fun CreateProjectDueDate(
                 viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CreateProjectIntent.DueDateType.START))
             },
             text = state.projectStartDate,
-            color = if (state.isNotInitializedStartDate()) Gray7 else Black
+            color = if (state.isNotInitializedStartDate()) Gray100 else Black
 
         )
 
@@ -210,7 +210,7 @@ fun CreateProjectDueDate(
                 viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CreateProjectIntent.DueDateType.END))
             },
             text = state.projectEndDate,
-            color = if (state.isNotInitializedEndDate()) Gray7 else Black
+            color = if (state.isNotInitializedEndDate()) Gray100 else Black
         )
     }
 }
@@ -225,10 +225,10 @@ fun RowScope.DateTextBox(
         modifier = Modifier
             .fillMaxHeight()
             .weight(1f)
-            .background(shape = RoundedCornerShape(8.dp), color = Gray7)
+            .background(shape = RoundedCornerShape(8.dp), color = Gray100)
             .border(
                 width = 1.dp,
-                color = Gray6,
+                color = Gray200,
                 shape = RoundedCornerShape(8.dp)
             )
             .clickable { onDueDateClick() }
@@ -265,7 +265,7 @@ fun CreateProjectInputField(
             .addFocusCleaner(focusManager)
             .padding(bottom = 10.dp),
         text = title,
-        color = Gray2,
+        color = Gray400,
         style = MaterialTheme.typography.body2,
     )
 
@@ -283,7 +283,7 @@ fun CreateProjectInputField(
                 .onFocusChanged {
                     onFocusChanged(it.isFocused)
                 }
-                .background(shape = RoundedCornerShape(8.dp), color = Gray7)
+                .background(shape = RoundedCornerShape(8.dp), color = Gray100)
                 .border(
                     width = 1.dp,
                     color = strokeColor,
@@ -293,7 +293,7 @@ fun CreateProjectInputField(
                 Text(
                     text = placeholder,
                     style = MaterialTheme.typography.body1,
-                    color = Gray4
+                    color = Gray400
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
@@ -351,10 +351,10 @@ fun CreateProjectDropDown(
             .fillMaxWidth()
             .height(52.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(shape = RoundedCornerShape(8.dp), color = Gray7)
+            .background(shape = RoundedCornerShape(8.dp), color = Gray100)
             .border(
                 width = 1.dp,
-                color = Gray6,
+                color = Gray600,
                 shape = RoundedCornerShape(8.dp)
             )
             .clickable { onClick() },
@@ -369,7 +369,7 @@ fun CreateProjectDropDown(
             Text(
                 text = state.projectDifficulty.title,
                 style = MaterialTheme.typography.body1,
-                color = if (state.projectDifficulty == ProjectDifficulty.NONE) Gray4 else Black,
+                color = if (state.projectDifficulty == ProjectDifficulty.NONE) Gray400 else Black,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
@@ -377,7 +377,7 @@ fun CreateProjectDropDown(
 
             Icon(
                 imageVector = Icons.Default.ArrowDropDown,
-                tint = if (state.projectDifficulty == ProjectDifficulty.NONE) Gray4 else Black,
+                tint = if (state.projectDifficulty == ProjectDifficulty.NONE) Gray400 else Black,
                 contentDescription = null,
             )
         }
@@ -397,7 +397,7 @@ fun ChildDropDownList(viewModel: CreateProjectViewModel) {
             .wrapContentHeight()
             .background(
                 shape = RoundedCornerShape(8.dp),
-                color = Gray7
+                color = Gray100
             ),
     ) {
         ChildDropDownText(ProjectDifficulty.EASY) {
