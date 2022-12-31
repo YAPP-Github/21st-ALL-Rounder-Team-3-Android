@@ -55,6 +55,7 @@ javax-inject = "1"
 # network
 okhttp = "4.10.0"
 retrofit = "2.9.0"
+chuncker = "3.5.2"
 
 # logging
 timber = "5.0.1"
@@ -77,6 +78,7 @@ androidx-datastore = { module = "androidx.datastore:datastore-preferences", vers
 androidx-room-core = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
 
+kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
 kotlin-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlin-collections-immutable" }
 
@@ -116,6 +118,9 @@ okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-intercepto
 
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization-converter = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "kotlinx-serialization-converter" }
+
+chuncker-library = { module = "com.github.chuckerteam.chucker:library", version.ref = "chuncker" }
+chuncker-library-no-op = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chuncker" }
 
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
@@ -159,6 +164,7 @@ network = [
     "retrofit",
     "retrofit-kotlin-serialization-converter",
     "okhttp",
-    "okhttp-logging-interceptor"
+    "okhttp-logging-interceptor",
+    "kotlin-serialization-json"
 ]
 accompanist = ["accompanist-systemuicontroller"]
