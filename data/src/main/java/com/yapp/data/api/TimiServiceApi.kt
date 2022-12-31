@@ -48,7 +48,7 @@ interface TimiServiceApi {
         @Path("taskId") taskId: String
     )
 
-//        TASKS
+//        FEEDBACKS
     @POST("/tasks/{taskId}/feedbacks")
     suspend fun postTaskFeedbacks(
         @Path("taskId") projectId: String
