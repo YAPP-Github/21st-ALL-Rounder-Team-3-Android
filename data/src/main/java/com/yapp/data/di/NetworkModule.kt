@@ -6,7 +6,6 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.yapp.data.BuildConfig
 import com.yapp.data.interceptor.TimiChunckerInterceptor
 import com.yapp.data.interceptor.TimiHeaderInterceptor
-import com.yapp.data.retrofit.RetrofitProviderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -90,11 +89,10 @@ object NetworkModule {
         okHttpClient: OkHttpClient,
         @JsonConverter jsonConverterFactory: Converter.Factory
     ): Retrofit {
-        val provider = RetrofitProviderImpl(
-            okHttpClient = okHttpClient,
-            jsonConverterFactory = jsonConverterFactory
-        )
-
-        return provider.provide()
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(jsonConverterFactory)
+            .build()
     }
 }
