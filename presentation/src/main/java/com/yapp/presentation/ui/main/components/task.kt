@@ -1,4 +1,4 @@
-package com.yapp.presentation.ui.main
+package com.yapp.presentation.ui.main.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
