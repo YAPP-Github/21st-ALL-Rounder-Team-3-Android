@@ -50,6 +50,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":designsystem"))
     implementation(libs.kotlin.coroutines)
+    implementation(libs.kotlin.collections.immutable)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.ktx)
     implementation(libs.accompanist.systemuicontroller)
