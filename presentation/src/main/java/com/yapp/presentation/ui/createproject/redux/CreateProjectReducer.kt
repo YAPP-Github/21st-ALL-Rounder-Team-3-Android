@@ -32,19 +32,6 @@ class CreateProjectReducer @Inject constructor() : Reducer<CreateProjectState> {
                 )
             }
 
-            is CreateProjectIntent.OnClickDropDown -> {
-                newState = newState.copy(
-                    isDropDownVisible = newState.isDropDownVisible.not(),
-                )
-            }
-
-            is CreateProjectIntent.OnClickDropDownItem -> {
-                newState = newState.copy(
-                    projectDifficulty = action.difficulty,
-                    isDropDownVisible = newState.isDropDownVisible.not(),
-                )
-            }
-
             is CreateProjectIntent.ChangeProjectNameTextFieldFocused -> {
                 newState = newState.copy(
                     hasProjectNameFieldFocused = action.hasFocused

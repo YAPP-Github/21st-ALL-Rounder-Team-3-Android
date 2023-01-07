@@ -15,58 +15,63 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.yapp.designsystem.theme.*
+import com.yapp.designsystem.component.TimiBody2Medium
+import com.yapp.designsystem.component.TimiH1SemiBold
+import com.yapp.designsystem.component.TimiH3SemiBold
+import com.yapp.designsystem.theme.Black
+import com.yapp.designsystem.theme.Gray600
+import com.yapp.designsystem.theme.Purple500
+import com.yapp.presentation.R
 import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
-import com.yapp.presentation.ui.createproject.screen.BottomLargeButton
-import com.yapp.presentation.ui.createproject.screen.Spacing
 
 @Composable
 fun CreateProjectTwoStepScreen(
-    viewModel: CreateProjectViewModel
+    viewModel: CreateProjectViewModel,
+    onBackPressed: () -> Unit
 ) {
     val state = viewModel.viewState.collectAsState()
 
     BackHandler {
-        viewModel.dispatch(CreateProjectIntent.ClickBackButton)
+        onBackPressed()
     }
 
     Column(
         modifier = Modifier
+            .padding(vertical = 16.dp)
             .fillMaxWidth()
-            .padding(16.dp)
     ) {
-        Text(
+        TimiH1SemiBold(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 40.dp),
-            text = "팀원을 초대해볼까요?",
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(),
+            text = stringResource(id = R.string.create_project_twostep_title),
             color = Black
         )
         Spacing(10.dp)
-        Text(
+        TimiBody2Medium(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 40.dp),
-            text = "나중에 팀원을 초대해도 괜찮아요!",
-            //color = Gray2
+                .padding(horizontal = 16.dp),
+            text = stringResource(id = R.string.create_project_twostep_description),
+            color = Gray600
         )
-
+        Spacing(40.dp)
         ShareKakaoUrlButton()
         BottomLargeButton(
-            title = "프로젝트 시작",
+            title = stringResource(id = R.string.project_start),
             state
         ) {
-         //   viewModel.dispatch(CreateProjectIntent.StartMain)
+            viewModel.dispatch(CreateProjectIntent.StartMain)
         }
     }
 
@@ -77,6 +82,7 @@ fun ShareKakaoUrlButton() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 16.dp)
             .height(48.dp)
             .background(shape = RoundedCornerShape(16.dp), color = Color.White)
             .border(
@@ -97,14 +103,14 @@ fun ShareKakaoUrlButton() {
                 modifier = Modifier
                     .wrapContentSize(),
                 contentDescription = "kakao url share icon",
-                tint = MaterialTheme.colors.primary,
+                tint = Purple500,
             )
-            Text(
+            TimiH3SemiBold(
                 modifier = Modifier
                     .padding(start = 4.dp)
                     .wrapContentSize(),
-                text = "링크로 공유하기",
-                color = MaterialTheme.colors.primary,
+                text = stringResource(id = R.string.create_project_twostep_share_button_title),
+                color = Purple500,
                 textAlign = TextAlign.Center
             )
         }

@@ -1,16 +1,12 @@
 package com.yapp.presentation.ui.createproject.redux
 
 import com.yapp.core.redux.BaseIntent
-import com.yapp.presentation.ui.createproject.screen.ProjectDifficulty
 
 sealed interface CreateProjectIntent : BaseIntent {
     data class ChangeProjectName(val name: String): CreateProjectIntent
     data class ChangeProjectStartDate(val date: String): CreateProjectIntent
     data class ChangeProjectEndDate(val date: String): CreateProjectIntent
     data class ChangeProjectGoal(val goal: String): CreateProjectIntent
-    object OnClickDropDown: CreateProjectIntent
-    data class OnClickDropDownItem(val difficulty: ProjectDifficulty): CreateProjectIntent
-
     data class ChangeProjectNameTextFieldFocused(val hasFocused: Boolean): CreateProjectIntent
     data class ChangeProjectGoalTextFieldFocused(val hasFocused: Boolean): CreateProjectIntent
 
@@ -19,15 +15,14 @@ sealed interface CreateProjectIntent : BaseIntent {
     data class OpenDueDateCalendar(val dueDateType: DueDateType): CreateProjectIntent
     object CloseCalendar: CreateProjectIntent
 
-    object ClickBackButton: CreateProjectIntent
-
-    object ClickNextButton: CreateProjectIntent
-
-    data class ClickAppBarBackButton(
+    data class ClickBackButton(
         val progress: Float
     ): CreateProjectIntent
 
-    
+    object ClickNextButton: CreateProjectIntent
+
+    object StartMain : CreateProjectIntent
+
     data class SelectStartProjectDate(
         val day: Int,
         val month: Int,
