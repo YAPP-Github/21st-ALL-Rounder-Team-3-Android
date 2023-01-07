@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalLifecycleComposeApi::class)
+
 package com.yapp.presentation.ui.main
 
 import androidx.compose.animation.animateColorAsState
@@ -25,35 +27,67 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.yapp.presentation.ui.main.components.Tasks
+import com.yapp.presentation.ui.main.redux.MainSingleEvent
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
+
 @Composable
 fun MainScreen(
-    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    onBackPressed: () -> Unit,
 ) {
-    val navController = rememberNavController()
-    val state = viewModel.viewState.collectAsState()
+    val state = viewModel.viewState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(viewModel.singleEventFlow) {
+        viewModel.singleEventFlow
+            .onEach { event ->
+                when (event) {
+                    MainSingleEvent.NavigateToProjectList-> {
+                        onBackPressed()
+                    }
+                    MainSingleEvent.NavigateToCreateTask -> {
+                        //TODO(EvergreenTree97)
+                    }
+
+                    MainSingleEvent.NavigateToInviteMember -> {
+                        //TODO(EvergreenTree97)
+                    }
+
+                    MainSingleEvent.NavigateToNotificationList -> {
+                        //TODO(EvergreenTree97)
+                    }
+
+                    MainSingleEvent.NavigateToEditProject -> {
+                        //TODO(EvergreenTree97)
+                    }
+
+                    MainSingleEvent.NavigateToTaskDetail-> {
+                        //TODO(EvergreenTree97)
+                    }
+                }
+            }
+            .launchIn(this)
+    }
+
 
     CollapsingToolbarScaffold(
         modifier = Modifier.fillMaxSize(),
@@ -70,8 +104,7 @@ fun MainScreen(
             }
         }
     ) {
-       Tasks(title = "나의 할일")
-
+        Tasks(title = "나의 할일")
     }
 }
 

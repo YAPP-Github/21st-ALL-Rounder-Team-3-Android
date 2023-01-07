@@ -12,7 +12,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AllRounder3Theme {
-                MainScreen()
+                MainScreen(
+                    onBackPressed = {
+                        finish()
+                    }
+                )
             }
         }
     }

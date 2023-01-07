@@ -146,7 +146,8 @@ compose = [
     "compose-hilt-navigation",
     "compose-navigation",
     "compose-coil",
-    "compose-toolbar"
+    "compose-toolbar",
+    "compose-ktx-lifecycle",
 ]
 compose-debug = ["compose-ui-tooling"] # debugImplementation
 ktx = [
