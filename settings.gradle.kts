@@ -15,7 +15,7 @@ dependencyResolutionManagement {
         maven { url = uri("https://jitpack.io") }
     }
 }
-rootProject.name = "all-rounder-3"
+rootProject.name = "timitimi"
 include(":app")
 include(":presentation")
 include(":domain")
