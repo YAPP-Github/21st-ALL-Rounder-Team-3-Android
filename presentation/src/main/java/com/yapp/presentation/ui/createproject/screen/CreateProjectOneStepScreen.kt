@@ -48,12 +48,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.yapp.designsystem.theme.Black
+import com.yapp.designsystem.theme.Gray100
+import com.yapp.designsystem.theme.Gray200
+import com.yapp.designsystem.theme.Gray400
+import com.yapp.designsystem.theme.Gray600
 import com.yapp.presentation.R
-import com.yapp.designsystem.theme.*
 import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.presentation.ui.createproject.redux.CreateProjectState
 import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
-import com.yapp.presentation.ui.login.LargeButton
+import com.yapp.presentation.ui.intro.LargeButton
 
 
 @Composable
