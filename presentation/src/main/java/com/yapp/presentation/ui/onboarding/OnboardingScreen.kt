@@ -1,5 +1,8 @@
-package com.yapp.presentation.ui.intro
+package com.yapp.presentation.ui.onboarding
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -11,20 +14,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.yapp.designsystem.component.TimiBody2Medium
+import com.yapp.designsystem.component.TimiButton1SemiBold
+import com.yapp.designsystem.component.TimiH1SemiBold
+import com.yapp.designsystem.theme.Purple500
 import com.yapp.presentation.R
+import com.yapp.presentation.ui.createproject.CreateProjectActivity
 
-//todo@jsh-me
 @Composable
-fun InitialProjectOnboardScreen() {
+fun OnboardingScreen(
+    context: Context = LocalContext.current
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -32,28 +42,41 @@ fun InitialProjectOnboardScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
+        TimiH1SemiBold(
             modifier = Modifier.padding(bottom = 30.dp),
-            text = stringResource(id = R.string.initial_onboard_project_title),
-            textAlign = TextAlign.Center
+            text = stringResource(id = R.string.onboarding_project_title),
+            textAlign = TextAlign.Center,
+            color = Color.Black
         )
-
-        Text(
+        
+        TimiBody2Medium(
             modifier = Modifier.padding(
                 start = 40.dp,
                 end = 40.dp,
                 bottom = 100.dp
             ),
-            text = "우리 서비스 쓰면 좋은 점 블라블라라 우리 서비스 쓰면 좋은 점 블라블라라 우리 서비스 쓰면 좋은 점 블라블라라",
-            textAlign = TextAlign.Center
+            text = stringResource(id = R.string.onboarding_project_description),
+            textAlign = TextAlign.Center,
+            color = Color.Black
         )
 
         LargeButton(
-            text = "프로젝트 시작하기",
-            backgroundColor = Color.Magenta,
+            text = stringResource(id = R.string.onboarding_project_start_button),
+            backgroundColor = Purple500,
             enabled = true,
         ) {
+            context.startActivity(
+                Intent(context, CreateProjectActivity::class.java)
+            )
+            (context as? Activity)?.finish()
         }
+
+        TimiBody2Medium(
+            modifier = Modifier.padding(top = 16.dp),
+            text = stringResource(id = R.string.onboarding_project_help_description),
+            textAlign = TextAlign.Center,
+            color = Purple500
+        )
     }
 }
 
@@ -62,8 +85,8 @@ fun LargeButton(
     text: String,
     enabled: Boolean,
     textColor: Color = Color.White,
-    backgroundColor: Color = Color.Transparent,
-    strokeColor: Color = Color.Transparent,
+    backgroundColor: Color = Purple500,
+    strokeColor: Color = Purple500,
     onClick: () -> Unit,
 ) {
     Button(
@@ -83,9 +106,14 @@ fun LargeButton(
         ),
         onClick = { onClick() }) {
 
-        Text(
+        TimiButton1SemiBold(
             text = text,
             color = textColor
         )
     }
+}
+@Preview
+@Composable
+fun OnboardingScreenPreview() {
+    OnboardingScreen()
 }

@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yapp.presentation.R
-import com.yapp.presentation.ui.createproject.CreateProjectActivity
 import com.yapp.presentation.ui.login.LoginViewModel
+import com.yapp.presentation.ui.onboarding.OnboardingActivity
 
 @Composable
 fun IntroScreen(
@@ -44,7 +44,7 @@ fun IntroScreen(
                 .padding(16.dp)
                 .clickable {
                     context.startActivity(
-                        Intent(context, CreateProjectActivity::class.java)
+                        Intent(context, OnboardingActivity::class.java)
                     )
                     (context as? Activity)?.finish()
                 },

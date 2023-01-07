@@ -1,7 +1,6 @@
 package com.yapp.presentation.ui.createproject.redux
 
 import com.yapp.core.redux.BaseState
-import com.yapp.presentation.ui.createproject.screen.ProjectDifficulty
 
 data class CreateProjectState(
     val projectName: String = "",
@@ -12,13 +11,11 @@ data class CreateProjectState(
     val hasProjectGoalFocused: Boolean = false,
     val isButtonEnabled: Boolean = false,
     val isDropDownVisible: Boolean = false,
-    val projectDifficulty: ProjectDifficulty = ProjectDifficulty.NONE,
     val isCalendarVisible: Boolean = false,
     val openCalendarType: CreateProjectIntent.DueDateType = CreateProjectIntent.DueDateType.NONE
 ): BaseState {
     fun isFilledAllField(): Boolean {
-        return projectDifficulty != ProjectDifficulty.NONE
-                && projectName.isNotBlank()
+        return projectName.isNotBlank()
                 && projectStartDate != "시작날"
                 && projectEndDate != "마지막날"
                 && projectGoal.isNotBlank()

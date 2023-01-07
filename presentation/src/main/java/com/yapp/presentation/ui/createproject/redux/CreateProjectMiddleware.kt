@@ -13,8 +13,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class CreateProjectMiddleware @Inject constructor(
-    // example
-    // private val usecase: MainUseCase
 ) : BaseMiddleware<CreateProjectIntent, CreateProjectSingleEvent> {
     override fun mutate(
         scope: CoroutineScope,
@@ -31,8 +29,12 @@ class CreateProjectMiddleware @Inject constructor(
 
                 filterIsInstance<CreateProjectIntent.ClickBackButton>()
                     .onEach {
-                        Timber.e(it.toString())
-                        eventFlow.emit(CreateProjectSingleEvent.Exit)
+                        val event = if (it.progress == 1f) {
+                            CreateProjectSingleEvent.NavigateOneStopPage
+                        } else {
+                            CreateProjectSingleEvent.Exit
+                        }
+                        eventFlow.emit(event)
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
@@ -43,19 +45,12 @@ class CreateProjectMiddleware @Inject constructor(
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-                filterIsInstance<CreateProjectIntent.ClickAppBarBackButton>()
-                    .onEach {
-                        val event = if (it.progress == 1f) {
-                            CreateProjectSingleEvent.NavigateOneStopPage
-                        } else {
-                            CreateProjectSingleEvent.Exit
-                        }
-                        Timber.e(event.toString())
-                        eventFlow.emit(event)
-                    }
-                    .shareIn(scope, SharingStarted.WhileSubscribed()),
-
-                )
+            filterIsInstance<CreateProjectIntent.StartMain>()
+                .onEach {
+                    eventFlow.emit(CreateProjectSingleEvent.NavigateToMain)
+                }
+                .shareIn(scope, SharingStarted.WhileSubscribed())
+            )
         }
     }
 }

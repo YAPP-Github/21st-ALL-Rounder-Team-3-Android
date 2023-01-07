@@ -1,7 +1,6 @@
 package com.yapp.presentation.ui.createproject.screen
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -17,16 +16,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
@@ -45,24 +41,28 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.yapp.designsystem.component.TimiBody1Medium
+import com.yapp.designsystem.component.TimiBody3Regular
+import com.yapp.designsystem.component.TimiH1SemiBold
 import com.yapp.designsystem.theme.Black
 import com.yapp.designsystem.theme.Gray100
 import com.yapp.designsystem.theme.Gray200
+import com.yapp.designsystem.theme.Gray300
 import com.yapp.designsystem.theme.Gray400
-import com.yapp.designsystem.theme.Gray600
+import com.yapp.designsystem.theme.Purple500
 import com.yapp.presentation.R
 import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.presentation.ui.createproject.redux.CreateProjectState
 import com.yapp.presentation.ui.createproject.viewmodel.CreateProjectViewModel
-import com.yapp.presentation.ui.intro.LargeButton
+import com.yapp.presentation.ui.onboarding.LargeButton
 
 
 @Composable
 fun CreateProjectOneStepScreen(
-    viewModel: CreateProjectViewModel
+    viewModel: CreateProjectViewModel,
+    onBackPressed: () -> Unit
 ) {
     val focusRequester by remember { mutableStateOf(FocusRequester()) }
     val focusManager = LocalFocusManager.current
@@ -70,7 +70,7 @@ fun CreateProjectOneStepScreen(
     val state = viewModel.viewState.collectAsState()
 
     BackHandler {
-        viewModel.dispatch(CreateProjectIntent.ClickBackButton)
+        onBackPressed()
     }
 
     Box(
@@ -78,11 +78,12 @@ fun CreateProjectOneStepScreen(
     ) {
         Column(
             modifier = Modifier
+                .padding(vertical = 16.dp)
                 .fillMaxWidth()
-                .padding(16.dp)
         ) {
-            Text(
+            TimiH1SemiBold(
                 modifier = Modifier
+                    .padding(horizontal = 16.dp)
                     .fillMaxWidth()
                     .padding(bottom = 40.dp),
                 text = stringResource(id = R.string.create_project_onestep_title),
@@ -93,8 +94,8 @@ fun CreateProjectOneStepScreen(
                 focusRequester = focusRequester,
                 focusManager = focusManager,
                 title = stringResource(id = R.string.project_name),
-                placeholder = "프로젝트 이름을 입력하세요.",
-                strokeColor = if (state.value.hasProjectNameFieldFocused) MaterialTheme.colors.primary else Gray600,
+                placeholder = stringResource(id = R.string.project_name_placeholder),
+                strokeColor = if (state.value.hasProjectNameFieldFocused) Purple500 else Gray200,
                 input = state.value.projectName,
                 onFocusChanged = {
                     viewModel.dispatch(CreateProjectIntent.ChangeProjectNameTextFieldFocused(it))
@@ -115,7 +116,7 @@ fun CreateProjectOneStepScreen(
                 focusManager = focusManager,
                 title = stringResource(id = R.string.project_goal),
                 placeholder = "학기 성적 A+ 도전 \uD83D\uDD25",
-                strokeColor = if (state.value.hasProjectGoalFocused) MaterialTheme.colors.primary else Gray600,
+                strokeColor = if (state.value.hasProjectGoalFocused) Purple500 else Gray200,
                 input = state.value.projectGoal,
                 onFocusChanged = {
                     viewModel.dispatch(CreateProjectIntent.ChangeProjectGoalTextFieldFocused(it))
@@ -126,14 +127,6 @@ fun CreateProjectOneStepScreen(
                 onInputChange = {
                     viewModel.dispatch(CreateProjectIntent.ChangeProjectGoal(it))
                 })
-            Spacing()
-            CreateProjectDropDown(
-                viewModel,
-                state.value
-            ) {
-                viewModel.dispatch(CreateProjectIntent.OnClickDropDown)
-            }
-
             BottomLargeButton(
                 title = "다음",
                 state
@@ -160,13 +153,26 @@ fun BottomLargeButton(
             .fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
     ) {
-        LargeButton(
-            text = title,
-          //  backgroundColor = if (state.value.isButtonEnabled) MaterialTheme.colors.primary else Gray4,
-          //  enabled = state.value.isButtonEnabled,
-        enabled = true
-        ) {
-            onClick()
+        Column {
+            Divider(
+                modifier = Modifier
+                    .padding(bottom = 10.dp)
+                    .fillMaxWidth()
+                    .height(1.dp),
+                color = Gray300
+            )
+            Box (
+                modifier = Modifier.padding(horizontal = 16.dp)
+            ){
+                LargeButton(
+                    text = title,
+                    //  backgroundColor = if (state.value.isButtonEnabled) MaterialTheme.colors.primary else Gray4,
+                    //  enabled = state.value.isButtonEnabled,
+                    enabled = true
+                ) {
+                    onClick()
+                }
+            }
         }
     }
 }
@@ -186,12 +192,13 @@ fun CreateProjectDueDate(
     Text(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 10.dp),
+            .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
         text = "프로젝트 기간",
     )
 
     Row(
-        modifier = Modifier.height(52.dp),
+        modifier = Modifier
+            .height(52.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -200,12 +207,11 @@ fun CreateProjectDueDate(
                 viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CreateProjectIntent.DueDateType.START))
             },
             text = state.projectStartDate,
-            color = if (state.isNotInitializedStartDate()) Gray100 else Black
+            color = if (state.isNotInitializedStartDate()) Gray400 else Black
 
         )
 
         Text(
-            modifier = Modifier.padding(horizontal = 10.dp),
             text = "~",
             color = Black
         )
@@ -214,7 +220,7 @@ fun CreateProjectDueDate(
                 viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CreateProjectIntent.DueDateType.END))
             },
             text = state.projectEndDate,
-            color = if (state.isNotInitializedEndDate()) Gray100 else Black
+            color = if (state.isNotInitializedEndDate()) Gray400 else Black
         )
     }
 }
@@ -229,21 +235,22 @@ fun RowScope.DateTextBox(
         modifier = Modifier
             .fillMaxHeight()
             .weight(1f)
+            .padding(horizontal = 16.dp)
             .background(shape = RoundedCornerShape(8.dp), color = Gray100)
             .border(
                 width = 1.dp,
                 color = Gray200,
                 shape = RoundedCornerShape(8.dp)
             )
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onDueDateClick() }
         ,
     ) {
-        Text(
+        TimiBody1Medium(
             text = text,
             modifier = Modifier
                 .padding(horizontal = 12.dp)
                 .align(Alignment.CenterStart),
-            style = MaterialTheme.typography.body1,
             color = color
         )
     }
@@ -263,18 +270,19 @@ fun CreateProjectInputField(
     onInputChange: (String) -> Unit,
     onTextCleared: () -> Unit
 ) {
-    Text(
+    TimiBody3Regular(
         modifier = Modifier
             .fillMaxWidth()
             .addFocusCleaner(focusManager)
-            .padding(bottom = 10.dp),
+            .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
         text = title,
-        color = Gray400,
-        style = MaterialTheme.typography.body2,
+        color = Black,
     )
 
     Box(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         contentAlignment = Alignment.CenterEnd,
     ) {
         TextField(
@@ -294,14 +302,13 @@ fun CreateProjectInputField(
                     shape = RoundedCornerShape(8.dp)
                 ),
             placeholder = {
-                Text(
+                TimiBody1Medium(
                     text = placeholder,
-                    style = MaterialTheme.typography.body1,
                     color = Gray400
                 )
             },
             colors = TextFieldDefaults.textFieldColors(
-                textColor = Color.Gray,
+                textColor = Color.Black,
                 disabledTextColor = Color.Transparent,
                 backgroundColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
@@ -333,133 +340,4 @@ fun Modifier.addFocusCleaner(focusManager: FocusManager, doOnClear: () -> Unit =
             focusManager.clearFocus()
         })
     }
-}
-
-@Composable
-fun CreateProjectDropDown(
-    viewModel: CreateProjectViewModel,
-    state: CreateProjectState,
-    onClick: () -> Unit
-) {
-    Text(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 10.dp),
-        text = "프로젝트 난이도",
-        style = MaterialTheme.typography.body2,
-        color = Color.Black
-    )
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(52.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(shape = RoundedCornerShape(8.dp), color = Gray100)
-            .border(
-                width = 1.dp,
-                color = Gray600,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .clickable { onClick() },
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = state.projectDifficulty.title,
-                style = MaterialTheme.typography.body1,
-                color = if (state.projectDifficulty == ProjectDifficulty.NONE) Gray400 else Black,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-            )
-
-            Icon(
-                imageVector = Icons.Default.ArrowDropDown,
-                tint = if (state.projectDifficulty == ProjectDifficulty.NONE) Gray400 else Black,
-                contentDescription = null,
-            )
-        }
-    }
-
-    Spacing(4.dp)
-    AnimatedVisibility(visible = state.isDropDownVisible) {
-        ChildDropDownList(viewModel)
-    }
-}
-
-@Composable
-fun ChildDropDownList(viewModel: CreateProjectViewModel) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .background(
-                shape = RoundedCornerShape(8.dp),
-                color = Gray100
-            ),
-    ) {
-        ChildDropDownText(ProjectDifficulty.EASY) {
-            viewModel.dispatch(
-                CreateProjectIntent.OnClickDropDownItem(
-                    ProjectDifficulty.EASY
-                )
-            )
-        }
-        ChildDropDownText(ProjectDifficulty.MEDIUM) {
-            viewModel.dispatch(
-                CreateProjectIntent.OnClickDropDownItem(
-                    ProjectDifficulty.MEDIUM
-                )
-            )
-
-        }
-        ChildDropDownText(ProjectDifficulty.HARD) {
-            viewModel.dispatch(
-                CreateProjectIntent.OnClickDropDownItem(
-                    ProjectDifficulty.HARD
-                )
-            )
-        }
-    }
-}
-
-enum class ProjectDifficulty(val title: String) {
-    NONE("난이도를 선택하세요"),
-    EASY("여유있게 우리의 목표는 완주!"),
-    MEDIUM("적당하게 B 이상 가보자고"),
-    HARD("완벽하게 A+을 위하여")
-}
-
-@Composable
-fun ChildDropDownText(
-    difficulty: ProjectDifficulty,
-    onClick: () -> Unit
-) {
-    Box(
-        Modifier
-            .fillMaxWidth()
-            .padding(4.dp)
-            .height(40.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .clickable { onClick() }
-    ) {
-        Text(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .align(Alignment.CenterStart),
-            text = difficulty.title,
-            color = Black
-        )
-    }
-}
-
-@Preview
-@Composable
-fun CreateProjectOneStepScreenPreview() {
 }

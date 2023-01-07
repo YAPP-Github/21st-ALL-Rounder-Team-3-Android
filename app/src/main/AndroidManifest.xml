@@ -22,6 +22,7 @@
 
         <activity android:name="com.yapp.presentation.ui.main.MainActivity"/>
         <activity android:name="com.yapp.presentation.ui.login.LoginActivity"/>
+        <activity android:name="com.yapp.presentation.ui.onboarding.OnboardingActivity"/>
         <activity
             android:name="com.yapp.presentation.ui.createproject.CreateProjectActivity"
             android:windowSoftInputMode="adjustResize"

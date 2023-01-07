@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,12 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -28,8 +26,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -38,7 +36,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.yapp.designsystem.theme.Gray600
+import com.yapp.designsystem.theme.Gray200
 import com.yapp.presentation.ui.createproject.CreateProjectScreenRoute
 import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.presentation.ui.createproject.redux.CreateProjectSingleEvent
@@ -88,7 +86,7 @@ fun CreateProjectScreen(
     Scaffold(
         topBar = {
             AppBar {
-                viewModel.dispatch(CreateProjectIntent.ClickAppBarBackButton(progress))
+                viewModel.dispatch(CreateProjectIntent.ClickBackButton(progress))
             }
         }
     ) { contentPadding ->
@@ -98,9 +96,10 @@ fun CreateProjectScreen(
             LinearProgressIndicator(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(2.dp)
                     .padding(contentPadding),
                 progress = animatedProgress,
-                backgroundColor = Gray600
+                backgroundColor = Gray200
             )
 
             NavHost(
@@ -108,10 +107,14 @@ fun CreateProjectScreen(
                 startDestination = CreateProjectScreenRoute.STEP_ONE.route
             ) {
                 composable(CreateProjectScreenRoute.STEP_ONE.route) {
-                    CreateProjectOneStepScreen(viewModel)
+                    CreateProjectOneStepScreen(viewModel) {
+                        viewModel.dispatch(CreateProjectIntent.ClickBackButton(progress))
+                    }
                 }
                 composable(CreateProjectScreenRoute.STEP_TWO.route) {
-                    CreateProjectTwoStepScreen(viewModel)
+                    CreateProjectTwoStepScreen(viewModel) {
+                        viewModel.dispatch(CreateProjectIntent.ClickBackButton(progress))
+                    }
                 }
             }
         }
@@ -130,9 +133,8 @@ private fun AppBar(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            imageVector = Icons.Default.ArrowBack,
-            tint = Color.Unspecified,
+        Image(
+            painter = painterResource(com.yapp.designsystem.R.drawable.icon_arrow_left),
             contentDescription = null,
             modifier = Modifier
                 .clip(RoundedCornerShape(30.dp))
