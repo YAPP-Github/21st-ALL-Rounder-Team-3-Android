@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         tools:ignore="MissingApplicationIcon">
         <activity
-            android:name="com.yapp.presentation.ui.login.LoginActivity"
+            android:name="com.yapp.presentation.ui.intro.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,7 @@
         </activity>
 
         <activity android:name="com.yapp.presentation.ui.main.MainActivity"/>
+        <activity android:name="com.yapp.presentation.ui.login.LoginActivity"/>
         <activity
             android:name="com.yapp.presentation.ui.createproject.CreateProjectActivity"
             android:windowSoftInputMode="adjustResize"
