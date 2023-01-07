@@ -2,13 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="com.yapp.app.App"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:hardwareAccelerated="true"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         tools:ignore="MissingApplicationIcon">
         <activity
             android:name="com.yapp.presentation.ui.intro.IntroActivity"
@@ -20,12 +21,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.yapp.presentation.ui.main.MainActivity"/>
-        <activity android:name="com.yapp.presentation.ui.login.LoginActivity"/>
+        <activity android:name="com.yapp.presentation.ui.main.MainActivity" />
+        <activity android:name="com.yapp.presentation.ui.login.LoginActivity" />
         <activity
             android:name="com.yapp.presentation.ui.createproject.CreateProjectActivity"
-            android:windowSoftInputMode="adjustResize"
-            />
+            android:windowSoftInputMode="adjustResize" />
 
     </application>
 
