@@ -1,4 +1,4 @@
-package com.yapp.presentation.ui.createproject.twostep
+package com.yapp.presentation.ui.createproject.screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background

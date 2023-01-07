@@ -1,17 +1,19 @@
-package com.yapp.presentation.ui.createproject
+package com.yapp.presentation.ui.intro
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.yapp.presentation.ui.createproject.screen.CreateProjectScreen
+import com.yapp.designsystem.theme.AllRounder3Theme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CreateProjectActivity: ComponentActivity() {
+class IntroActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CreateProjectScreen()
+            AllRounder3Theme {
+                IntroScreen()
+            }
         }
     }
 }

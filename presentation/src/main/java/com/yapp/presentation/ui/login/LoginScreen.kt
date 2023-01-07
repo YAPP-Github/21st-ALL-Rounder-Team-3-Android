@@ -3,57 +3,64 @@ package com.yapp.presentation.ui.login
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.yapp.presentation.R
-import com.yapp.presentation.ui.createproject.CreateProjectActivity
+import com.google.accompanist.web.AccompanistWebChromeClient
+import com.google.accompanist.web.WebView
+import com.google.accompanist.web.rememberWebViewState
+import com.yapp.presentation.BuildConfig
+import com.yapp.presentation.ui.intro.IntroActivity
+import com.yapp.presentation.ui.login.redux.LoginIntent
+import com.yapp.presentation.ui.login.redux.LoginSingleEvent
+import com.yapp.presentation.ui.login.webview.LoginWebViewClient
+import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
     context: Context = LocalContext.current
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = MaterialTheme.colors.primary),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Icon(
-            painter = painterResource(id = R.drawable.kakako_login_button),
-            modifier = Modifier
-                .wrapContentSize()
-                .padding(16.dp)
-                .clickable {
-                    context.startActivity(
-                        Intent(context, CreateProjectActivity::class.java)
-                    )
-                    (context as? Activity)?.finish()
-                },
-            contentDescription = "kakao login button",
-            tint = Color.Unspecified,
-        )
+    LaunchedEffect(viewModel.singleEventFlow) {
+        viewModel.singleEventFlow
+            .onEach { event ->
+                when (event) {
+                    LoginSingleEvent.ShowToast -> {
+                        Toast.makeText(context, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    }
+
+                    LoginSingleEvent.NavigateToCreateProject -> {
+                        context.startActivity(Intent(context, IntroActivity::class.java))
+                        (context as? Activity)?.finish()
+                    }
+                }
+            }
     }
+
+    val webViewClient = LoginWebViewClient(
+        onLoginSucceed = { appToken ->
+            viewModel.dispatch(LoginIntent.KakaoLoginSucceed(appToken))
+        },
+        onLoginFailed = {
+            viewModel.dispatch(LoginIntent.KakaoLoginFailed)
+        }
+    )
+    val webChromeClient = AccompanistWebChromeClient()
+
+    val webViewState =
+        rememberWebViewState(
+            url = BuildConfig.KAKAO_LOGIN_AUTH_URL,
+            additionalHttpHeaders = emptyMap()
+        )
+
+    WebView(
+        state = webViewState,
+        client = webViewClient,
+        chromeClient = webChromeClient
+    )
 }
 
 @Preview

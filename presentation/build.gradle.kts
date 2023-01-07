@@ -17,12 +17,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"https://timitimi.site/oauth2/authrization/kakao\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"https://timitimi.site/oauth2/authrization/kakao\"")
         }
     }
     compileOptions {
@@ -53,7 +57,7 @@ dependencies {
     implementation(libs.kotlin.collections.immutable)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.ktx)
-    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.bundles.accompanist)
     implementation(libs.hilt.android)
     kapt(libs.hilt.kapt)
     implementation(libs.timber)
