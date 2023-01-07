@@ -36,6 +36,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.yapp.core.ui.startActivityWithAnimation
 import com.yapp.designsystem.theme.Gray200
 import com.yapp.presentation.ui.createproject.CreateProjectScreenRoute
 import com.yapp.presentation.ui.createproject.redux.CreateProjectIntent
@@ -55,14 +56,14 @@ fun CreateProjectScreen(
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
     )
+    val activity = context as Activity
 
     LaunchedEffect(viewModel.singleEventFlow) {
         viewModel.singleEventFlow
             .onEach { event ->
                 when (event) {
                     CreateProjectSingleEvent.NavigateToMain -> {
-                        context.startActivity(Intent(context, MainActivity::class.java))
-                        (context as? Activity)?.finish()
+                        activity.startActivityWithAnimation<MainActivity>()
                     }
 
                     CreateProjectSingleEvent.NavigateToTwoStepPage -> {

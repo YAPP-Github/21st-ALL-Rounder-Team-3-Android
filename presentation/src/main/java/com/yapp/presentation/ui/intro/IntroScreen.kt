@@ -2,7 +2,6 @@ package com.yapp.presentation.ui.intro
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.yapp.core.ui.startActivityWithAnimation
 import com.yapp.presentation.R
 import com.yapp.presentation.ui.login.LoginViewModel
 import com.yapp.presentation.ui.onboarding.OnboardingActivity
@@ -43,10 +43,7 @@ fun IntroScreen(
                 .wrapContentSize()
                 .padding(16.dp)
                 .clickable {
-                    context.startActivity(
-                        Intent(context, OnboardingActivity::class.java)
-                    )
-                    (context as? Activity)?.finish()
+                    (context as Activity).startActivityWithAnimation<OnboardingActivity>()
                 },
             contentDescription = "kakao login button",
             tint = Color.Unspecified,

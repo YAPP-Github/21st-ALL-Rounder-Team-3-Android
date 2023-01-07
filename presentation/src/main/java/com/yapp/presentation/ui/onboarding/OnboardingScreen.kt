@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.yapp.core.ui.startActivityWithAnimation
 import com.yapp.designsystem.component.TimiBody2Medium
 import com.yapp.designsystem.component.TimiButton1SemiBold
 import com.yapp.designsystem.component.TimiH1SemiBold
@@ -48,7 +49,7 @@ fun OnboardingScreen(
             textAlign = TextAlign.Center,
             color = Color.Black
         )
-        
+
         TimiBody2Medium(
             modifier = Modifier.padding(
                 start = 40.dp,
@@ -65,10 +66,7 @@ fun OnboardingScreen(
             backgroundColor = Purple500,
             enabled = true,
         ) {
-            context.startActivity(
-                Intent(context, CreateProjectActivity::class.java)
-            )
-            (context as? Activity)?.finish()
+            (context as Activity).startActivityWithAnimation<CreateProjectActivity>()
         }
 
         TimiBody2Medium(
@@ -112,6 +110,7 @@ fun LargeButton(
         )
     }
 }
+
 @Preview
 @Composable
 fun OnboardingScreenPreview() {
