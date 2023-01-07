@@ -83,7 +83,7 @@ fun TimiAppBarPreview() {
     ) {
         TimiTopAppBar(
             onClickBackButton = {},
-            isTextCenterAlignment = false,
+            isTextCenterAlignment = true,
             firstTrailingIcon = { TopBarNotificationIcon(count = 1) {} },
             secondTrailingIcon = { TopBarEditIcon {} },
             thirdTrailingIcon = { TopBarDeleteIcon {} },

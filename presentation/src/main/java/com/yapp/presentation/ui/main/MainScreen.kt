@@ -2,7 +2,11 @@
 
 package com.yapp.presentation.ui.main
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,10 +26,15 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
@@ -41,14 +51,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.germainkevin.collapsingtopbar.CollapsingTopBarScrollBehavior
+import com.germainkevin.collapsingtopbar.rememberCollapsingTopBarScrollBehavior
+import com.yapp.designsystem.component.TimiH2SemiBold
+import com.yapp.designsystem.component.TimiH3SemiBold
+import com.yapp.designsystem.component.TopBarNotificationIcon
+import com.yapp.designsystem.modifier.drawColoredShadow
+import com.yapp.presentation.R
 import com.yapp.presentation.ui.main.components.Tasks
 import com.yapp.presentation.ui.main.redux.MainSingleEvent
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import me.onebone.toolbar.CollapsingToolbarScaffold
-import me.onebone.toolbar.ScrollStrategy
-import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
-
 
 @Composable
 fun MainScreen(
@@ -61,9 +74,10 @@ fun MainScreen(
         viewModel.singleEventFlow
             .onEach { event ->
                 when (event) {
-                    MainSingleEvent.NavigateToProjectList-> {
+                    MainSingleEvent.NavigateToProjectList -> {
                         onBackPressed()
                     }
+
                     MainSingleEvent.NavigateToCreateTask -> {
                         //TODO(EvergreenTree97)
                     }
@@ -80,7 +94,7 @@ fun MainScreen(
                         //TODO(EvergreenTree97)
                     }
 
-                    MainSingleEvent.NavigateToTaskDetail-> {
+                    MainSingleEvent.NavigateToTaskDetail -> {
                         //TODO(EvergreenTree97)
                     }
                 }
@@ -88,78 +102,88 @@ fun MainScreen(
             .launchIn(this)
     }
 
-
-    CollapsingToolbarScaffold(
-        modifier = Modifier.fillMaxSize(),
-        state = rememberCollapsingToolbarScaffoldState(),
-        scrollStrategy = ScrollStrategy.EnterAlwaysCollapsed,
-        toolbar = {
-            Surface(
-                shape = RoundedCornerShape(
-                    bottomStart = 10.dp,
-                    bottomEnd = 10.dp,
-                ),
-            ) {
-                Header()
-            }
+    val scrollBehavior = rememberCollapsingTopBarScrollBehavior()
+    Column(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) {
+        Header(scrollBehavior = scrollBehavior)
+        Box(modifier = Modifier.fillMaxSize()) {
+            Tasks(title = "나의 할일")
         }
+    }
+}
+
+@Composable
+fun Header(
+    scrollBehavior: CollapsingTopBarScrollBehavior
+) {
+    Card(
+        modifier = Modifier
+            .drawColoredShadow()
+            .animateContentSize(),
     ) {
-        Tasks(title = "나의 할일")
+        Column(
+            Modifier.padding(horizontal = 16.dp),
+        ) {
+            MainTopAppBar(
+                onClickLeftArrow = {},
+                onClickNotification = {},
+                hasNotification = true,
+                centerContent = {
+                    TimiH3SemiBold(
+                        text = "2022-2 4차 산업 혁플",
+                        color = Color.Black
+                    )
+                },
+                collapsed = scrollBehavior.isCollapsed,
+            )
+            AnimatedVisibility(
+                visible = scrollBehavior.isExpanded,
+                enter = fadeIn(),
+                exit = fadeOut(),
+            ) {
+                Column {
+                    TimiH2SemiBold(
+                        text = "2022-2 4차 산업 혁플",
+                        color = Color.Black
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    BadgeString(
+                        title = "학기 성적 A+ 도전",
+                        badgeText = "여유 있게",
+                        borderColor = MaterialTheme.colors.primary,
+                        badgeColor = Color.White,
+                        badgeFontColor = MaterialTheme.colors.primary,
+                        space = 11.dp
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    TaskBar(
+                        badgeText = "D-10",
+                        title = "11/16 ~ 12/7"
+                    )
+                    Spacer(modifier = Modifier.height(14.dp))
+                }
+            }
+            MemberContents(
+                title = "팀원 7명",
+                memebers = dummyMembers
+            )
+            Spacer(modifier = Modifier.height(18.dp))
+        }
     }
 }
 
 
 @Composable
-fun Header() {
-    Column(
-        Modifier.padding(horizontal = 16.dp),
-    ) {
-        TopAppBar(
-            onClickLeftArrow = {},
-            onClickNotification = {},
-            hasNotification = true,
-        )
-        Spacer(modifier = Modifier.height(6.dp))
-        Text(
-            text = "2022-2 4차 산업 혁명의 이해 팀플",
-            style = MaterialTheme.typography.h2,
-            color = Color.Black
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        BadgeString(
-            title = "학기 성적 A+ 도전",
-            badgeText = "여유 있게",
-            borderColor = MaterialTheme.colors.primary,
-            badgeColor = Color.White,
-            badgeFontColor = MaterialTheme.colors.primary,
-            space = 11.dp
-        )
-        Spacer(modifier = Modifier.height(12.dp))
-        TaskBar(
-            badgeText = "D-10",
-            title = "11/16 ~ 12/7"
-        )
-        Spacer(modifier = Modifier.height(14.dp))
-        MemberContents(
-            title = "팀원 7명",
-            memebers = dummyMembers
-        )
-        Spacer(modifier = Modifier.height(18.dp))
-    }
-
-}
-
-
-@Composable
-fun TopAppBar(
+fun MainTopAppBar(
     onClickLeftArrow: () -> Unit,
     onClickNotification: () -> Unit,
-    hasNotification: Boolean,
+    notificationCount: Int,
+    centerContent: @Composable () -> Unit = {},
+    collapsed: Boolean,
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(height = 40.dp)
+            .height(height = 48.dp)
             .background(color = Color.White)
     ) {
         Row(
@@ -168,15 +192,32 @@ fun TopAppBar(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Image(
-                modifier = Modifier.clickable(
-                    onClick = onClickLeftArrow
-                ),
-                painter = painterResource(id = com.yapp.designsystem.R.drawable.icon_arrow_left),
-                contentDescription = "leftArrow"
-            )
-            Notification(
-                hasNotification = hasNotification,
+            if (collapsed) {
+                Row(horizontalArrangement = Arrangement.spacedBy(space = 16.dp)) {
+                    Image(
+                        modifier = Modifier.clickable(
+                            onClick = onClickLeftArrow
+                        ),
+                        painter = painterResource(id = com.yapp.designsystem.R.drawable.icon_arrow_left),
+                        contentDescription = "leftArrow"
+                    )
+                    centerContent()
+                }
+            } else {
+                Image(
+                    modifier = Modifier.clickable(
+                        onClick = onClickLeftArrow
+                    ),
+                    painter = painterResource(id = com.yapp.designsystem.R.drawable.icon_arrow_left),
+                    contentDescription = "leftArrow"
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "logo"
+                )
+            }
+            TopBarNotificationIcon(
+                count = notificationCount,
                 onClick = onClickNotification,
             )
         }

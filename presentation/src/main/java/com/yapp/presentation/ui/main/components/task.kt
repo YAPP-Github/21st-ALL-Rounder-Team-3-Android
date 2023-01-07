@@ -29,6 +29,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.yapp.designsystem.component.TimiTaskCard
+
 data class TaskItem(
     val profile: String,
     val name: String,
@@ -66,6 +68,16 @@ fun Tasks(
             items(
                 items = dummyTaskItems,
             ) { taskItem ->
+                TimiTaskCard(
+                    profile = taskItem.profile,
+                    name = taskItem.name,
+                    period = taskItem.startDate,
+                    content = taskItem.title,
+                    subContent = taskItem.title,
+                    progress = ,
+                    progressBarText = ,
+                    taskType = 
+                )
                 Task(taskItem)
             }
         }
