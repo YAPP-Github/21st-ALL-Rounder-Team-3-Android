@@ -6,6 +6,7 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import com.yapp.data.BuildConfig
 import com.yapp.data.interceptor.TimiChunckerInterceptor
 import com.yapp.data.interceptor.TimiHeaderInterceptor
+import com.yapp.domain.preference.UserPreference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,9 +39,9 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideHeaderInterceptor(
-        //todo add userRepository
+        userPreference: UserPreference
     ): TimiHeaderInterceptor {
-        return TimiHeaderInterceptor()
+        return TimiHeaderInterceptor(userPreference)
     }
 
     @Provides
