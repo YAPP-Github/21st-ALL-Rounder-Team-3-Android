@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -22,6 +23,26 @@ import com.yapp.designsystem.theme.Green100
 import com.yapp.designsystem.theme.Green500
 import com.yapp.designsystem.theme.Purple100
 import com.yapp.designsystem.theme.Purple500
+
+@Composable
+fun TimiHalfRoundedBadge(
+    modifier: Modifier = Modifier,
+    text: String,
+    border: TimiBorder? = TimiBorder(
+        color = Purple500,
+    ),
+    backgroundColor: Color = Color.White,
+    fontColor: Color = Purple500,
+) {
+    TimiCaption2BasicBadge(
+        modifier = modifier,
+        text = text,
+        shape = RoundedCornerShape(50.dp),
+        fontColor = fontColor,
+        border = border,
+        backgroundColor = backgroundColor,
+    )
+}
 
 @Composable
 fun TimiMediumRoundedBadge(
@@ -81,11 +102,48 @@ fun TimiBasicBadge(
             .background(
                 color = backgroundColor
             ),
+        contentAlignment = Alignment.Center
     ) {
         TimiCaption1Regular(
-            modifier = Modifier.padding(
-                horizontal = 8.dp,
+            modifier = Modifier
+                .padding(
+                    horizontal = 7.5.dp,
+                )
+                .padding(
+                    vertical = 2.dp,
+                ),
+            text = text,
+            color = fontColor
+        )
+    }
+}
+
+@Composable
+private fun TimiCaption2BasicBadge(
+    modifier: Modifier = Modifier,
+    text: String,
+    shape: Shape,
+    fontColor: Color,
+    border: TimiBorder?,
+    backgroundColor: Color,
+) {
+    Box(
+        modifier = modifier
+            .timiClipBorder(
+                border = border,
+                shape = shape
+            )
+            .background(
+                color = backgroundColor
             ),
+        contentAlignment = Alignment.Center
+    ) {
+        TimiCaption2Regular(
+            modifier = Modifier
+                .padding(
+                    horizontal = 10.dp,
+                    vertical = 4.dp,
+                ),
             text = text,
             color = fontColor
         )
@@ -131,6 +189,14 @@ fun BadgePreview() {
             fontColor = Green500,
         )
         TimiSmallRoundedBadge(
+            text = "12.2 ~ 12.7",
+            border = TimiBorder(
+                color = Gray200
+            ),
+            backgroundColor = Gray100,
+            fontColor = Gray500,
+        )
+        TimiHalfRoundedBadge(
             text = "12.2 ~ 12.7",
             border = TimiBorder(
                 color = Gray200
