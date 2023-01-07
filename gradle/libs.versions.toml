@@ -32,7 +32,7 @@ compose-activity = "1.6.1"
 compose-navigation = "2.5.3"
 accompanist = "0.28.0"
 coil = "2.2.2"
-toolbar = "2.3.5"
+toolbar = "1.1.7"
 
 # ktx
 ktx-core = "1.9.0"
@@ -106,7 +106,7 @@ compose-ktx-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-compose
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-webview = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanist" }
 compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-compose-toolbar = { module = "me.onebone:toolbar-compose", version.ref = "toolbar"}
+compose-toolbar = { module = "com.github.germainkevinbusiness:CollapsingTopBarCompose", version.ref = "toolbar"}
 
 junit = { module = "junit:junit", version.ref = "junit" }
 androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-junit" }
@@ -142,7 +142,6 @@ compose = [
     "compose-material",
     "compose-material-icons-extended",
     "compose-material-icons",
-    "compose-runtime",
     "compose-ui-tooling-preview",
     "compose-hilt-navigation",
     "compose-navigation",
