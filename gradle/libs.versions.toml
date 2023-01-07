@@ -104,6 +104,7 @@ compose-ui-test = { module = "androidx.compose.ui:ui-test-manifest", version.ref
 compose-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "dagger-hilt-navigation-compose" }
 compose-ktx-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "compose-lifecycle" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-webview = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanist" }
 compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 compose-toolbar = { module = "me.onebone:toolbar-compose", version.ref = "toolbar"}
 
@@ -168,4 +169,7 @@ network = [
     "okhttp-logging-interceptor",
     "kotlin-serialization-json"
 ]
-accompanist = ["accompanist-systemuicontroller"]
+accompanist = [
+    "accompanist-systemuicontroller",
+    "accompanist-webview"
+]
