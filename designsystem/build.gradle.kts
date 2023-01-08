@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yapp.designsystem"
+    namespace = "com.yapp.timitimi.designsystem"
     compileSdk = libs.versions.compile.sdk.get().toInt()
 
     defaultConfig {

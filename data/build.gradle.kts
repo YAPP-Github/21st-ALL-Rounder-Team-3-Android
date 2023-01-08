@@ -10,7 +10,7 @@ plugins {
 
 android {
     compileSdk = libs.versions.compile.sdk.get().toInt()
-    namespace = "com.yapp.data"
+    namespace = "com.yapp.timitimi.data"
 
     buildTypes {
         debug {

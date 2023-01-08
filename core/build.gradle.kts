@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yapp.core"
+    namespace = "com.yapp.timitimi.core"
     compileSdk = libs.versions.compile.sdk.get().toInt()
 
     compileOptions {

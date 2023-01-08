@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yapp.app"
+    namespace = "com.yapp.timitimi.app"
     compileSdk = 33
 
     defaultConfig {
