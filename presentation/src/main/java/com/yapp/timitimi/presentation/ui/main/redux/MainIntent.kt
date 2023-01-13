@@ -8,6 +8,9 @@ sealed interface MainIntent : BaseIntent {
     object OnClickNotificationButton : MainIntent
     object OnSelectAddProfile : MainIntent
     object OnClickFab : MainIntent
+    data class Init(
+        val projectId: String,
+    ) : MainIntent
     data class OnClickDropBox(val isExpanded: Boolean) : MainIntent
     data class OnSelectProfile(val index: Int) : MainIntent
     data class OnClickTaskItem(val index: Int) : MainIntent
