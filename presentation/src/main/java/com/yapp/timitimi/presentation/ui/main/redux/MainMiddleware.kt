@@ -25,12 +25,13 @@ class MainMiddleware @Inject constructor(
         return intentFlow.run {
             merge(
                 filterIsInstance<MainIntent.Init>()
-                    .onEach {
-                        Timber.e(it.toString())
-                        participantsRepository.getProjectParticipants(it.projectId)
-                            .onSuccess {
+                    .onEach { init ->
+                        Timber.e(init.toString())
+                        participantsRepository.getProjectParticipants(init.projectId).onSuccess {
+                           
+                        }.onFailure { exception ->
 
-                            }
+                        }
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 

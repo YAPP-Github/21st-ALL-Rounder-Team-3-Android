@@ -6,6 +6,11 @@ import com.yapp.timitimi.redux.Reducer
 class MainReducer : Reducer<MainState> {
     override fun invoke(action: BaseIntent, state: MainState): MainState {
         return when (action) {
+            is MainIntent.Init -> {
+
+                state.copy()
+            }
+
             is MainIntent.OnSelectProfile -> {
                 state.copy(
                     selectedProfileIndex = action.index
