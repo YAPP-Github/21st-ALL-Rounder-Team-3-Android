@@ -4,8 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,15 +45,16 @@ fun LoginScreen(
             }
     }
 
-    val webViewClient = LoginWebViewClient(
-        onLoginSucceed = { appToken ->
-            viewModel.dispatch(LoginIntent.KakaoLoginSucceed(appToken))
-        },
-        onLoginFailed = {
-            viewModel.dispatch(LoginIntent.KakaoLoginFailed)
-        }
-    )
-    val webChromeClient = AccompanistWebChromeClient()
+    val webViewClient = remember {
+        LoginWebViewClient(
+            onLoginSucceed = { appToken ->
+                viewModel.dispatch(LoginIntent.KakaoLoginSucceed(appToken))
+            },
+            onLoginFailed = {
+                viewModel.dispatch(LoginIntent.KakaoLoginFailed)
+            }
+        )
+    }
 
     val webViewState =
         rememberWebViewState(
@@ -56,11 +62,26 @@ fun LoginScreen(
             additionalHttpHeaders = emptyMap()
         )
 
-    WebView(
-        state = webViewState,
-        client = webViewClient,
-        chromeClient = webChromeClient
-    )
+    Box(modifier = Modifier
+        .fillMaxSize()
+    ) {
+        WebView(
+            modifier = Modifier.align(Alignment.Center),
+            state = webViewState,
+            client = webViewClient,
+            chromeClient = AccompanistWebChromeClient(),
+            onCreated = { webView ->
+                webView.settings.apply {
+                    javaScriptEnabled = true
+                    setSupportMultipleWindows(true)
+                    javaScriptCanOpenWindowsAutomatically = true
+                    loadWithOverviewMode = true
+                    useWideViewPort = true
+                    domStorageEnabled = true
+                }
+            },
+        )
+    }
 }
 
 @Preview
