@@ -15,17 +15,17 @@ class LoginWebViewClient(
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         super.shouldOverrideUrlLoading(view, request)
         Timber.e(request?.url?.toString())
-       // parseUrl(request?.url)
+        if (isLoginSucceed(request?.url)) return true
         view?.loadUrl(request?.url.toString())
         return false
     }
 
-    private fun parseUrl(url: Uri?) {
+    private fun isLoginSucceed(url: Uri?): Boolean {
         if (url?.queryParameterNames?.contains(QUERY_PARAMS_APP_TOKEN) == true) {
             onLoginSucceed(url.getQueryParameter(QUERY_PARAMS_APP_TOKEN) ?: "")
-        } else {
-         //   onLoginFailed()
+            return true
         }
+        return false
     }
 
     override fun onReceivedError(
@@ -38,6 +38,8 @@ class LoginWebViewClient(
     }
 
     companion object {
-        private const val QUERY_PARAMS_APP_TOKEN = "appToken"
+        // 서버에서 apptoken 넘겨주면 수정 필요.
+        private const val QUERY_PARAMS_APP_TOKEN = "code"
+//        private const val QUERY_PARAMS_APP_TOKEN = "appToken"
     }
 }
