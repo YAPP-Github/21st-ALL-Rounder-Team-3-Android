@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.kapt)
+    id(libs.plugins.firebase.services.get().pluginId)
 }
 
 android {
@@ -62,4 +63,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     kapt(libs.hilt.kapt)
     implementation(libs.timber)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.bundles.firebase)
 }
