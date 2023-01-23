@@ -19,6 +19,7 @@ android {
 
     buildTypes {
         debug {
+            buildConfigField("String", "TIMITIMI_DYNAMIC_LINK", "\"https://timitimi.page.link\"")
             buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"http://timitimi.site/oauth2/authorization/kakao\"")
         }
         release {
@@ -27,6 +28,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField("String", "TIMITIMI_DYNAMIC_LINK", "\"https://timitimi.page.link\"")
             buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"http://timitimi.site/oauth2/authorization/kakao\"")
         }
     }

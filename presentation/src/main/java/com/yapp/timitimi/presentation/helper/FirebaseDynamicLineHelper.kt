@@ -8,6 +8,7 @@ import android.net.Uri
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData
+import com.yapp.timitimi.presentation.BuildConfig
 import dagger.hilt.android.qualifiers.ActivityContext
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,7 +22,7 @@ class FirebaseDynamicLineHelper @Inject constructor(
     fun createDynamicLink(code: String) {
         FirebaseDynamicLinks.getInstance().createDynamicLink()
             .setLink(getProjectDeepLink(code))
-            .setDomainUriPrefix("https://timitimi.page.link")
+            .setDomainUriPrefix(BuildConfig.TIMITIMI_DYNAMIC_LINK)
             .setAndroidParameters(
                 DynamicLink.AndroidParameters.Builder(activity.packageName)
                     .setMinimumVersion(1)
@@ -48,6 +49,7 @@ class FirebaseDynamicLineHelper @Inject constructor(
     }
 
     private fun getProjectDeepLink(projectCode: String) : Uri {
+        //todo: domain 수정 필요!
         return Uri.parse("http://timitimi.site?code=$projectCode");
     }
 
