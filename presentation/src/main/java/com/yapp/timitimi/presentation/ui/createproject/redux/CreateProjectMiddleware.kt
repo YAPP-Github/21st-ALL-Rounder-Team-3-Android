@@ -27,6 +27,13 @@ class CreateProjectMiddleware @Inject constructor(
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
+                filterIsInstance<CreateProjectIntent.ShareProjectDeeplink>()
+                    .onEach {
+                        //repository 접근 필수
+                        eventFlow.emit(CreateProjectSingleEvent.ShowChooser("12345"))
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed()),
+
                 filterIsInstance<CreateProjectIntent.ClickBackButton>()
                     .onEach {
                         val event = if (it.progress == 1f) {
