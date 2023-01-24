@@ -3,7 +3,7 @@ package com.yapp.timitimi.presentation.ui.intro
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.yapp.timitimi.presentation.helper.FirebaseDynamicLineHelper
+import com.yapp.timitimi.presentation.helper.FirebaseDynamicLinkHelper
 import com.yapp.timitimi.theme.AllRounder3Theme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class IntroActivity : ComponentActivity() {
     @Inject
-    lateinit var firebaseDynamicLineHelper: FirebaseDynamicLineHelper
+    lateinit var firebaseDynamicLinkHelper: FirebaseDynamicLinkHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +21,6 @@ class IntroActivity : ComponentActivity() {
             }
         }
 
-        firebaseDynamicLineHelper.handleDynamicLinks()
+        firebaseDynamicLinkHelper.handleDynamicLinks()
     }
 }

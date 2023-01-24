@@ -13,7 +13,7 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import timber.log.Timber
 import javax.inject.Inject
 
-class FirebaseDynamicLineHelper @Inject constructor(
+class FirebaseDynamicLinkHelper @Inject constructor(
     @ActivityContext private val context: Context
 ) {
     private val activity: Activity
