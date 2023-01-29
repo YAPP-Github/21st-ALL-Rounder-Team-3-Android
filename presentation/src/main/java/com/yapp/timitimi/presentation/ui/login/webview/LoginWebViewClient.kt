@@ -5,7 +5,6 @@ import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import com.google.accompanist.web.AccompanistWebViewClient
-import timber.log.Timber
 
 class LoginWebViewClient(
     private val onLoginSucceed: (String) -> Unit,
@@ -14,9 +13,7 @@ class LoginWebViewClient(
 
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         super.shouldOverrideUrlLoading(view, request)
-        Timber.e(request?.url?.toString())
         if (isLoginSucceed(request?.url)) return true
-        view?.loadUrl(request?.url.toString())
         return false
     }
 
@@ -38,8 +35,6 @@ class LoginWebViewClient(
     }
 
     companion object {
-        // 서버에서 apptoken 넘겨주면 수정 필요.
         private const val QUERY_PARAMS_APP_TOKEN = "code"
-//        private const val QUERY_PARAMS_APP_TOKEN = "appToken"
     }
 }

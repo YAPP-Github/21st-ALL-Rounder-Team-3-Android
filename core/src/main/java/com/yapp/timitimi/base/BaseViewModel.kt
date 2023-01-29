@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.scan
@@ -47,17 +46,18 @@ abstract class BaseViewModel<
             this
         } else {
             middlewareList
-                .scan(this.filterNotNull()) { prevIntentFlow, nextMiddleware ->
+                .scan(filterNotNull()) { prevIntentFlow, nextMiddleware ->
                     merge(
                         nextMiddleware.mutate(viewModelScope, prevIntentFlow, _singleEventFlow),
                         prevIntentFlow
                     )
-                }.last()
+                }
+                .last()
         }
     }
 
     open fun registerMiddleware(): List<BaseMiddleware<INTENT, EVENT>> = emptyList()
-    open fun registerReducer(): Reducer<STATE>? = null
+    abstract fun registerReducer(): Reducer<STATE>
     abstract fun processError(throwable: Throwable)
     abstract fun getInitialState(): STATE
 
@@ -65,9 +65,9 @@ abstract class BaseViewModel<
         val initialViewState = getInitialState()
         viewState = _mutableIntentFlow
             .mutate()
-            .filter { registerReducer() != null }
+            //.filter { registerReducer() != null }
             .scan(initialViewState) { prevState, mutate ->
-                registerReducer()!!.invoke(mutate, prevState)
+                registerReducer().invoke(mutate, prevState)
             }
             .catch { processError(it) }
             .stateIn(

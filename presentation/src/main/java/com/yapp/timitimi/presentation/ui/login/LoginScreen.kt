@@ -32,8 +32,8 @@ fun LoginScreen(
         viewModel.singleEventFlow
             .onEach { event ->
                 when (event) {
-                    LoginSingleEvent.ShowToast -> {
-                        Toast.makeText(context, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    is LoginSingleEvent.ShowToast -> {
+                        Toast.makeText(context, event.msg , Toast.LENGTH_SHORT).show()
                     }
 
                     LoginSingleEvent.NavigateToCreateProject -> {
