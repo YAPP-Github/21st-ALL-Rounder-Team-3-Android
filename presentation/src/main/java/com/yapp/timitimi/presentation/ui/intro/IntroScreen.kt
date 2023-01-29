@@ -80,6 +80,7 @@ fun IntroScreen(
                     .padding(16.dp)
                     .clickable {
                         (context as Activity).startActivityWithAnimation<LoginActivity>()
+//                        (context as Activity).startActivityWithAnimation<OnboardingActivity>()
                     },
                 contentDescription = "kakao login button",
                 tint = Color.Unspecified,
