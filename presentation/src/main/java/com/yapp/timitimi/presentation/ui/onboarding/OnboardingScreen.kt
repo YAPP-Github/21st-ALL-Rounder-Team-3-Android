@@ -2,7 +2,6 @@ package com.yapp.timitimi.presentation.ui.onboarding
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -24,13 +23,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.yapp.timitimi.ui.startActivityWithAnimation
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.component.TimiButton1SemiBold
 import com.yapp.timitimi.component.TimiH1SemiBold
-import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity
+import com.yapp.timitimi.theme.Purple500
+import com.yapp.timitimi.ui.startActivityWithAnimation
 
 @Composable
 fun OnboardingScreen(
@@ -39,6 +38,7 @@ fun OnboardingScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
             .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally

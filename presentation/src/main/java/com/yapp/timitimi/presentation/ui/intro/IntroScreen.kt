@@ -20,10 +20,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.yapp.timitimi.ui.startActivityWithAnimation
 import com.yapp.timitimi.presentation.R
+import com.yapp.timitimi.presentation.ui.login.LoginActivity
 import com.yapp.timitimi.presentation.ui.login.LoginViewModel
-import com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity
+import com.yapp.timitimi.ui.startActivityWithAnimation
 
 @Composable
 fun IntroScreen(
@@ -43,7 +43,7 @@ fun IntroScreen(
                 .wrapContentSize()
                 .padding(16.dp)
                 .clickable {
-                    (context as Activity).startActivityWithAnimation<OnboardingActivity>()
+                    (context as Activity).startActivityWithAnimation<LoginActivity>()
                 },
             contentDescription = "kakao login button",
             tint = Color.Unspecified,

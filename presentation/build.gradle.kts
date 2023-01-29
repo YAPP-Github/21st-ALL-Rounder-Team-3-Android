@@ -18,7 +18,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"https://timitimi.site/oauth2/authrization/kakao\"")
+            buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"http://timitimi.site/oauth2/authorization/kakao\"")
         }
         release {
             isMinifyEnabled = false
@@ -26,7 +26,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"https://timitimi.site/oauth2/authrization/kakao\"")
+            buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"http://timitimi.site/oauth2/authorization/kakao\"")
         }
     }
     compileOptions {
@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.bundles.ktx)
     implementation(libs.bundles.accompanist)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.appcompat)
     kapt(libs.hilt.kapt)
     implementation(libs.timber)
 }

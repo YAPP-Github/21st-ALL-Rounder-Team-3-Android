@@ -5,7 +5,7 @@ min-sdk = "23"
 target-sdk = "33"
 app-version-code = "1"
 app-version-name = "1.0"
-app-id = "com.yapp.allrounder3"
+app-id = "com.yapp.timitimi"
 
 # plugin
 gradle-plugin = "8.0.0-alpha09"
