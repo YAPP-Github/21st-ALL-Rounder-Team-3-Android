@@ -6,16 +6,17 @@ import com.yapp.timitimi.data.response.ParticipantResponse
 import com.yapp.timitimi.data.response.toDomain
 import com.yapp.timitimi.domain.entity.Participant
 import com.yapp.timitimi.domain.respository.ParticipantsRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ParticipantsRepositoryImpl @Inject constructor(
     private val timiService: TimiServiceApi
 ) : ParticipantsRepository {
     override suspend fun postParticipants(projectId: String) {
-        TODO("Not yet implemented")
+
     }
 
-    override suspend fun getProjectParticipants(projectId: String): Result<List<Participant>> {
+    override suspend fun getProjectParticipants(projectId: String): Flow<List<Participant>> {
         return apiCall(
             call = { timiService.getProjectParticipants(projectId) },
             mapper = { data ->
