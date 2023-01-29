@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<
         INTENT : BaseIntent,
         STATE : BaseState,
-        EVENT: BaseSingleEvent
+        EVENT : BaseSingleEvent
         > : ViewModel() {
 
     private val _mutableIntentFlow = MutableSharedFlow<INTENT>()
@@ -65,7 +65,6 @@ abstract class BaseViewModel<
         val initialViewState = getInitialState()
         viewState = _mutableIntentFlow
             .mutate()
-            .filter { registerReducer() != null }
             .scan(initialViewState) { prevState, mutate ->
                 registerReducer()!!.invoke(mutate, prevState)
             }
