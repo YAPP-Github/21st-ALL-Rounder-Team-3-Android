@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.yapp.timitimi.presentation.ui.splash.SplashActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.main.MainActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.login.LoginActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity"/>
