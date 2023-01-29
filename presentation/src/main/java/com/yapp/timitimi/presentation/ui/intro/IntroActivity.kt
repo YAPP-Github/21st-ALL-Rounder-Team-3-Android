@@ -21,6 +21,8 @@ class IntroActivity : ComponentActivity() {
             }
         }
 
+
+        //todo@jsh-me deeplink 로직 추가 되면 이어서 작업
         firebaseDynamicLinkHelper.handleDynamicLinks()
     }
 }
