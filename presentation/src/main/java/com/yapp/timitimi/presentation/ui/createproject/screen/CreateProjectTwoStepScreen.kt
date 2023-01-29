@@ -69,7 +69,6 @@ fun CreateProjectTwoStepScreen(
         ShareKakaoUrlButton()
         BottomLargeButton(
             title = stringResource(id = R.string.project_start),
-            state
         ) {
             viewModel.dispatch(CreateProjectIntent.StartMain)
         }

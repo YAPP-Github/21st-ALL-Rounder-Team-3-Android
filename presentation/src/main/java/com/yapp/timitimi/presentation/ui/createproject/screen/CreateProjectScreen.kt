@@ -122,7 +122,7 @@ fun CreateProjectScreen(
 }
 
 @Composable
-private fun AppBar(
+fun AppBar(
     onBackIconClicked: () -> Unit
 ) {
     Row(
