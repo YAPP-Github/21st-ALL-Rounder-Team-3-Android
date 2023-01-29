@@ -1,6 +1,5 @@
 package com.yapp.timitimi.presentation.ui.invite.redux
 
-import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.redux.BaseMiddleware
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -12,9 +11,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.shareIn
 import javax.inject.Inject
 
-class InviteProjectMiddleware @Inject constructor(
-    private val userPreference: UserPreference
-) : BaseMiddleware<InviteProjectIntent, InviteProjectSingleEvent> {
+class InviteProjectMiddleware @Inject constructor() : BaseMiddleware<InviteProjectIntent, InviteProjectSingleEvent> {
     override fun mutate(
         scope: CoroutineScope,
         intentFlow: Flow<InviteProjectIntent>,
