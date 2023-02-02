@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -28,11 +29,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.yapp.timitimi.component.TaskType
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.component.TimiTaskCard
+import com.yapp.timitimi.theme.Gray200
 import com.yapp.timitimi.theme.Gray600
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -52,45 +55,45 @@ fun TaskContent(
     tasks: ImmutableList<TaskItem> = dummyTaskItems.toImmutableList()
 ) {
     val lazyListState = rememberLazyListState()
-    Column(
+    LazyColumn(
+        state = lazyListState,
         modifier = Modifier
-            .padding(horizontal = 16.dp)
-    ) {
-        LazyColumn(
-            state = lazyListState,
-            modifier = Modifier.padding(top = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    TimiBody2Medium(
-                        text = title,
-                        color = Gray600,
-                    )
-                    Icon(
-                        painter = painterResource(id = com.yapp.timitimi.designsystem.R.drawable.icon_arrow_down),
-                        contentDescription = "downArrow"
-                    )
-                }
+            .background(color = Gray200)
+            .offset {
+                IntOffset(x = 0, y = 8)
             }
-            items(
-                items = tasks,
-            ) { taskItem ->
-                TimiTaskCard(
-                    profile = taskItem.profile,
-                    name = taskItem.name,
-                    period = taskItem.startDate + taskItem.endDate,
-                    badgeText = "확인 요청 D-3",
-                    content = taskItem.title,
-                    subContent = taskItem.title,
-                    taskType = TaskType.Progress,
-                    isMe = false
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        item {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                TimiBody2Medium(
+                    text = title,
+                    color = Gray600,
+                )
+                Icon(
+                    painter = painterResource(id = com.yapp.timitimi.designsystem.R.drawable.icon_arrow_down),
+                    contentDescription = "downArrow"
                 )
             }
+        }
+        items(
+            items = tasks,
+        ) { taskItem ->
+            TimiTaskCard(
+                profile = taskItem.profile,
+                name = taskItem.name,
+                period = taskItem.startDate + taskItem.endDate,
+                badgeText = "확인 요청 D-3",
+                content = taskItem.title,
+                subContent = taskItem.title,
+                taskType = TaskType.Progress,
+                isMe = false
+            )
         }
     }
 }

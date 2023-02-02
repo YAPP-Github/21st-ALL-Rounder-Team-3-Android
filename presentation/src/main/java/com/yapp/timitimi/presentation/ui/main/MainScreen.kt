@@ -48,14 +48,14 @@ import com.yapp.timitimi.component.TimiH2SemiBold
 import com.yapp.timitimi.component.TimiH3SemiBold
 import com.yapp.timitimi.component.TimiMediumRoundedBadge
 import com.yapp.timitimi.component.TopBarNotificationIcon
-import com.yapp.timitimi.modifier.drawColoredShadow
 import com.yapp.timitimi.modifier.timiClipBorder
-import com.yapp.timitimi.theme.Gray700
-import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.main.components.TaskContent
 import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
 import com.yapp.timitimi.presentation.ui.main.redux.MainSingleEvent
+import com.yapp.timitimi.theme.Gray200
+import com.yapp.timitimi.theme.Gray700
+import com.yapp.timitimi.theme.Purple500
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.launchIn
@@ -105,7 +105,11 @@ fun MainScreen(
     }
 
     val scrollBehavior = rememberCollapsingTopBarScrollBehavior()
-    Column(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) {
+    Column(
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .background(color = Gray200)
+    ) {
         Header(
             scrollBehavior = scrollBehavior,
             title = "고전문학사 팀플 3조",
@@ -116,7 +120,8 @@ fun MainScreen(
             members = dummyMembers.toImmutableList(),
         )
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
         ) {
             TaskContent(
                 title = "나의 할일"
@@ -136,7 +141,8 @@ fun Header(
     members: ImmutableList<Member>,
 ) {
     Card(
-        modifier = Modifier.drawColoredShadow(),
+        modifier = Modifier.padding(bottom = 8.dp),
+        elevation = 8.dp,
     ) {
         Column(
             Modifier.padding(horizontal = 16.dp),
