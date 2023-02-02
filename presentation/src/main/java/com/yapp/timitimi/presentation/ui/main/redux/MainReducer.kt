@@ -25,13 +25,6 @@ class MainReducer : Reducer<MainState> {
                     selectedProfileIndex = action.index
                 )
             }
-
-            is MainIntent.OnClickDropBox -> {
-                state.copy(
-                    isTaskDropDownExpanded = action.isExpanded.not()
-                )
-            }
-
             else -> {
                 state.copy()
             }
