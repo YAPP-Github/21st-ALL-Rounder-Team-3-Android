@@ -1,19 +1,28 @@
+@file:OptIn(FlowPreview::class)
+
 package com.yapp.timitimi.presentation.ui.main.redux
 
+import com.yapp.timitimi.domain.respository.ParticipantsRepository
 import com.yapp.timitimi.redux.BaseMiddleware
-import com.yapp.timitimi.redux.BaseSingleEvent
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.shareIn
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainMiddleware @Inject constructor() : BaseMiddleware<MainIntent, MainSingleEvent> {
+class MainMiddleware @Inject constructor(
+    private val participantsRepository: ParticipantsRepository
+) : BaseMiddleware<MainIntent, MainSingleEvent> {
+
 
     override fun mutate(
         scope: CoroutineScope,
@@ -22,6 +31,20 @@ class MainMiddleware @Inject constructor() : BaseMiddleware<MainIntent, MainSing
     ): Flow<MainIntent> {
         return intentFlow.run {
             merge(
+                filterIsInstance<MainIntent.Init>()
+                    .onEach {
+                        Timber.e(it.toString())
+                    }
+                    .flatMapConcat { intent ->
+                        participantsRepository.getProjectParticipants(intent.projectId)
+                            .map { result ->
+                                intent.copy(
+                                    participants = result.toImmutableList()
+                                )
+                            }
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed()),
+
                 filterIsInstance<MainIntent.OnClickBackButton>()
                     .onEach {
                         Timber.e(it.toString())
@@ -63,7 +86,7 @@ class MainMiddleware @Inject constructor() : BaseMiddleware<MainIntent, MainSing
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-            )
+                )
         }
     }
 }

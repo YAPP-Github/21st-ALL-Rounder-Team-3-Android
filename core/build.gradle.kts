@@ -33,6 +33,7 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(libs.kotlin.coroutines)
+    implementation(libs.kotlin.collections.immutable)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.ktx)
     implementation(libs.accompanist.systemuicontroller)
