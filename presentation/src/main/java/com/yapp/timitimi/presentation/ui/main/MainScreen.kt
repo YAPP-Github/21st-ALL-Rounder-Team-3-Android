@@ -18,7 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -28,9 +28,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -48,6 +50,7 @@ import com.yapp.timitimi.component.TimiH2SemiBold
 import com.yapp.timitimi.component.TimiH3SemiBold
 import com.yapp.timitimi.component.TimiMediumRoundedBadge
 import com.yapp.timitimi.component.TopBarNotificationIcon
+import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.modifier.timiClipBorder
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.main.components.TaskContent
@@ -117,7 +120,9 @@ fun MainScreen(
             startDate = "11.16",
             endDate = "12.7",
             notificationCount = 2,
+            selectedProfileIndex = state.selectedProfileIndex,
             members = dummyMembers.toImmutableList(),
+            onProfileSelected = { viewModel.dispatch(MainIntent.OnSelectProfile(it)) },
         )
         Box(
             modifier = Modifier
@@ -138,7 +143,9 @@ fun Header(
     startDate: String,
     endDate: String,
     notificationCount: Int,
+    selectedProfileIndex: Int,
     members: ImmutableList<Member>,
+    onProfileSelected: (index: Int) -> Unit,
 ) {
     Card(
         modifier = Modifier.padding(bottom = 8.dp),
@@ -180,7 +187,9 @@ fun Header(
             Spacer(modifier = Modifier.height(12.dp))
             MemberContents(
                 title = "팀원 7명",
-                members = members
+                members = members,
+                selectedProfileIndex = selectedProfileIndex,
+                onProfileSelected = onProfileSelected,
             )
             Spacer(modifier = Modifier.height(20.dp))
         }
@@ -255,7 +264,9 @@ val dummyMembers = listOf(
 @Composable
 fun MemberContents(
     title: String,
-    members: ImmutableList<Member>
+    selectedProfileIndex: Int,
+    members: ImmutableList<Member>,
+    onProfileSelected: (index: Int) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(space = 6.dp)
@@ -266,19 +277,22 @@ fun MemberContents(
         ) {
             item {
                 MemberProfile(
-                    profile = "",
-                    name = "전체",
-                    selected = true
+                    profile = painterResource(id = R.drawable.total_profile),
+                    name = stringResource(id = R.string.main_total),
+                    selected = selectedProfileIndex == 0,
+                    onClick = { onProfileSelected(0) }
                 )
             }
-            items(
+            itemsIndexed(
                 items = members,
-                key = { it.name },
-            ) { member ->
+                key = { _, item -> item.name },
+            ) { index, member ->
+                val profileIndex = index + 1
                 MemberProfile(
                     profile = member.profile,
                     name = member.name,
-                    selected = member.selected
+                    selected = selectedProfileIndex == profileIndex,
+                    onClick = { onProfileSelected(profileIndex) }
                 )
             }
         }
@@ -287,22 +301,23 @@ fun MemberContents(
 
 @Composable
 fun MemberProfile(
-    profile: String,
+    profile: Any?,
     name: String,
     selected: Boolean,
+    onClick: () -> Unit,
 ) {
     val profileBorderColor by animateColorAsState(
         targetValue = if (selected) {
-            Color.White
-        } else {
             MaterialTheme.colors.primary
+        } else {
+            Color.White
         }
     )
     val fontColor by animateColorAsState(
         targetValue = if (selected) {
-            Color.Black
-        } else {
             MaterialTheme.colors.primary
+        } else {
+            Color.Black
         }
     )
     val border = if (selected) {
@@ -315,27 +330,42 @@ fun MemberProfile(
     }
 
     Column(
+        modifier = Modifier.timiClickable(
+            onClick = onClick,
+            rippleEnabled = false,
+        ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
-        AsyncImage(
-            modifier = Modifier
-                .size(size = 40.dp)
-                .timiClipBorder(
-                    border = border,
-                    shape = CircleShape,
-                ),
-            model = profile,
-            contentScale = ContentScale.Crop,
-            contentDescription = null
-        )
+        if (profile is Painter) {
+            Image(
+                modifier = Modifier
+                    .size(size = 40.dp)
+                    .timiClipBorder(
+                        border = border,
+                        shape = CircleShape,
+                    ),
+                painter = profile,
+                contentDescription = "profile"
+            )
+        } else {
+            AsyncImage(
+                modifier = Modifier
+                    .size(size = 40.dp)
+                    .timiClipBorder(
+                        border = border,
+                        shape = CircleShape,
+                    ),
+                model = profile,
+                contentScale = ContentScale.Crop,
+                contentDescription = "profile"
+            )
+        }
         TimiCaption2Regular(
             text = name,
             color = fontColor
         )
     }
-
-
 }
 
 
