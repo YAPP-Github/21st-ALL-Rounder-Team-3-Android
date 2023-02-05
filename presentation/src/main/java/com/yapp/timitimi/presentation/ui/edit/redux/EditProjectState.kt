@@ -1,9 +1,10 @@
-package com.yapp.timitimi.presentation.ui.createproject.redux
+package com.yapp.timitimi.presentation.ui.edit.redux
 
 import com.yapp.timitimi.presentation.ui.createproject.screen.CalenderDueDateType
+import com.yapp.timitimi.presentation.ui.edit.ParticipantItem
 import com.yapp.timitimi.redux.BaseState
 
-data class CreateProjectState(
+data class EditProjectState(
     val projectName: String = "",
     val hasProjectNameFieldFocused: Boolean = false,
     val projectStartDate: String = "시작날",
@@ -13,7 +14,8 @@ data class CreateProjectState(
     val isButtonEnabled: Boolean = false,
     val isDropDownVisible: Boolean = false,
     val isCalendarVisible: Boolean = false,
-    val openCalendarType: CalenderDueDateType = CalenderDueDateType.NONE
+    val openCalendarType: CalenderDueDateType = CalenderDueDateType.NONE,
+    val participantList: List<ParticipantItem> = emptyList()
 ): BaseState {
     fun isFilledAllField(): Boolean {
         return projectName.isNotBlank()

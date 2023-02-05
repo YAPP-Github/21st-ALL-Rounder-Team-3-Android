@@ -9,19 +9,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
-import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectIntent
-import com.yapp.timitimi.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 
 
 @Composable
 fun SelectProjectDateCalendar(
-    viewModel: CreateProjectViewModel,
-    calendarType: CreateProjectIntent.DueDateType
+    onStartDueDateFilled: (CalendarDate) -> Unit,
+    onEndDueDateFilled: (CalendarDate) -> Unit,
+    onDismissed: () -> Unit,
+    calendarType: CalenderDueDateType
 ) {
     Dialog(
-        onDismissRequest = {
-            viewModel.dispatch(CreateProjectIntent.CloseCalendar)
-        }
+        onDismissRequest = onDismissed
     ) {
         AndroidView(
             { CalendarView(it) },
@@ -32,16 +30,16 @@ fun SelectProjectDateCalendar(
             update = { views ->
                 views.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
                     when (calendarType) {
-                        CreateProjectIntent.DueDateType.START -> viewModel.dispatch(
-                            CreateProjectIntent.SelectStartProjectDate(
+                        CalenderDueDateType.START -> onStartDueDateFilled(
+                            CalendarDate(
                                 day = dayOfMonth,
                                 month = month,
                                 year = year
                             )
                         )
 
-                        CreateProjectIntent.DueDateType.END -> viewModel.dispatch(
-                            CreateProjectIntent.SelectEndProjectDate(
+                        CalenderDueDateType.END -> onEndDueDateFilled(
+                            CalendarDate(
                                 day = dayOfMonth,
                                 month = month,
                                 year = year
@@ -53,4 +51,14 @@ fun SelectProjectDateCalendar(
             }
         )
     }
+}
+
+data class CalendarDate(
+    val day: Int,
+    val month: Int,
+    val year: Int
+)
+
+enum class CalenderDueDateType {
+    NONE, START, END
 }

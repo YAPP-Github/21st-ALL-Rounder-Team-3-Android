@@ -47,7 +47,6 @@ import com.yapp.timitimi.component.TimiBody3Regular
 import com.yapp.timitimi.component.TimiH1SemiBold
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectIntent
-import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectState
 import com.yapp.timitimi.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 import com.yapp.timitimi.presentation.ui.onboarding.LargeButton
 import com.yapp.timitimi.theme.Black
@@ -106,7 +105,17 @@ fun CreateProjectOneStepScreen(
                 }
             )
             Spacing()
-            CreateProjectDueDate(viewModel, state.value)
+            CreateProjectDueDate(
+                onStartDueDateClicked = {
+                    viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CalenderDueDateType.START))
+                },
+                onEndDueDateClicked = {
+                    viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CalenderDueDateType.END))
+                },
+                startDate = state.value.projectStartDate,
+                endDate = state.value.projectEndDate,
+                isStartDateInitialized = state.value.isNotInitializedStartDate(),
+                isEndDateInitialized = state.value.isNotInitializedEndDate())
             Spacing()
             TimiInputField(
                 focusRequester = focusRequester,
@@ -134,7 +143,29 @@ fun CreateProjectOneStepScreen(
     }
 
     if (state.value.isCalendarVisible) {
-        SelectProjectDateCalendar(viewModel, state.value.openCalendarType)
+        SelectProjectDateCalendar(
+            onStartDueDateFilled = {
+                viewModel.dispatch(
+                    CreateProjectIntent.SelectStartProjectDate(
+                        day = it.day,
+                        month = it.month,
+                        year = it.year
+                    )
+                )
+            },
+            onEndDueDateFilled = {
+                viewModel.dispatch(
+                    CreateProjectIntent.SelectEndProjectDate(
+                        day = it.day,
+                        month = it.month,
+                        year = it.year
+                    )
+                )
+            },
+            onDismissed = {
+                viewModel.dispatch(CreateProjectIntent.CloseCalendar)
+            },
+            state.value.openCalendarType)
     }
 }
 
@@ -156,7 +187,7 @@ fun BottomLargeButton(
                     .height(1.dp),
                 color = Gray300
             )
-            Box (
+            Box(
                 modifier = Modifier.padding(horizontal = 16.dp)
             ){
                 LargeButton(
@@ -179,12 +210,18 @@ fun Spacing(
     Spacer(modifier = Modifier.height(height))
 }
 
+
+//todo@jsh-me 디자인시스템으로 분리
 @Composable
 fun CreateProjectDueDate(
-    viewModel: CreateProjectViewModel,
-    state: CreateProjectState
+    onStartDueDateClicked: () -> Unit,
+    onEndDueDateClicked: () -> Unit,
+    endDate: String,
+    isEndDateInitialized: Boolean,
+    startDate: String,
+    isStartDateInitialized: Boolean,
 ) {
-    Text(
+    TimiBody3Regular(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
@@ -198,11 +235,9 @@ fun CreateProjectDueDate(
         verticalAlignment = Alignment.CenterVertically
     ) {
         DateTextBox(
-            onDueDateClick = {
-                viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CreateProjectIntent.DueDateType.START))
-            },
-            text = state.projectStartDate,
-            color = if (state.isNotInitializedStartDate()) Gray400 else Black
+            onDueDateClick = onStartDueDateClicked,
+            text = startDate,
+            color = if (isStartDateInitialized) Gray400 else Black
 
         )
 
@@ -211,11 +246,9 @@ fun CreateProjectDueDate(
             color = Black
         )
         DateTextBox(
-            onDueDateClick = {
-                viewModel.dispatch(CreateProjectIntent.OpenDueDateCalendar(CreateProjectIntent.DueDateType.END))
-            },
-            text = state.projectEndDate,
-            color = if (state.isNotInitializedEndDate()) Gray400 else Black
+            onDueDateClick = onEndDueDateClicked,
+            text = endDate,
+            color = if (isEndDateInitialized) Gray400 else Black
         )
     }
 }

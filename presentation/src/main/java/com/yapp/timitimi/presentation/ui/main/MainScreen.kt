@@ -2,6 +2,8 @@
 
 package com.yapp.timitimi.presentation.ui.main
 
+import android.app.Activity
+import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
@@ -30,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -50,12 +53,13 @@ import com.yapp.timitimi.component.TimiMediumRoundedBadge
 import com.yapp.timitimi.component.TopBarNotificationIcon
 import com.yapp.timitimi.modifier.drawColoredShadow
 import com.yapp.timitimi.modifier.timiClipBorder
+import com.yapp.timitimi.presentation.R
+import com.yapp.timitimi.presentation.ui.edit.EditProjectActivity
+import com.yapp.timitimi.presentation.ui.main.components.TaskContent
+import com.yapp.timitimi.presentation.ui.main.redux.MainSingleEvent
 import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Purple500
-import com.yapp.timitimi.presentation.R
-import com.yapp.timitimi.presentation.ui.main.components.TaskContent
-import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
-import com.yapp.timitimi.presentation.ui.main.redux.MainSingleEvent
+import com.yapp.timitimi.ui.startActivityWithAnimation
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.launchIn
@@ -65,6 +69,7 @@ import kotlinx.coroutines.flow.onEach
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
     onBackPressed: () -> Unit,
+    context: Context = LocalContext.current
 ) {
     val state by viewModel.viewState.collectAsStateWithLifecycle()
 
@@ -93,7 +98,7 @@ fun MainScreen(
                     }
 
                     MainSingleEvent.NavigateToTaskDetail -> {
-                        //TODO(EvergreenTree97)
+                        (context as Activity).startActivityWithAnimation<EditProjectActivity>()
                     }
                 }
             }
@@ -101,7 +106,7 @@ fun MainScreen(
     }
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.dispatch(MainIntent.Init("1"))
+       // viewModel.dispatch(MainIntent.Init("1"))
     }
 
     val scrollBehavior = rememberCollapsingTopBarScrollBehavior()

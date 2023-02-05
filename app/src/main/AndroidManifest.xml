@@ -41,6 +41,7 @@
         </activity>
 
         <activity android:name="com.yapp.timitimi.presentation.ui.splash.SplashActivity"/>
+        <activity android:name="com.yapp.timitimi.presentation.ui.edit.EditProjectActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.login.LoginActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
