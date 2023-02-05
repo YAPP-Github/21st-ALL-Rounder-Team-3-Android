@@ -116,7 +116,7 @@ fun TimiTaskCard(
                     text = period,
                     color = Gray600,
                 )
-                TimiHalfRoundedBadge(
+                TimiHalfRoundedCaption2Badge(
                     text = badgeText,
                     border = TimiBorder(
                         color = borderColor
