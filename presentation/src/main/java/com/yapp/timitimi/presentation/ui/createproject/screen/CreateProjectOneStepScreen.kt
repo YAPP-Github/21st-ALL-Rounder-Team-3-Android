@@ -54,6 +54,7 @@ import com.yapp.timitimi.theme.Gray100
 import com.yapp.timitimi.theme.Gray200
 import com.yapp.timitimi.theme.Gray300
 import com.yapp.timitimi.theme.Gray400
+import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
 
 
@@ -134,10 +135,11 @@ fun CreateProjectOneStepScreen(
                     viewModel.dispatch(CreateProjectIntent.ChangeProjectGoal(it))
                 })
             BottomLargeButton(
-                title = "다음",
-            ) {
-                viewModel.dispatch(CreateProjectIntent.ClickNextButton)
-            }
+                backgroundColor = if (state.value.isButtonEnabled) Purple500 else Purple200,
+                title = stringResource(id = R.string.project_start),
+                isEnabled = state.value.isButtonEnabled,
+                onClick = { viewModel.dispatch(CreateProjectIntent.ClickNextButton(state.value)) }
+            )
         }
 
     }
@@ -147,18 +149,14 @@ fun CreateProjectOneStepScreen(
             onStartDueDateFilled = {
                 viewModel.dispatch(
                     CreateProjectIntent.SelectStartProjectDate(
-                        day = it.day,
-                        month = it.month,
-                        year = it.year
+                        date = it
                     )
                 )
             },
             onEndDueDateFilled = {
                 viewModel.dispatch(
                     CreateProjectIntent.SelectEndProjectDate(
-                        day = it.day,
-                        month = it.month,
-                        year = it.year
+                        date = it
                     )
                 )
             },
@@ -172,7 +170,9 @@ fun CreateProjectOneStepScreen(
 @Composable
 fun BottomLargeButton(
     title: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    backgroundColor: Color,
+    isEnabled: Boolean,
 ) {
     Box(
         modifier = Modifier
@@ -192,9 +192,9 @@ fun BottomLargeButton(
             ){
                 LargeButton(
                     text = title,
-                    //  backgroundColor = if (state.value.isButtonEnabled) MaterialTheme.colors.primary else Gray4,
-                    //  enabled = state.value.isButtonEnabled,
-                    enabled = true
+                    strokeColor = Color.Transparent,
+                    backgroundColor = backgroundColor,
+                      enabled = isEnabled,
                 ) {
                     onClick()
                 }

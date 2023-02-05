@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.component.TimiH1SemiBold
 import com.yapp.timitimi.presentation.R
+import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.timitimi.presentation.ui.createproject.screen.AppBar
 import com.yapp.timitimi.presentation.ui.createproject.screen.BottomLargeButton
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
@@ -35,6 +36,7 @@ import com.yapp.timitimi.presentation.ui.main.MainActivity
 import com.yapp.timitimi.theme.Black
 import com.yapp.timitimi.theme.Gray200
 import com.yapp.timitimi.theme.Gray600
+import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.ui.startActivityWithAnimation
 import kotlinx.coroutines.flow.launchIn
@@ -115,10 +117,11 @@ fun InviteProjectScreen(
             )
 
             BottomLargeButton(
+                backgroundColor = if (state.value.isButtonEnabled) Purple500 else Purple200,
+                isEnabled = state.value.isButtonEnabled,
+                onClick = { viewModel.dispatch(InviteProjectIntent.ClickCompleteButton) },
                 title = stringResource(id = R.string.complete_button),
-            ) {
-                 viewModel.dispatch(InviteProjectIntent.ClickCompleteButton)
-            }
+            )
         }
     }
 }

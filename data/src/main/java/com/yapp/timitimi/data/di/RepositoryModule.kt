@@ -2,8 +2,10 @@ package com.yapp.timitimi.data.di
 
 import com.yapp.timitimi.data.repository.FeedbackRepositoryImpl
 import com.yapp.timitimi.data.repository.ParticipantsRepositoryImpl
+import com.yapp.timitimi.data.repository.ProjectRepositoryImpl
 import com.yapp.timitimi.domain.respository.FeedbackRepository
 import com.yapp.timitimi.domain.respository.ParticipantsRepository
+import com.yapp.timitimi.domain.respository.ProjectsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,5 +26,11 @@ abstract class RepositoryModule {
     abstract fun bindsParticipantsRepositoryImpl(
         participantsRepositoryImpl: ParticipantsRepositoryImpl,
     ): ParticipantsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsProjectsRepositoryImpl(
+        projectsRepository: ProjectRepositoryImpl,
+    ): ProjectsRepository
 }
 

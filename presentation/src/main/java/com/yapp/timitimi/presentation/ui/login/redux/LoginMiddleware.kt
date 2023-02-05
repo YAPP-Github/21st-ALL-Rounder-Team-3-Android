@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.shareIn
+import timber.log.Timber
 import javax.inject.Inject
 
 class LoginMiddleware @Inject constructor(
@@ -31,6 +32,7 @@ class LoginMiddleware @Inject constructor(
                 filterIsInstance<LoginIntent.KakaoLoginSucceed>()
                     .onEach {
                         userPreference.accessToken = it.appToken
+                        Timber.e("저장된 accessToken: ${userPreference.accessToken}")
                         eventFlow.emit(LoginSingleEvent.ShowToast("로그인 성공"))
                         eventFlow.emit(LoginSingleEvent.NavigateToCreateProject)
                     }

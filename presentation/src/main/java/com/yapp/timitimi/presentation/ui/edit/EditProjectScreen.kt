@@ -54,6 +54,7 @@ import com.yapp.timitimi.theme.Gray300
 import com.yapp.timitimi.theme.Gray500
 import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Purple100
+import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
 
 @Composable
@@ -173,10 +174,11 @@ fun EditProjectScreen(
             }
 
             BottomLargeButton(
+                backgroundColor = if (state.value.isButtonEnabled) Purple500 else Purple200,
+                isEnabled = state.value.isButtonEnabled,
+                onClick = { viewModel.dispatch(EditProjectIntent.CompleteEdit) },
                 title = "완료",
-            ) {
-                viewModel.dispatch(EditProjectIntent.CompleteEdit)
-            }
+            )
         }
 
 
@@ -185,18 +187,14 @@ fun EditProjectScreen(
                 onStartDueDateFilled = {
                     viewModel.dispatch(
                         EditProjectIntent.SelectStartProjectDate(
-                            day = it.day,
-                            month = it.month,
-                            year = it.year
+                            date = it
                         )
                     )
                 },
                 onEndDueDateFilled = {
                     viewModel.dispatch(
                         EditProjectIntent.SelectEndProjectDate(
-                            day = it.day,
-                            month = it.month,
-                            year = it.year
+                            date = it
                         )
                     )
                 },

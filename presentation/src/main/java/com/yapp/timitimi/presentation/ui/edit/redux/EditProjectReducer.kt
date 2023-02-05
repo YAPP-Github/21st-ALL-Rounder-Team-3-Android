@@ -74,14 +74,14 @@ class EditProjectReducer @Inject constructor() : Reducer<EditProjectState> {
 
             is EditProjectIntent.SelectStartProjectDate -> {
                 newState = newState.copy(
-                    projectStartDate = "${action.year}.${action.month}.${action.day}",
+                    projectStartDate = action.date.toString(),
                     isCalendarVisible = false
                 )
             }
 
             is EditProjectIntent.SelectEndProjectDate -> {
                 newState = newState.copy(
-                    projectEndDate = "${action.year}.${action.month}.${action.day}",
+                    projectEndDate = action.date.toString(),
                     isCalendarVisible = false
                 )
             }

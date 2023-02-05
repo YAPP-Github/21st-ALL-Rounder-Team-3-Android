@@ -43,4 +43,5 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.hilt.android)
     kapt(libs.hilt.kapt)
+    implementation("com.jakewharton.threetenabp:threetenabp:1.3.0")
 }

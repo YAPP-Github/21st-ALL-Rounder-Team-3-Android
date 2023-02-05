@@ -14,12 +14,12 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://timitimi.site\"")
+            buildConfigField("String", "BASE_URL", "\"http://timitimi.site\"")
         }
         release {
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "BASE_URL", "\"https://timitimi.site\"")
+            buildConfigField("String", "BASE_URL", "\"http://timitimi.site\"")
         }
     }
 
