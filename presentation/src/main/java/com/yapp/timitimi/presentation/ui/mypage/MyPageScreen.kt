@@ -178,7 +178,6 @@ fun MyPageScreen() {
                     .padding(vertical = 12.dp, horizontal = 16.dp), text = "회원 탈퇴", color = Gray700
             )
         }
-
     }
 }
 
