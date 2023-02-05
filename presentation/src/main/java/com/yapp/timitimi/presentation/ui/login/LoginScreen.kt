@@ -20,8 +20,8 @@ import com.yapp.timitimi.presentation.ui.login.redux.LoginSingleEvent
 import com.yapp.timitimi.presentation.ui.login.webview.LoginWebViewClient
 import com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity
 import com.yapp.timitimi.ui.startActivityWithAnimation
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import timber.log.Timber
 
 @Composable
 fun LoginScreen(
@@ -43,12 +43,12 @@ fun LoginScreen(
                     }
                 }
             }
+            .launchIn(this)
     }
 
     val webViewClient = remember {
         LoginWebViewClient(
             onLoginSucceed = { appToken ->
-                Timber.e("obtain appToken")
                 viewModel.dispatch(LoginIntent.KakaoLoginSucceed(appToken))
             },
             onLoginFailed = {
