@@ -98,7 +98,7 @@ fun ShareKakaoUrlButton(onClick: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .clickable { onClick() },
+                .clickable(onClick = onClick),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
