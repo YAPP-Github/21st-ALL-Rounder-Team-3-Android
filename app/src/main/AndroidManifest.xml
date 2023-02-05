@@ -20,11 +20,7 @@
         <activity
             android:name="com.yapp.timitimi.presentation.ui.splash.SplashActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
 
         <activity android:name="com.yapp.timitimi.presentation.ui.main.MainActivity"
@@ -48,7 +44,17 @@
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
            
-        <activity android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity"/>
+        <activity android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity">
+
+        </activity>
+        <activity android:name="com.yapp.timitimi.presentation.ui.mytask.MyTaskActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 
