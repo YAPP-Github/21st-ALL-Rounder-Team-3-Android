@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
             AllRounder3Theme {
                 Crossfade(targetState = state.currentStep) { currentStep ->
                     when (currentStep) {
-                        ScreenStep.First -> {
+                        ScreenStep.First -> { //TODO(EvergreenTree97) : 더미 데이터와, DIM 처리로 변경해야함 WIP
                             GuideImage(
                                 onClick = { viewModel.dispatch(MainIntent.ClickGuideScreen) },
                                 painter = painterResource(id = R.drawable.main_guide_first),
