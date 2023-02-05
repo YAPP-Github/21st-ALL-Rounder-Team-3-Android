@@ -1,5 +1,6 @@
 package com.yapp.timitimi.presentation.ui.createproject.redux
 
+import com.yapp.timitimi.presentation.ui.createproject.screen.CalenderDueDateType
 import com.yapp.timitimi.redux.BaseIntent
 
 sealed interface CreateProjectIntent : BaseIntent {
@@ -12,7 +13,7 @@ sealed interface CreateProjectIntent : BaseIntent {
 
     object ClearProjectName: CreateProjectIntent
     object ClearProjectGoal: CreateProjectIntent
-    data class OpenDueDateCalendar(val dueDateType: DueDateType): CreateProjectIntent
+    data class OpenDueDateCalendar(val dueDateType: CalenderDueDateType): CreateProjectIntent
     object CloseCalendar: CreateProjectIntent
 
     object ShareProjectDeeplink: CreateProjectIntent
@@ -36,10 +37,4 @@ sealed interface CreateProjectIntent : BaseIntent {
         val month: Int,
         val year: Int
     ): CreateProjectIntent
-
-
-    enum class DueDateType {
-        NONE, START, END
-    }
-
 }

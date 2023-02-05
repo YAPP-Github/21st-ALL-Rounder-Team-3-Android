@@ -9,10 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.yapp.timitimi.modifier.timiClickable
@@ -396,7 +396,8 @@ fun TimiAnnotatedText(
     onClick: (() -> Unit)? = null,
     rippleEnabled: Boolean = false,
     singleLine: Boolean = false,
-) {
+    textAlign: TextAlign? = null,
+    ) {
     val annotatedText = buildAnnotatedString {
         textPairs.forEach {
             withStyle(
@@ -414,7 +415,9 @@ fun TimiAnnotatedText(
             rippleEnabled = rippleEnabled,
         ),
         text = annotatedText,
-        style = textStyle,
+        style = textStyle.copy(
+            textAlign = textAlign,
+        ),
         maxLines = when (singleLine) {
             true -> 1
             else -> Int.MAX_VALUE
