@@ -51,7 +51,6 @@ import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Purple500
 import kotlinx.collections.immutable.ImmutableList
 
-
 @Composable
 fun Header(
     scrollBehavior: CollapsingTopBarScrollBehavior,
@@ -59,6 +58,7 @@ fun Header(
     memo: String,
     startDate: String,
     endDate: String,
+    dDay: String,
     notificationCount: Int,
     selectedProfileIndex: Int,
     members: ImmutableList<MainState.Member>,
@@ -94,7 +94,7 @@ fun Header(
                     Spacer(modifier = Modifier.height(12.dp))
                     BadgeString( //TODO(EvergreenTree97) 디데이와 날짜 계산하도록 변경
                         title = "$startDate ~ $endDate",
-                        badgeText = "D-10",
+                        badgeText = dDay,
                         space = 8.dp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -103,7 +103,7 @@ fun Header(
             }
             Spacer(modifier = Modifier.height(12.dp))
             MemberContents(
-                title = "팀원 7명",
+                title = "팀원 ${dDay}명",
                 members = members,
                 selectedProfileIndex = selectedProfileIndex,
                 onProfileSelected = onProfileSelected,

@@ -11,9 +11,12 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
@@ -23,6 +26,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.germainkevin.collapsingtopbar.rememberCollapsingTopBarScrollBehavior
+import com.yapp.timitimi.component.TaskType
+import com.yapp.timitimi.kotlin.immutableFilter
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.main.MainViewModel
 import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
@@ -39,6 +44,8 @@ fun MainScreen(
     onBackPressed: () -> Unit,
 ) {
     val state by viewModel.viewState.collectAsStateWithLifecycle()
+    val lazyListState = rememberLazyListState()
+    val scrollBehavior = rememberCollapsingTopBarScrollBehavior()
 
     LaunchedEffect(viewModel.singleEventFlow) {
         viewModel.singleEventFlow
@@ -77,11 +84,6 @@ fun MainScreen(
         viewModel.dispatch(MainIntent.Init("1"))
     }*/
 
-    val scrollBehavior = rememberCollapsingTopBarScrollBehavior()
-    Image(
-        painter = painterResource(id = R.drawable.main_guide_first),
-        contentDescription = null
-    )
     Column(
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -89,16 +91,58 @@ fun MainScreen(
     ) {
         Header(
             scrollBehavior = scrollBehavior,
-            title = "고전문학사 팀플 3조",
-            memo = "학기 성적 A+ 도전 도전 도전 도전🎃",
-            startDate = "11.16",
-            endDate = "12.7",
-            notificationCount = 2,
+            title = state.project.name,
+            memo = state.project.memo,
+            startDate = state.project.startDate,
+            endDate = state.project.endDate,
+            dDay = state.project.dDay,
+            notificationCount = state.notificationCount,
             selectedProfileIndex = state.selectedProfileIndex,
             members = state.members,
             onProfileSelected = { viewModel.dispatch(MainIntent.SelectProfile(it)) },
         )
-        val lazyListState = rememberLazyListState()
+<<<<<<< Updated upstream
+    val lazyListState = rememberLazyListState()
+    LazyColumn(
+        state = lazyListState,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Gray200)
+            .offset {
+                IntOffset(x = 0, y = 8)
+            }
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        taskContent(
+            title = "나의 할일",
+            tasks = state.tasks,
+            isHide = false,
+            onClick = {}
+        )
+=======
+
+        val myTasks by remember {
+            derivedStateOf {
+                state.tasks.immutableFilter { it.member.name == "상록" }
+            }
+        }
+        val otherTasks by remember {
+            derivedStateOf {
+                state.tasks.immutableFilter { it.member.name != "상록" }
+            }
+        }
+        val doneTasks by remember {
+            derivedStateOf {
+                state.tasks.immutableFilter { it.taskType is TaskType.Done }
+            }
+        }
+        val progressInTasks by remember {
+            derivedStateOf {
+                state.tasks.immutableFilter { it.member.name == state.members[state.selectedProfileIndex].name }
+            }
+        }
+
         LazyColumn(
             state = lazyListState,
             modifier = Modifier
@@ -107,15 +151,40 @@ fun MainScreen(
                 .offset {
                     IntOffset(x = 0, y = 8)
                 }
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
+                .padding(horizontal = 34.dp),
+            verticalArrangement = Arrangement.spacedBy(32.dp),
         ) {
-            taskContent(
-                title = "나의 할일",
-                tasks = state.tasks,
-                isHide = false,
-                onClick = {}
-            )
+            when (state.selectedProfileIndex) {
+                0 -> {
+                    taskContent(
+                        title = "나의 할일",
+                        tasks = myTasks,
+                        onClick = {}
+                    )
+                    taskContent(
+                        title = "다른 팀원 업무",
+                        tasks = otherTasks,
+                        onClick = {}
+                    )
+                    taskContent(
+                        title = "완료된 업무",
+                        tasks = doneTasks,
+                        onClick = {}
+                    )
+                }
+
+                else -> {
+
+                    taskContent(
+                        title = "진행 중인 업무",
+                        tasks = progressInTasks,
+                        isHide = false,
+                        onClick = {}
+                    )
+                }
+            }
         }
+>>>>>>> Stashed changes
     }
+}
 }
