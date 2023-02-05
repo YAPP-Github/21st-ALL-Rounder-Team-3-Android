@@ -47,14 +47,14 @@ class MainMiddleware @Inject constructor(
                     .onEach {
                         Timber.e(it.toString())
                     }
-                    .flatMapConcat { intent ->
+                    /*.flatMapConcat { intent -> //TODO 서버 통신으로 참여자 결과 가져와야함
                         participantsRepository.getProjectParticipants(intent.projectId)
                             .map { result ->
                                 intent.copy(
                                     participants = result.toImmutableList()
                                 )
                             }
-                    }
+                    }*/
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
                 filterIsInstance<MainIntent.ClickBackButton>()

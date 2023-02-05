@@ -42,15 +42,16 @@ import com.yapp.timitimi.component.TimiH2SemiBold
 import com.yapp.timitimi.component.TimiH3SemiBold
 import com.yapp.timitimi.component.TimiHalfRoundedCaption3Badge
 import com.yapp.timitimi.component.TimiMediumRoundedBadge
+import com.yapp.timitimi.component.TopBarEditIcon
 import com.yapp.timitimi.component.TopBarNotificationIcon
 import com.yapp.timitimi.designsystem.R
 import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.modifier.timiClipBorder
+import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
 import com.yapp.timitimi.presentation.ui.main.redux.MainState
 import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Purple500
 import kotlinx.collections.immutable.ImmutableList
-
 
 @Composable
 fun Header(
@@ -59,10 +60,12 @@ fun Header(
     memo: String,
     startDate: String,
     endDate: String,
+    dDay: String,
     notificationCount: Int,
     selectedProfileIndex: Int,
     members: ImmutableList<MainState.Member>,
     onProfileSelected: (index: Int) -> Unit,
+    onClickEditIcon: (() -> Unit)? = null,
 ) {
     Card(
         modifier = Modifier.padding(bottom = 8.dp),
@@ -82,6 +85,7 @@ fun Header(
                 },
                 collapsed = scrollBehavior.isCollapsed,
                 notificationCount = notificationCount,
+                onClickEditIcon = onClickEditIcon,
             )
             AnimatedVisibility(
                 visible = scrollBehavior.isExpanded,
@@ -94,7 +98,7 @@ fun Header(
                     Spacer(modifier = Modifier.height(12.dp))
                     BadgeString( //TODO(EvergreenTree97) 디데이와 날짜 계산하도록 변경
                         title = "$startDate ~ $endDate",
-                        badgeText = "D-10",
+                        badgeText = dDay,
                         space = 8.dp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -103,7 +107,7 @@ fun Header(
             }
             Spacer(modifier = Modifier.height(12.dp))
             MemberContents(
-                title = "팀원 7명",
+                title = "팀원 ${members.size}명",
                 members = members,
                 selectedProfileIndex = selectedProfileIndex,
                 onProfileSelected = onProfileSelected,
@@ -117,6 +121,7 @@ fun Header(
 @Composable
 fun MainTopAppBar(
     onClickLeftArrow: () -> Unit,
+    onClickEditIcon: (() -> Unit)? = null,
     onClickNotification: () -> Unit,
     notificationCount: Int,
     leftContent: @Composable () -> Unit = {},
@@ -158,10 +163,17 @@ fun MainTopAppBar(
                     )
                 }
             }
-            TopBarNotificationIcon(
-                count = notificationCount,
-                onClick = onClickNotification,
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
+            ) {
+                TopBarEditIcon(
+                    onClick = { onClickEditIcon?.invoke() },
+                )
+                TopBarNotificationIcon(
+                    count = notificationCount,
+                    onClick = onClickNotification,
+                )
+            }
         }
     }
 }
