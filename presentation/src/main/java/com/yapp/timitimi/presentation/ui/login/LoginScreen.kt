@@ -36,6 +36,10 @@ fun LoginScreen(
                         Toast.makeText(context, event.msg , Toast.LENGTH_SHORT).show()
                     }
 
+                    LoginSingleEvent.Finish -> {
+                        (context as Activity).finish()
+                    }
+
                     LoginSingleEvent.NavigateToCreateProject -> {
                         (context as Activity).startActivityWithAnimation<OnboardingActivity>(
                             withFinish = true
