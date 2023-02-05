@@ -25,7 +25,20 @@
         </intent-filter>
         </activity>
 
-        <activity android:name="com.yapp.timitimi.presentation.ui.main.MainActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.ui.main.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="timitimi.page.link"
+                    android:scheme="https"
+                    android:pathPattern="*"/>
+
+            </intent-filter>
+        </activity>
         <activity android:name="com.yapp.timitimi.presentation.ui.login.LoginActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
            

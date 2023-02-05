@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.login.LoginActivity
 import com.yapp.timitimi.presentation.ui.login.LoginViewModel
+import com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity
 import com.yapp.timitimi.ui.startActivityWithAnimation
 
 @Composable

@@ -3,6 +3,7 @@ package com.yapp.timitimi.presentation.ui.createproject.screen
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,12 +28,12 @@ import androidx.compose.ui.unit.dp
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.component.TimiH1SemiBold
 import com.yapp.timitimi.component.TimiH3SemiBold
-import com.yapp.timitimi.theme.Black
-import com.yapp.timitimi.theme.Gray600
-import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.timitimi.presentation.ui.createproject.viewmodel.CreateProjectViewModel
+import com.yapp.timitimi.theme.Black
+import com.yapp.timitimi.theme.Gray600
+import com.yapp.timitimi.theme.Purple500
 
 @Composable
 fun CreateProjectTwoStepScreen(
@@ -66,7 +67,9 @@ fun CreateProjectTwoStepScreen(
             color = Gray600
         )
         Spacing(40.dp)
-        ShareKakaoUrlButton()
+        ShareKakaoUrlButton {
+            viewModel.dispatch(CreateProjectIntent.ShareProjectDeeplink)
+        }
         BottomLargeButton(
             title = stringResource(id = R.string.project_start),
             state
@@ -78,7 +81,7 @@ fun CreateProjectTwoStepScreen(
 }
 
 @Composable
-fun ShareKakaoUrlButton() {
+fun ShareKakaoUrlButton(onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -93,7 +96,9 @@ fun ShareKakaoUrlButton() {
         contentAlignment = Alignment.Center,
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable(onClick = onClick),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "366466346344",
+    "project_id": "timitimi-608b9",
+    "storage_bucket": "timitimi-608b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366466346344:android:3543cc20da931b05bc7add",
+        "android_client_info": {
+          "package_name": "com.yapp.timitimi.presentation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366466346344-lfc9ehb81aavgo928410ss73f5vlnnm4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk0u59kU6Oubgahq3AQ_KA3DPT7aQdngY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366466346344-lfc9ehb81aavgo928410ss73f5vlnnm4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

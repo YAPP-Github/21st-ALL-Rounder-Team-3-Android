@@ -3,11 +3,16 @@ package com.yapp.timitimi.presentation.ui.intro
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.yapp.timitimi.presentation.helper.FirebaseDynamicLinkHelper
 import com.yapp.timitimi.theme.AllRounder3Theme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class IntroActivity : ComponentActivity() {
+    @Inject
+    lateinit var firebaseDynamicLinkHelper: FirebaseDynamicLinkHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -15,5 +20,9 @@ class IntroActivity : ComponentActivity() {
                 IntroScreen()
             }
         }
+
+
+        //todo@jsh-me deeplink 로직 추가 되면 이어서 작업
+        firebaseDynamicLinkHelper.handleDynamicLinks()
     }
 }
