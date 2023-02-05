@@ -16,7 +16,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="MissingApplicationIcon">
         <activity
-            android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity"
+            android:name="com.yapp.timitimi.presentation.ui.splash.SplashActivity"
             android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.yapp.timitimi.presentation.ui.splash.SplashActivity"/>
+        <activity android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.edit.EditProjectActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.login.LoginActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity"/>

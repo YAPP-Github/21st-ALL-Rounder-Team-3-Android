@@ -41,21 +41,22 @@ fun SplashScreen(
     context: Context = LocalContext.current
 ) {
     val state = viewModel.viewState.collectAsState()
+
     LaunchedEffect(viewModel.singleEventFlow) {
         viewModel.singleEventFlow
             .onEach { event ->
                 when (event) {
-                    is SplashSingleEvent.NavigateToMain -> {
+                    SplashSingleEvent.NavigateToMain -> {
                         (context as Activity).startActivityWithAnimation<MainActivity>(
                             withFinish = true
                         )
                     }
 
-                    is SplashSingleEvent.RenewAccessToken -> {
+                    SplashSingleEvent.RenewAccessToken -> {
                         viewModel.renewAccessToken()
                     }
 
-                    is SplashSingleEvent.NavigateToLogin -> {
+                    SplashSingleEvent.NavigateToLogin -> {
                         (context as Activity).startActivityWithAnimation<LoginActivity>(
                             withFinish = true
                         )
