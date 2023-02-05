@@ -26,6 +26,7 @@ class LoginMiddleware @Inject constructor(
                 filterIsInstance<LoginIntent.KakaoLoginFailed>()
                     .onEach {
                         eventFlow.emit(LoginSingleEvent.ShowToast("로그인 실패"))
+                        eventFlow.emit(LoginSingleEvent.Finish)
                     }
                     .shareIn(scope, SharingStarted.Eagerly),
 
