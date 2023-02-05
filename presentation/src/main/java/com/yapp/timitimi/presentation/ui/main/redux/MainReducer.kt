@@ -10,8 +10,8 @@ class MainReducer : Reducer<MainState> {
         return when (action) {
             is MainIntent.Init -> {
                 state.copy(
-                    members = dummyMembers,
-                    tasks = dummyTasks,
+                    /* members = dummyMembers,
+                     tasks = dummyTasks,*/
                 )
             }
 
@@ -66,6 +66,7 @@ val dummyTasks = persistentListOf(
         ),
         startDate = "11.27",
         endDate = "11.29",
+        dDay = "D-10",
         title = "DBPia, RISS 논문 리서치",
         memo = "송강과 노계 비교 분석해서 다뤄주기",
         completionCount = 5,
@@ -80,6 +81,7 @@ val dummyTasks = persistentListOf(
         ),
         startDate = "12.21",
         endDate = "12.29",
+        dDay = "D-10",
         title = "C프로그래밍 기본",
         memo = "포인터가 무엇이고, 예제 실습하기",
     ),
@@ -95,7 +97,8 @@ val dummyTasks = persistentListOf(
         ),
         startDate = "12.21",
         endDate = "12.29",
+        dDay = "D-10",
         title = "자바 프로그래밍의 기본중의 기본",
         memo = "객체지향 프로그래밍에 대해 자세히 조사하기",
-    )
+    ),
 )

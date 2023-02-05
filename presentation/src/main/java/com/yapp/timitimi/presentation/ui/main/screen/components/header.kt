@@ -42,10 +42,12 @@ import com.yapp.timitimi.component.TimiH2SemiBold
 import com.yapp.timitimi.component.TimiH3SemiBold
 import com.yapp.timitimi.component.TimiHalfRoundedCaption3Badge
 import com.yapp.timitimi.component.TimiMediumRoundedBadge
+import com.yapp.timitimi.component.TopBarEditIcon
 import com.yapp.timitimi.component.TopBarNotificationIcon
 import com.yapp.timitimi.designsystem.R
 import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.modifier.timiClipBorder
+import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
 import com.yapp.timitimi.presentation.ui.main.redux.MainState
 import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Purple500
@@ -63,6 +65,7 @@ fun Header(
     selectedProfileIndex: Int,
     members: ImmutableList<MainState.Member>,
     onProfileSelected: (index: Int) -> Unit,
+    onClickEditIcon: (() -> Unit)? = null,
 ) {
     Card(
         modifier = Modifier.padding(bottom = 8.dp),
@@ -82,6 +85,7 @@ fun Header(
                 },
                 collapsed = scrollBehavior.isCollapsed,
                 notificationCount = notificationCount,
+                onClickEditIcon = onClickEditIcon,
             )
             AnimatedVisibility(
                 visible = scrollBehavior.isExpanded,
@@ -103,7 +107,7 @@ fun Header(
             }
             Spacer(modifier = Modifier.height(12.dp))
             MemberContents(
-                title = "팀원 ${dDay}명",
+                title = "팀원 ${members.size}명",
                 members = members,
                 selectedProfileIndex = selectedProfileIndex,
                 onProfileSelected = onProfileSelected,
@@ -117,6 +121,7 @@ fun Header(
 @Composable
 fun MainTopAppBar(
     onClickLeftArrow: () -> Unit,
+    onClickEditIcon: (() -> Unit)? = null,
     onClickNotification: () -> Unit,
     notificationCount: Int,
     leftContent: @Composable () -> Unit = {},
@@ -158,10 +163,17 @@ fun MainTopAppBar(
                     )
                 }
             }
-            TopBarNotificationIcon(
-                count = notificationCount,
-                onClick = onClickNotification,
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
+            ) {
+                TopBarEditIcon(
+                    onClick = { onClickEditIcon?.invoke() },
+                )
+                TopBarNotificationIcon(
+                    count = notificationCount,
+                    onClick = onClickNotification,
+                )
+            }
         }
     }
 }
