@@ -22,19 +22,15 @@ sealed interface CreateProjectIntent : BaseIntent {
         val progress: Float
     ): CreateProjectIntent
 
-    object ClickNextButton: CreateProjectIntent
+    data class ClickNextButton(val state: CreateProjectState): CreateProjectIntent
 
     object StartMain : CreateProjectIntent
 
     data class SelectStartProjectDate(
-        val day: Int,
-        val month: Int,
-        val year: Int
+        val date: String
     ): CreateProjectIntent
 
     data class SelectEndProjectDate(
-        val day: Int,
-        val month: Int,
-        val year: Int
+        val date: String
     ): CreateProjectIntent
 }

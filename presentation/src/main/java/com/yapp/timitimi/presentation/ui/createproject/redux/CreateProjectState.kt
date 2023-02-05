@@ -1,5 +1,6 @@
 package com.yapp.timitimi.presentation.ui.createproject.redux
 
+import com.yapp.timitimi.domain.entity.CreateProjectsInfo
 import com.yapp.timitimi.presentation.ui.createproject.screen.CalenderDueDateType
 import com.yapp.timitimi.redux.BaseState
 
@@ -14,7 +15,7 @@ data class CreateProjectState(
     val isDropDownVisible: Boolean = false,
     val isCalendarVisible: Boolean = false,
     val openCalendarType: CalenderDueDateType = CalenderDueDateType.NONE
-): BaseState {
+) : BaseState {
     fun isFilledAllField(): Boolean {
         return projectName.isNotBlank()
                 && projectStartDate != "시작날"
@@ -29,4 +30,13 @@ data class CreateProjectState(
     fun isNotInitializedEndDate(): Boolean {
         return projectEndDate == "마지막날"
     }
+
+    fun toCreateProjectsInfoEntity() = CreateProjectsInfo(
+        projectName,
+        projectStartDate,
+        projectEndDate,
+        projectGoal,
+        1,
+        "BEFORE"
+    )
 }

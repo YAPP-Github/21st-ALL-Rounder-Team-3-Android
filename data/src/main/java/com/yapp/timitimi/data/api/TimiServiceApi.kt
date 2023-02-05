@@ -1,8 +1,9 @@
 package com.yapp.timitimi.data.api
 
 import com.yapp.timitimi.data.base.Response
+import com.yapp.timitimi.data.request.PostProjectsBody
 import com.yapp.timitimi.data.response.ParticipantResponse
-import com.yapp.timitimi.domain.entity.Participant
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -14,7 +15,9 @@ interface TimiServiceApi {
     suspend fun getAllProject()
 
     @POST("/projects")
-    suspend fun postProjects()
+    suspend fun postProjects(
+        @Body body: PostProjectsBody
+    )
 
     @GET("/projects/{projectId}")
     suspend fun getProject(

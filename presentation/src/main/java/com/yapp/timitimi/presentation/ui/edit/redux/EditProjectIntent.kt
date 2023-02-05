@@ -20,15 +20,11 @@ sealed interface EditProjectIntent : BaseIntent {
     object CompleteEdit : EditProjectIntent
 
     data class SelectStartProjectDate(
-        val day: Int,
-        val month: Int,
-        val year: Int
+       val date: String
     ): EditProjectIntent
 
     data class SelectEndProjectDate(
-        val day: Int,
-        val month: Int,
-        val year: Int
+        val date: String
     ): EditProjectIntent
 
 }

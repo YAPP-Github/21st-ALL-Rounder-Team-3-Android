@@ -64,6 +64,8 @@ dependencies {
     implementation(libs.bundles.accompanist)
     implementation(libs.hilt.android)
     implementation(libs.androidx.appcompat)
+    implementation("com.google.android.material:material:1.7.0")
+    implementation("com.jakewharton.threetenabp:threetenabp:1.3.0")
     kapt(libs.hilt.kapt)
     implementation(libs.timber)
 

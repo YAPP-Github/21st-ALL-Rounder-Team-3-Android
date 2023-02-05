@@ -1,7 +1,9 @@
 package com.yapp.timitimi.presentation.ui.createproject.redux
 
+import com.yapp.timitimi.domain.respository.ProjectsRepository
 import com.yapp.timitimi.redux.BaseMiddleware
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,6 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class CreateProjectMiddleware @Inject constructor(
+    private val projectsRepository: ProjectsRepository
 ) : BaseMiddleware<CreateProjectIntent, CreateProjectSingleEvent> {
     override fun mutate(
         scope: CoroutineScope,
@@ -48,6 +51,9 @@ class CreateProjectMiddleware @Inject constructor(
                 filterIsInstance<CreateProjectIntent.ClickNextButton>()
                     .onEach {
                         Timber.e(it.toString())
+                        scope.async {
+                            projectsRepository.postProjects(it.state.toCreateProjectsInfoEntity())
+                        }.await()
                         eventFlow.emit(CreateProjectSingleEvent.NavigateToTwoStepPage)
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),

@@ -33,6 +33,7 @@ import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.timitimi.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 import com.yapp.timitimi.theme.Black
 import com.yapp.timitimi.theme.Gray600
+import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
 
 @Composable
@@ -71,12 +72,12 @@ fun CreateProjectTwoStepScreen(
             viewModel.dispatch(CreateProjectIntent.ShareProjectDeeplink)
         }
         BottomLargeButton(
-            title = stringResource(id = R.string.project_start),
-        ) {
-            viewModel.dispatch(CreateProjectIntent.StartMain)
-        }
+            title = "나중에 초대하기",
+            backgroundColor = if (state.value.isButtonEnabled) Purple500 else Purple200,
+            isEnabled = state.value.isButtonEnabled,
+            onClick = { viewModel.dispatch(CreateProjectIntent.StartMain) }
+        )
     }
-
 }
 
 @Composable
