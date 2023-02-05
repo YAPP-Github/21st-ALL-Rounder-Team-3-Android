@@ -27,12 +27,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
-import com.yapp.timitimi.presentation.ui.login.LoginActivity
+import com.yapp.timitimi.presentation.ui.intro.IntroActivity
 import com.yapp.timitimi.presentation.ui.main.MainActivity
 import com.yapp.timitimi.presentation.ui.splash.redux.SplashSingleEvent
 import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.ui.startActivityWithAnimation
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @Composable
@@ -57,12 +58,13 @@ fun SplashScreen(
                     }
 
                     SplashSingleEvent.NavigateToLogin -> {
-                        (context as Activity).startActivityWithAnimation<LoginActivity>(
+                        (context as Activity).startActivityWithAnimation<IntroActivity>(
                             withFinish = true
                         )
                     }
                 }
             }
+            .launchIn(this)
     }
 
     Box(

@@ -46,9 +46,7 @@
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
            
-        <activity
-            android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity"
-            android:windowSoftInputMode="adjustResize" />
+        <activity android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity"/>
 
     </application>
 
