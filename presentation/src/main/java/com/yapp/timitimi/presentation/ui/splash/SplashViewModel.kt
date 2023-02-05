@@ -1,5 +1,6 @@
 package com.yapp.timitimi.presentation.ui.splash
 
+import androidx.lifecycle.viewModelScope
 import com.yapp.timitimi.base.BaseViewModel
 import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.presentation.ui.splash.redux.SplashIntent
@@ -8,6 +9,8 @@ import com.yapp.timitimi.presentation.ui.splash.redux.SplashReducer
 import com.yapp.timitimi.presentation.ui.splash.redux.SplashSingleEvent
 import com.yapp.timitimi.presentation.ui.splash.redux.SplashState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -22,17 +25,19 @@ class SplashViewModel @Inject constructor(
         SplashSingleEvent>() {
 
     init {
-        start()
-        validateAccessToken()
+        viewModelScope.launch {
+            start()
+            delay(500)
+            validateAccessToken()
+        }
     }
 
-    private fun validateAccessToken() {
+     private fun validateAccessToken() {
         if (userPreference.accessToken.isNotEmpty()) {
+            dispatch(SplashIntent.GetAccessTokenSucceed)
+        } else {
             //navigate to main screen
             dispatch(SplashIntent.GetAccessTokenFailed)
-        } else {
-            //access token 유효 판별
-            dispatch(SplashIntent.GetAccessTokenSucceed)
         }
     }
 
