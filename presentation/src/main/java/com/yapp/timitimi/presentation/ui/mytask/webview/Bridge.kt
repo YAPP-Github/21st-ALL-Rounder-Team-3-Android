@@ -1,15 +1,16 @@
 package com.yapp.timitimi.presentation.ui.mytask.webview
 
 import android.webkit.JavascriptInterface
+import timber.log.Timber
 
-class MyTaskWebViewBridge(){
+class MyTaskWebViewBridge() {
 
     @JavascriptInterface
-    fun showMessage(){
-
+    fun showToast(text: String) {
+        Timber.e(text)
     }
 
-    companion object{
-        const val Name = "Native"
+    companion object {
+        const val Name = "Android"
     }
 }
