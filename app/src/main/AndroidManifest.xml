@@ -6,35 +6,20 @@
         <package android:name="com.kakao.talk" />
     </queries>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="com.yapp.timitimi.app.App"
         android:hardwareAccelerated="true"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
         android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/app_icon_round"
-        android:usesCleartextTraffic="true"
+        android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:usesCleartextTraffic="true"
         tools:ignore="MissingApplicationIcon">
         <activity
             android:name="com.yapp.timitimi.presentation.ui.splash.SplashActivity"
             android:exported="true">
-        </activity>
-
-        <activity android:name="com.yapp.timitimi.presentation.ui.main.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-
-                <data
-                    android:host="timitimi.page.link"
-                    android:scheme="https"
-                    android:pathPattern="*"/>
-
-            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,13 +27,30 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity"/>
-        <activity android:name="com.yapp.timitimi.presentation.ui.edit.EditProjectActivity"/>
-        <activity android:name="com.yapp.timitimi.presentation.ui.login.LoginActivity"/>
-        <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity"/>
+        <activity
+            android:name="com.yapp.timitimi.presentation.ui.main.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="timitimi.page.link"
+                    android:pathPattern="*"
+                    android:scheme="https" />
+
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.ui.edit.EditProjectActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.ui.login.LoginActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
-           
-        <activity android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity"/>
+
+        <activity android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity" />
 
     </application>
 
