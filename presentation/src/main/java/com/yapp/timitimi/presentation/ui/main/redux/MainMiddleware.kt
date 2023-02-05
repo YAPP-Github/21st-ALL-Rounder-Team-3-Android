@@ -2,6 +2,7 @@
 
 package com.yapp.timitimi.presentation.ui.main.redux
 
+import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.domain.respository.ParticipantsRepository
 import com.yapp.timitimi.redux.BaseMiddleware
 import kotlinx.collections.immutable.toImmutableList
@@ -20,7 +21,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MainMiddleware @Inject constructor(
-    private val participantsRepository: ParticipantsRepository
+    private val participantsRepository: ParticipantsRepository,
+    private val userPreference: UserPreference,
 ) : BaseMiddleware<MainIntent, MainSingleEvent> {
 
 
@@ -31,6 +33,16 @@ class MainMiddleware @Inject constructor(
     ): Flow<MainIntent> {
         return intentFlow.run {
             merge(
+                filterIsInstance<MainIntent.CheckNewUser>()
+                    .flatMapConcat { intent ->
+                        userPreference.getIsFirstProject().map {
+                            intent.copy(
+                                isFirstUser = it
+                            )
+                        }
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed()),
+
                 filterIsInstance<MainIntent.Init>()
                     .onEach {
                         Timber.e(it.toString())
@@ -45,41 +57,41 @@ class MainMiddleware @Inject constructor(
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-                filterIsInstance<MainIntent.OnClickBackButton>()
+                filterIsInstance<MainIntent.ClickBackButton>()
                     .onEach {
                         Timber.e(it.toString())
                         eventFlow.emit(MainSingleEvent.NavigateToProjectList)
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-                filterIsInstance<MainIntent.OnClickEditButton>()
+                filterIsInstance<MainIntent.ClickEditButton>()
                     .onEach {
                         Timber.e(it.toString())
                         eventFlow.emit(MainSingleEvent.NavigateToEditProject)
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-                filterIsInstance<MainIntent.OnClickNotificationButton>()
+                filterIsInstance<MainIntent.ClickNotificationButton>()
                     .onEach {
                         Timber.e(it.toString())
                         eventFlow.emit(MainSingleEvent.NavigateToNotificationList)
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-                filterIsInstance<MainIntent.OnSelectProfile>()
+                filterIsInstance<MainIntent.SelectProfile>()
                     .onEach {
                         Timber.e(it.toString())
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-                filterIsInstance<MainIntent.OnSelectAddProfile>()
+                filterIsInstance<MainIntent.SelectAddProfile>()
                     .onEach {
                         Timber.e(it.toString())
                         eventFlow.emit(MainSingleEvent.NavigateToInviteMember)
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-                filterIsInstance<MainIntent.OnClickFab>()
+                filterIsInstance<MainIntent.ClickFab>()
                     .onEach {
                         Timber.e(it.toString())
                         eventFlow.emit(MainSingleEvent.NavigateToCreateTask)

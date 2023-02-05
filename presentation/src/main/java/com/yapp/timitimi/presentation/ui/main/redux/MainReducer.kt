@@ -20,11 +20,18 @@ class MainReducer : Reducer<MainState> {
                 )
             }
 
-            is MainIntent.OnSelectProfile -> {
+            is MainIntent.SelectProfile -> {
                 state.copy(
                     selectedProfileIndex = action.index
                 )
             }
+
+            MainIntent.ClickGuideScreen -> {
+                state.copy(
+                    currentStep = state.currentStep.plus(1)
+                )
+            }
+
             else -> {
                 state.copy()
             }

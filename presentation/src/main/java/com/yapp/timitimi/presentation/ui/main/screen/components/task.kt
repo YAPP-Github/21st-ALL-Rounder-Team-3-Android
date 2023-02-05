@@ -1,4 +1,4 @@
-package com.yapp.timitimi.presentation.ui.main.components
+package com.yapp.timitimi.presentation.ui.main.screen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -49,8 +49,8 @@ fun LazyListScope.taskContent(
             items = tasks,
         ) { taskItem ->
             TimiTaskCard(
-                profile = taskItem.memeber.profile,
-                name = taskItem.memeber.name,
+                profile = taskItem.member.profile,
+                name = taskItem.member.name,
                 period = taskItem.startDate + taskItem.endDate,
                 badgeText = "확인 요청 D-3",
                 content = taskItem.title,

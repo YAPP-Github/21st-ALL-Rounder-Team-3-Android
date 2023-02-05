@@ -1,4 +1,4 @@
-package com.yapp.timitimi.presentation.ui.main.components
+package com.yapp.timitimi.presentation.ui.main.screen.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
@@ -48,7 +48,6 @@ import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.modifier.timiClipBorder
 import com.yapp.timitimi.presentation.ui.main.redux.MainState
 import com.yapp.timitimi.theme.Gray700
-import com.yapp.timitimi.theme.Purple100
 import com.yapp.timitimi.theme.Purple500
 import kotlinx.collections.immutable.ImmutableList
 

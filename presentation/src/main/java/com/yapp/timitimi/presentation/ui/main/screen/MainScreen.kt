@@ -1,7 +1,8 @@
 @file:OptIn(ExperimentalLifecycleComposeApi::class)
 
-package com.yapp.timitimi.presentation.ui.main
+package com.yapp.timitimi.presentation.ui.main.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,18 +16,20 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.germainkevin.collapsingtopbar.rememberCollapsingTopBarScrollBehavior
-import com.yapp.timitimi.presentation.ui.main.components.Header
-import com.yapp.timitimi.presentation.ui.main.components.taskContent
+import com.yapp.timitimi.presentation.R
+import com.yapp.timitimi.presentation.ui.main.MainViewModel
 import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
 import com.yapp.timitimi.presentation.ui.main.redux.MainSingleEvent
+import com.yapp.timitimi.presentation.ui.main.screen.components.Header
+import com.yapp.timitimi.presentation.ui.main.screen.components.taskContent
 import com.yapp.timitimi.theme.Gray200
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -69,11 +72,16 @@ fun MainScreen(
             .launchIn(this)
     }
 
+    /* //TODO(EvergreenTree97) : 참여자 정보 불러오기
     LaunchedEffect(key1 = Unit) {
         viewModel.dispatch(MainIntent.Init("1"))
-    }
+    }*/
 
     val scrollBehavior = rememberCollapsingTopBarScrollBehavior()
+    Image(
+        painter = painterResource(id = R.drawable.main_guide_first),
+        contentDescription = null
+    )
     Column(
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -88,7 +96,7 @@ fun MainScreen(
             notificationCount = 2,
             selectedProfileIndex = state.selectedProfileIndex,
             members = state.members,
-            onProfileSelected = { viewModel.dispatch(MainIntent.OnSelectProfile(it)) },
+            onProfileSelected = { viewModel.dispatch(MainIntent.SelectProfile(it)) },
         )
         val lazyListState = rememberLazyListState()
         LazyColumn(

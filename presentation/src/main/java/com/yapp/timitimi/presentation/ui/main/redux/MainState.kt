@@ -5,7 +5,9 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
 data class MainState(
+    val currentStep: ScreenStep = ScreenStep.First,
     val notificationCount: Int = 0,
+    val isFirstProject: Boolean = true,
     val project: Project = Project(),
     val members: ImmutableList<Member> = dummyMembers,
     val selectedProfileIndex: Int = 0,
@@ -22,7 +24,7 @@ data class MainState(
     )
 
     data class Task(
-        val memeber: Member = Member(),
+        val member: Member = Member(),
         val startDate: String = "",
         val endDate: String = "",
         val title: String = "",
@@ -36,6 +38,14 @@ data class MainState(
         val profile: String = "",
         val name: String = "",
     )
+}
+
+enum class ScreenStep(private val index: Int) {
+    First(0),
+    Second(1),
+    Main(2);
+
+    operator fun plus(next: Int): ScreenStep = values().first { it.index == index + next }
 }
 
 
