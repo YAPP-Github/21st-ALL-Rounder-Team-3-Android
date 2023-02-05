@@ -54,6 +54,7 @@ import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.main.components.TaskContent
+import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
 import com.yapp.timitimi.presentation.ui.main.redux.MainSingleEvent
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -97,6 +98,10 @@ fun MainScreen(
                 }
             }
             .launchIn(this)
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.dispatch(MainIntent.Init("1"))
     }
 
     val scrollBehavior = rememberCollapsingTopBarScrollBehavior()

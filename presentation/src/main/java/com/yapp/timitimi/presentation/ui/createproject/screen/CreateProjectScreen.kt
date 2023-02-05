@@ -35,20 +35,22 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.yapp.timitimi.presentation.helper.FirebaseDynamicLinkHelper
 import com.yapp.timitimi.presentation.ui.createproject.CreateProjectScreenRoute
 import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectSingleEvent
 import com.yapp.timitimi.presentation.ui.createproject.viewmodel.CreateProjectViewModel
 import com.yapp.timitimi.presentation.ui.main.MainActivity
-import com.yapp.timitimi.ui.startActivityWithAnimation
 import com.yapp.timitimi.theme.Gray200
+import com.yapp.timitimi.ui.startActivityWithAnimation
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun CreateProjectScreen(
     navController: NavHostController = rememberNavController(),
-    context: Context = LocalContext.current
+    context: Context = LocalContext.current,
+    firebaseDynamicLinkHelper: FirebaseDynamicLinkHelper
 ) {
     val viewModel: CreateProjectViewModel = hiltViewModel()
     var progress by remember { mutableStateOf(0.5f) }
@@ -77,6 +79,10 @@ fun CreateProjectScreen(
 
                     CreateProjectSingleEvent.Exit -> {
                         (context as? Activity)?.finish()
+                    }
+
+                   is CreateProjectSingleEvent.ShowChooser -> {
+                       firebaseDynamicLinkHelper.createDynamicLink(event.id)
                     }
                 }
             }

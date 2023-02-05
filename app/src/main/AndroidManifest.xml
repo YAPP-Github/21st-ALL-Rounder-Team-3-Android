@@ -18,15 +18,29 @@
         <activity
             android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <activity android:name="com.yapp.timitimi.presentation.ui.main.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="timitimi.page.link"
+                    android:scheme="https"
+                    android:pathPattern="*"/>
+
             </intent-filter>
         </activity>
 
         <activity android:name="com.yapp.timitimi.presentation.ui.splash.SplashActivity"/>
-        <activity android:name="com.yapp.timitimi.presentation.ui.main.MainActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.login.LoginActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity"/>
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
