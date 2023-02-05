@@ -21,7 +21,13 @@ class LoginWebViewClient(
 
     private fun isLoginSucceed(url: Uri?): Boolean {
         if (url?.queryParameterNames?.contains(QUERY_PARAMS_APP_TOKEN) == true) {
-            onLoginSucceed(url.getQueryParameter(QUERY_PARAMS_APP_TOKEN) ?: "")
+            // 카카오 로그인 실패했을 때 appToken 을 empty string 으로 내려준다.
+            val token = url.getQueryParameter(QUERY_PARAMS_APP_TOKEN) ?: ""
+            if (token.isNotBlank()) {
+                onLoginSucceed(token)
+            } else {
+                onLoginFailed()
+            }
             return true
         }
         return false
