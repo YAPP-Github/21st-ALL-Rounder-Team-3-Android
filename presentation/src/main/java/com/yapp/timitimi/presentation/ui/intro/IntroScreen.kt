@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
-import com.yapp.timitimi.presentation.ui.login.LoginActivity
+import com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity
 import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.ui.startActivityWithAnimation
@@ -79,8 +79,8 @@ fun IntroScreen(
                     .wrapContentSize()
                     .padding(16.dp)
                     .clickable {
-                        (context as Activity).startActivityWithAnimation<LoginActivity>()
-//                        (context as Activity).startActivityWithAnimation<OnboardingActivity>()
+                       // (context as Activity).startActivityWithAnimation<LoginActivity>()
+                        (context as Activity).startActivityWithAnimation<OnboardingActivity>()
                     },
                 contentDescription = "kakao login button",
                 tint = Color.Unspecified,
