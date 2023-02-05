@@ -64,7 +64,9 @@ fun CreateProjectScreen(
             .onEach { event ->
                 when (event) {
                     CreateProjectSingleEvent.NavigateToMain -> {
-                        activity.startActivityWithAnimation<MainActivity>()
+                        activity.startActivityWithAnimation<MainActivity>(
+                            withFinish = true
+                        )
                     }
 
                     CreateProjectSingleEvent.NavigateToTwoStepPage -> {
