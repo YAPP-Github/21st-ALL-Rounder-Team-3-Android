@@ -1,12 +1,15 @@
 package com.yapp.timitimi.data.api
 
+import com.yapp.timitimi.data.base.Response
+import com.yapp.timitimi.data.response.ParticipantResponse
+import com.yapp.timitimi.domain.entity.Participant
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
 //todo@jsh-me response 객체 추가 필요
 interface TimiServiceApi {
-//    PROJECT
+    //    PROJECT
     @GET("/projects")
     suspend fun getAllProject()
 
@@ -18,11 +21,11 @@ interface TimiServiceApi {
         @Path("projectId") projectId: String
     )
 
-//    PARTICIPANTS
+    //    PARTICIPANTS
     @GET("/projects/{projectId}/participants")
     suspend fun getProjectParticipants(
         @Path("projectId") projectId: String
-    )
+    ): Response<List<ParticipantResponse>>
 
     @POST("/projects/{projectId}/participants")
     suspend fun postProjectParticipants(
@@ -32,7 +35,7 @@ interface TimiServiceApi {
     @GET("/participants")
     suspend fun getParticipants()
 
-//    TASKS
+    //    TASKS
     @GET("/projects/{projectId}/tasks")
     suspend fun getProjectTasks(
         @Path("projectId") projectId: String
@@ -48,7 +51,7 @@ interface TimiServiceApi {
         @Path("taskId") taskId: String
     )
 
-//        FEEDBACKS
+    //        FEEDBACKS
     @POST("/tasks/{taskId}/feedbacks")
     suspend fun postTaskFeedbacks(
         @Path("taskId") projectId: String

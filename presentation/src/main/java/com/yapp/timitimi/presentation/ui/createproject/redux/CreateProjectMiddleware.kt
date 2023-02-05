@@ -52,11 +52,11 @@ class CreateProjectMiddleware @Inject constructor(
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-            filterIsInstance<CreateProjectIntent.StartMain>()
-                .onEach {
-                    eventFlow.emit(CreateProjectSingleEvent.NavigateToMain)
-                }
-                .shareIn(scope, SharingStarted.WhileSubscribed())
+                filterIsInstance<CreateProjectIntent.StartMain>()
+                    .onEach {
+                        eventFlow.emit(CreateProjectSingleEvent.NavigateToMain)
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed())
             )
         }
     }
