@@ -20,15 +20,15 @@ class MainReducer : Reducer<MainState> {
                 )
             }
 
-            is MainIntent.OnSelectProfile -> {
+            is MainIntent.SelectProfile -> {
                 state.copy(
                     selectedProfileIndex = action.index
                 )
             }
 
-            is MainIntent.OnClickDropBox -> {
+            MainIntent.ClickGuideScreen -> {
                 state.copy(
-                    isTaskDropDownExpanded = action.isExpanded.not()
+                    currentStep = state.currentStep.plus(1)
                 )
             }
 
