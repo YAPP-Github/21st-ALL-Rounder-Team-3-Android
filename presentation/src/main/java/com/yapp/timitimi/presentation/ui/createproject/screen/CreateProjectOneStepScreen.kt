@@ -24,7 +24,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,17 +45,17 @@ import androidx.compose.ui.unit.dp
 import com.yapp.timitimi.component.TimiBody1Medium
 import com.yapp.timitimi.component.TimiBody3Regular
 import com.yapp.timitimi.component.TimiH1SemiBold
+import com.yapp.timitimi.presentation.R
+import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectIntent
+import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectState
+import com.yapp.timitimi.presentation.ui.createproject.viewmodel.CreateProjectViewModel
+import com.yapp.timitimi.presentation.ui.onboarding.LargeButton
 import com.yapp.timitimi.theme.Black
 import com.yapp.timitimi.theme.Gray100
 import com.yapp.timitimi.theme.Gray200
 import com.yapp.timitimi.theme.Gray300
 import com.yapp.timitimi.theme.Gray400
 import com.yapp.timitimi.theme.Purple500
-import com.yapp.timitimi.presentation.R
-import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectIntent
-import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectState
-import com.yapp.timitimi.presentation.ui.createproject.viewmodel.CreateProjectViewModel
-import com.yapp.timitimi.presentation.ui.onboarding.LargeButton
 
 
 @Composable
@@ -89,8 +88,7 @@ fun CreateProjectOneStepScreen(
                 text = stringResource(id = R.string.create_project_onestep_title),
             )
 
-            CreateProjectInputField(
-                viewModel = viewModel,
+            TimiInputField(
                 focusRequester = focusRequester,
                 focusManager = focusManager,
                 title = stringResource(id = R.string.project_name),
@@ -110,8 +108,7 @@ fun CreateProjectOneStepScreen(
             Spacing()
             CreateProjectDueDate(viewModel, state.value)
             Spacing()
-            CreateProjectInputField(
-                viewModel = viewModel,
+            TimiInputField(
                 focusRequester = focusRequester,
                 focusManager = focusManager,
                 title = stringResource(id = R.string.project_goal),
@@ -129,7 +126,6 @@ fun CreateProjectOneStepScreen(
                 })
             BottomLargeButton(
                 title = "다음",
-                state
             ) {
                 viewModel.dispatch(CreateProjectIntent.ClickNextButton)
             }
@@ -145,7 +141,6 @@ fun CreateProjectOneStepScreen(
 @Composable
 fun BottomLargeButton(
     title: String,
-    state: State<CreateProjectState>,
     onClick: () -> Unit
 ) {
     Box(
@@ -258,8 +253,7 @@ fun RowScope.DateTextBox(
 }
 
 @Composable
-fun CreateProjectInputField(
-    viewModel: CreateProjectViewModel,
+fun TimiInputField(
     focusRequester: FocusRequester,
     focusManager: FocusManager,
     title: String,

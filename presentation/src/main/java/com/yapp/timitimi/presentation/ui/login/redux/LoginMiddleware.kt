@@ -1,7 +1,7 @@
 package com.yapp.timitimi.presentation.ui.login.redux
 
-import com.yapp.timitimi.redux.BaseMiddleware
 import com.yapp.timitimi.domain.preference.UserPreference
+import com.yapp.timitimi.redux.BaseMiddleware
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.shareIn
 import javax.inject.Inject
 
 class LoginMiddleware @Inject constructor(
-    private val userPreference: UserPreference
+    private val userPreference: UserPreference,
 ) : BaseMiddleware<LoginIntent, LoginSingleEvent> {
     override fun mutate(
         scope: CoroutineScope,
@@ -24,16 +24,17 @@ class LoginMiddleware @Inject constructor(
             merge(
                 filterIsInstance<LoginIntent.KakaoLoginFailed>()
                     .onEach {
-                        eventFlow.emit(LoginSingleEvent.ShowToast)
+                        eventFlow.emit(LoginSingleEvent.ShowToast("로그인 실패"))
                     }
-                    .shareIn(scope, SharingStarted.WhileSubscribed()),
+                    .shareIn(scope, SharingStarted.Eagerly),
 
                 filterIsInstance<LoginIntent.KakaoLoginSucceed>()
                     .onEach {
                         userPreference.accessToken = it.appToken
+                        eventFlow.emit(LoginSingleEvent.ShowToast("로그인 성공"))
                         eventFlow.emit(LoginSingleEvent.NavigateToCreateProject)
                     }
-                    .shareIn(scope, SharingStarted.WhileSubscribed()),
+                    .shareIn(scope, SharingStarted.Eagerly),
             )
         }
     }

@@ -72,7 +72,6 @@ fun CreateProjectTwoStepScreen(
         }
         BottomLargeButton(
             title = stringResource(id = R.string.project_start),
-            state
         ) {
             viewModel.dispatch(CreateProjectIntent.StartMain)
         }

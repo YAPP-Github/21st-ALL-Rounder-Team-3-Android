@@ -26,8 +26,10 @@ import androidx.compose.ui.unit.dp
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.component.TimiButton1SemiBold
 import com.yapp.timitimi.component.TimiH1SemiBold
+import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity
+import com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity
 import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.ui.startActivityWithAnimation
 
@@ -70,7 +72,15 @@ fun OnboardingScreen(
         }
 
         TimiBody2Medium(
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .timiClickable (
+                    onClick = {
+                        (context as Activity).startActivityWithAnimation<InviteProjectActivity>()
+                    },
+                    rippleEnabled = false
+                )
+            ,
             text = stringResource(id = R.string.onboarding_project_help_description),
             textAlign = TextAlign.Center,
             color = Purple500

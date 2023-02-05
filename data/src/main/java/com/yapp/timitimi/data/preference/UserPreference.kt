@@ -19,6 +19,7 @@ class UserPreferenceImpl @Inject constructor(
     override fun clear() {
         accessToken = ""
         prefs.edit().remove(ACCESS_TOKEN)
+        prefs.edit().remove(REFRESH_TOKEN)
         prefs.edit().clear()
     }
 
@@ -28,8 +29,15 @@ class UserPreferenceImpl @Inject constructor(
         defaultValue = ""
     )
 
+    override var refreshToken: String by StringPreference(
+        preferences = prefs,
+        name = REFRESH_TOKEN,
+        defaultValue = ""
+    )
+
     companion object {
         private const val PREF_NAME = "token.pref"
         private const val ACCESS_TOKEN = "accessToken"
+        private const val REFRESH_TOKEN = "refreshToken"
     }
 }
