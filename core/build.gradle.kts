@@ -38,4 +38,7 @@ dependencies {
     implementation(libs.bundles.ktx)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.timber)
+    implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.databinding:databinding-runtime:7.1.2")
 }
