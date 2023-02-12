@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/task_card_background">
+
+    <TextView
+        android:id="@+id/badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="7.5dp"
+        android:paddingVertical="2dp"
+        android:text="D-13"
+        android:background="@drawable/title_background"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="2022-2 4차 산업 혁명의 이해 팀플"
+        app:layout_constraintLeft_toLeftOf="@id/badge"
+        app:layout_constraintTop_toBottomOf="@id/badge" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="10.16 ~ 12.02"
+        app:layout_constraintLeft_toLeftOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
