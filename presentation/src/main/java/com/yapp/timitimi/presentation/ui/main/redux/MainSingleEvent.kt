@@ -6,7 +6,15 @@ sealed interface MainSingleEvent : BaseSingleEvent {
     object NavigateToProjectList : MainSingleEvent
     object NavigateToEditProject : MainSingleEvent
     object NavigateToNotificationList : MainSingleEvent
-    object NavigateToCreateTask : MainSingleEvent
-    object NavigateToTaskDetail : MainSingleEvent
+    data class NavigateToCreateTask(
+        val projectId: Int,
+    ) : MainSingleEvent
+
+    data class NavigateToTaskDetail(
+        val projectId: Int,
+        val taskId: Int,
+        val isMe: Boolean,
+    ) : MainSingleEvent
+
     object NavigateToInviteMember : MainSingleEvent
 }

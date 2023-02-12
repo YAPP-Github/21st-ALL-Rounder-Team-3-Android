@@ -5,7 +5,6 @@ package com.yapp.timitimi.presentation.ui.main.redux
 import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.domain.respository.ParticipantsRepository
 import com.yapp.timitimi.redux.BaseMiddleware
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -94,11 +93,23 @@ class MainMiddleware @Inject constructor(
                 filterIsInstance<MainIntent.ClickFab>()
                     .onEach {
                         Timber.e(it.toString())
-                        eventFlow.emit(MainSingleEvent.NavigateToCreateTask)
+                        eventFlow.emit(MainSingleEvent.NavigateToCreateTask(projectId = it.projectId))
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-                )
+                filterIsInstance<MainIntent.ClickTaskItem>()
+                    .onEach {
+                        Timber.e(it.toString())
+                        eventFlow.emit(
+                            MainSingleEvent.NavigateToTaskDetail(
+                                projectId = it.projectId,
+                                taskId = it.taskId,
+                                isMe = it.isMe,
+                            )
+                        )
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed())
+            )
         }
     }
 }

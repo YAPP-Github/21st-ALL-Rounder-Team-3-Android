@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.yapp.timitimi.designsystem.R
 import com.yapp.timitimi.border.TimiBorder
+import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.row.CenterVerticallyRow
 import com.yapp.timitimi.theme.Gray300
 import com.yapp.timitimi.theme.Gray600
@@ -48,6 +49,7 @@ import com.yapp.timitimi.theme.Purple500
 @Composable
 fun TimiTaskCard(
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
     profile: String,
     name: String,
     period: String,
@@ -78,12 +80,16 @@ fun TimiTaskCard(
     var boxHeight by remember { mutableStateOf(0.dp) }
 
     Row(
-        modifier = Modifier.clip(
-            shape = RoundedCornerShape(
-                topStart = 16.dp,
-                bottomStart = 16.dp,
+        modifier = modifier
+            .clip(
+                shape = RoundedCornerShape(
+                    topStart = 16.dp,
+                    bottomStart = 16.dp,
+                )
             )
-        )
+            .timiClickable(
+                onClick = onClick,
+            )
     ) {
         Box(
             modifier = Modifier
@@ -92,7 +98,7 @@ fun TimiTaskCard(
                 .background(highLightColor)
         )
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .clip(
                     shape = RoundedCornerShape(
                         topEnd = 16.dp,
@@ -217,9 +223,9 @@ fun BottomArea(
     isMe: Boolean,
     rightComponent: (@Composable () -> Unit)? = null,
 ) {
-    val arrangement = if(isMe){
+    val arrangement = if (isMe) {
         Arrangement.End
-    }else{
+    } else {
         Arrangement.SpaceBetween
     }
     Row(
@@ -351,6 +357,7 @@ fun CardPreview() {
             badgeText = "D-13",
             taskType = TaskType.NotStarted,
             isMe = true,
+            onClick = {},
         )
         TimiTaskCard(
             profile = "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80",
@@ -361,6 +368,7 @@ fun CardPreview() {
             badgeText = "D-13",
             taskType = TaskType.Progress,
             isMe = true,
+            onClick = {},
         )
 
         TimiTaskCard(
@@ -376,6 +384,7 @@ fun CardPreview() {
                 totalConfirmation = 6,
             ),
             isMe = true,
+            onClick = {},
         )
         TimiTaskCard(
             profile = "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80",
@@ -389,6 +398,7 @@ fun CardPreview() {
                 notYetTask = 2,
             ),
             isMe = true,
+            onClick = {},
         )
         TimiTaskCard(
             profile = "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80",
@@ -399,6 +409,7 @@ fun CardPreview() {
             badgeText = "D-13",
             taskType = TaskType.NotStarted,
             isMe = false,
+            onClick = {},
         )
         TimiTaskCard(
             profile = "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80",
@@ -409,6 +420,7 @@ fun CardPreview() {
             badgeText = "D-13",
             taskType = TaskType.Progress,
             isMe = false,
+            onClick = {},
         )
 
         TimiTaskCard(
@@ -424,6 +436,7 @@ fun CardPreview() {
                 totalConfirmation = 6,
             ),
             isMe = false,
+            onClick = {},
         )
         TimiTaskCard(
             profile = "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80",
@@ -437,6 +450,7 @@ fun CardPreview() {
                 notYetTask = 2,
             ),
             isMe = false,
+            onClick = {},
         )
     }
 }

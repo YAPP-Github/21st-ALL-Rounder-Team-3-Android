@@ -17,6 +17,7 @@ data class MainState(
 ) : BaseState {
 
     data class Project(
+        val id: Int = 1,
         val name: String = "고전문학사 팀플 3조",
         val memo: String = "학기 성적 A+ 도전 도전 도전 도전🎃",
         val startDate: String = "11.16",
@@ -28,6 +29,7 @@ data class MainState(
 
     data class Task(
         val taskType: TaskType = TaskType.NotStarted,
+        val id: Int,
         val member: Member = Member(),
         val startDate: String = "",
         val endDate: String = "",

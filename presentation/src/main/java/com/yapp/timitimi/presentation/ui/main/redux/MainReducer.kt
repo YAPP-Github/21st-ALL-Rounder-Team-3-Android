@@ -59,6 +59,7 @@ val dummyTasks = persistentListOf(
             currentConfirmation = 5,
             totalConfirmation = 6,
         ),
+        id = 1,
         member = MainState.Member(
             true,
             "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
@@ -79,6 +80,7 @@ val dummyTasks = persistentListOf(
             "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
             "세희"
         ),
+        id = 2,
         startDate = "12.21",
         endDate = "12.29",
         dDay = "D-10",
@@ -90,6 +92,7 @@ val dummyTasks = persistentListOf(
             completedTask = 5,
             notYetTask = 6
         ),
+        id = 3,
         member = MainState.Member(
             false,
             "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",

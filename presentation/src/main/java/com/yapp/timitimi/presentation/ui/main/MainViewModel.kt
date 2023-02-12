@@ -17,10 +17,10 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val mainMiddleware: MainMiddleware,
     private val userPreference: UserPreference
-): BaseViewModel<MainIntent, MainState, MainSingleEvent>() {
+) : BaseViewModel<MainIntent, MainState, MainSingleEvent>() {
     init {
         start()
-        dispatch(MainIntent.Init(userPreference.lastViewedProjectId))
+        dispatch(MainIntent.Init(userPreference.lastViewedProjectId.toInt()))
     }
 
     override fun registerMiddleware(): List<BaseMiddleware<MainIntent, MainSingleEvent>> {
