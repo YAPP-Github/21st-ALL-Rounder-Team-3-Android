@@ -20,7 +20,11 @@
         <activity
             android:name="com.yapp.timitimi.presentation.ui.splash.SplashActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -38,11 +42,6 @@
                     android:scheme="https" />
 
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity" />
@@ -52,6 +51,7 @@
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.mytask.MyTaskActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.ui.projects.ProjectsActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.mypage.edit.EditUserInfoActivity" />
 
     </application>
