@@ -18,7 +18,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.yapp.timitimi.designsystem.R
-import com.yapp.timitimi.presentation.ui.createproject.HomeScreen
 import com.yapp.timitimi.presentation.ui.mypage.MyPageScreen
 
 @Composable
