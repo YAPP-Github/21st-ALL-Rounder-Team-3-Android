@@ -16,7 +16,7 @@ sealed interface CreateProjectIntent : BaseIntent {
     data class OpenDueDateCalendar(val dueDateType: CalenderDueDateType): CreateProjectIntent
     object CloseCalendar: CreateProjectIntent
 
-    object ShareProjectDeeplink: CreateProjectIntent
+    data class ShareProjectDeeplink(val projectId: String): CreateProjectIntent
 
     data class ClickBackButton(
         val progress: Float

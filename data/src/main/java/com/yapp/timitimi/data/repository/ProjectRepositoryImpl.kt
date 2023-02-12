@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class ProjectRepositoryImpl @Inject constructor(
     private val timiService: TimiServiceApi
-): ProjectsRepository {
+) : ProjectsRepository {
     override suspend fun getAllProject(): Flow<List<Project>> {
         return apiCall(
             call = { timiService.getAllProject() },
@@ -22,16 +22,23 @@ class ProjectRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun postProjects(body: CreateProjectsInfo) {
-        timiService.postProjects(
-            PostProjectsBody(
-                body.name,
-                body.startDate,
-                body.dueDate,
-                body.goal,
-                body.difficulty,
-                body.projectStatus
-            )
+    override suspend fun postProjects(body: CreateProjectsInfo): Flow<Int> {
+        return apiCall(
+            call = {
+                timiService.postProjects(
+                    PostProjectsBody(
+                        body.name,
+                        body.startDate,
+                        body.dueDate,
+                        body.goal,
+                        body.difficulty,
+                        body.projectStatus
+                    )
+                )
+            },
+            mapper = { data ->
+                data.projectId
+            }
         )
     }
 

@@ -49,8 +49,7 @@ class FirebaseDynamicLinkHelper @Inject constructor(
     }
 
     private fun getProjectDeepLink(projectCode: String) : Uri {
-        //todo: domain 수정 필요!
-        return Uri.parse("http://timitimi.site?code=$projectCode");
+        return Uri.parse("timitimi://invitedCode=$projectCode");
     }
 
     fun handleDynamicLinks() {

@@ -17,6 +17,7 @@ class CreateProjectViewModel @Inject constructor(
 ) : BaseViewModel<CreateProjectIntent,
         CreateProjectState,
         CreateProjectSingleEvent>() {
+    private var currentProjectId = ""
     override fun registerMiddleware() = listOf(middleware)
     override fun registerReducer() = reducer
 
@@ -30,5 +31,13 @@ class CreateProjectViewModel @Inject constructor(
 
     init {
         start()
+    }
+
+    fun setCurrentProjectId(id: String) {
+        currentProjectId = id
+    }
+
+    fun shareUrl() {
+        dispatch(CreateProjectIntent.ShareProjectDeeplink(projectId = currentProjectId))
     }
 }

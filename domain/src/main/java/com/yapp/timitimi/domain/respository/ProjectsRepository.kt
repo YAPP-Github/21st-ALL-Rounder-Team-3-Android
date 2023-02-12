@@ -13,7 +13,7 @@ interface ProjectsRepository {
     /**
      * 프로젝트 생성
      */
-    suspend fun postProjects(body: CreateProjectsInfo)
+    suspend fun postProjects(body: CreateProjectsInfo): Flow<Int>
 
     /**
      * 프로젝트 정보 조회

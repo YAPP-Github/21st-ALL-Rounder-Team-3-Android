@@ -69,8 +69,9 @@ fun CreateProjectScreen(
                         )
                     }
 
-                    CreateProjectSingleEvent.NavigateToTwoStepPage -> {
+                    is CreateProjectSingleEvent.NavigateToTwoStepPage -> {
                         progress = 1f
+                        viewModel.setCurrentProjectId(event.id)
                         navController.navigate(CreateProjectScreenRoute.STEP_TWO.route)
                     }
 
