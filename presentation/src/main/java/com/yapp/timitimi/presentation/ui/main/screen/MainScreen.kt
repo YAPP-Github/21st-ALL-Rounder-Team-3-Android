@@ -3,16 +3,22 @@
 package com.yapp.timitimi.presentation.ui.main.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,7 +32,9 @@ import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
 import com.yapp.timitimi.presentation.ui.main.redux.MainSingleEvent
 import com.yapp.timitimi.presentation.ui.main.screen.components.Header
 import com.yapp.timitimi.presentation.ui.main.screen.components.TaskSection
+import com.yapp.timitimi.presentation.ui.mytask.MyTaskActivity
 import com.yapp.timitimi.theme.Gray200
+import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.ui.startActivityWithAnimation
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -51,7 +59,7 @@ fun MainScreen(
                     }
 
                     is MainSingleEvent.NavigateToCreateTask -> {
-                        //TODO(EvergreenTree97)
+                        activity.startActivityWithAnimation<MyTaskActivity>()
                     }
 
                     MainSingleEvent.NavigateToInviteMember -> {
@@ -67,7 +75,7 @@ fun MainScreen(
                     }
 
                     is MainSingleEvent.NavigateToTaskDetail -> {
-                        //TODO(EvergreenTree97)
+                        activity.startActivityWithAnimation<MyTaskActivity>()
                     }
                 }
             }
@@ -107,9 +115,25 @@ fun MainScreen(
                 .padding(top = 22.dp),
             state = state,
             isProfileSelected = state.selectedProfileIndex > 0,
-            onClickTask = { item ->
-                viewModel.dispatch(MainIntent.ClickTaskItem(state.project.id, item.id))
+            onClickTask = { item, isMe ->
+                viewModel.dispatch(MainIntent.ClickTaskItem(state.project.id, item.id, isMe))
             }
         )
+    }
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomEnd,
+    ) {
+        FloatingActionButton(
+            modifier = Modifier.padding(end = 12.dp, bottom = 12.dp),
+            onClick = { viewModel.dispatch(MainIntent.ClickFab(state.project.id)) },
+            backgroundColor = Purple500,
+            contentColor = Color.White,
+        ) {
+            Icon(
+                painter = painterResource(id = com.yapp.timitimi.designsystem.R.drawable.icon_plus),
+                contentDescription = "create project"
+            )
+        }
     }
 }

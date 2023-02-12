@@ -96,18 +96,20 @@ class MainMiddleware @Inject constructor(
                         eventFlow.emit(MainSingleEvent.NavigateToCreateTask(projectId = it.projectId))
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
-            )
-            filterIsInstance<MainIntent.ClickTaskItem>()
-                .onEach {
-                    Timber.e(it.toString())
-                    eventFlow.emit(
-                        MainSingleEvent.NavigateToTaskDetail(
-                            projectId = it.projectId,
-                            taskId = it.taskId
+
+                filterIsInstance<MainIntent.ClickTaskItem>()
+                    .onEach {
+                        Timber.e(it.toString())
+                        eventFlow.emit(
+                            MainSingleEvent.NavigateToTaskDetail(
+                                projectId = it.projectId,
+                                taskId = it.taskId,
+                                isMe = it.isMe,
+                            )
                         )
-                    )
-                }
-                .shareIn(scope, SharingStarted.WhileSubscribed())
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed())
+            )
         }
     }
 }

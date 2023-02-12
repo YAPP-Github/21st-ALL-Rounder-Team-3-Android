@@ -13,6 +13,7 @@ sealed interface MainSingleEvent : BaseSingleEvent {
     data class NavigateToTaskDetail(
         val projectId: Int,
         val taskId: Int,
+        val isMe: Boolean,
     ) : MainSingleEvent
 
     object NavigateToInviteMember : MainSingleEvent

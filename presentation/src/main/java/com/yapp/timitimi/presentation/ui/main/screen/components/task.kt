@@ -45,7 +45,7 @@ internal fun TaskSection(
     modifier: Modifier = Modifier,
     state: MainState,
     isProfileSelected: Boolean,
-    onClickTask: (task: MainState.Task) -> Unit,
+    onClickTask: (task: MainState.Task, isMe: Boolean) -> Unit,
 ) {
     val lazyListState = rememberLazyListState()
     val isMe by remember {
@@ -129,7 +129,7 @@ internal fun TaskSection(
 internal fun LazyListScope.taskDropBox(
     title: String,
     tasks: ImmutableList<MainState.Task>,
-    onClickTask: (task: MainState.Task) -> Unit,
+    onClickTask: (task: MainState.Task, isMe: Boolean) -> Unit,
     onClick: () -> Unit,
     isHide: Boolean,
     isMe: Boolean,
@@ -162,7 +162,6 @@ internal fun LazyListScope.taskDropBox(
     }
     itemsIndexed(
         items = tasks,
-        key = { _, item -> item.id }
     ) { index, taskItem ->
         AnimatedVisibility(visible = isHide) {
             TimiTaskCard(
@@ -175,7 +174,7 @@ internal fun LazyListScope.taskDropBox(
                 taskType = TaskType.Progress,
                 isMe = isMe,
                 onClick = {
-                    onClickTask(taskItem)
+                    onClickTask(taskItem, isMe)
                 }
             )
         }

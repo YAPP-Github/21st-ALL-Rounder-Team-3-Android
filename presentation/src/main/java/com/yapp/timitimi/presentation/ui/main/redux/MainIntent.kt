@@ -28,5 +28,6 @@ sealed interface MainIntent : BaseIntent {
     data class ClickTaskItem(
         val projectId: Int,
         val taskId: Int,
+        val isMe: Boolean,
     ) : MainIntent
 }
