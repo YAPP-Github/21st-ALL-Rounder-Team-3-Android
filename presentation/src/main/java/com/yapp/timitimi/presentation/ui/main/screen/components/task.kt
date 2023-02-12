@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -30,7 +29,6 @@ import com.yapp.timitimi.presentation.ui.main.redux.MainState
 import com.yapp.timitimi.presentation.ui.main.screen.Me
 import com.yapp.timitimi.theme.Gray600
 import kotlinx.collections.immutable.ImmutableList
-import timber.log.Timber
 
 object TaskClassification {
     enum class Whole(val text: String) {
@@ -47,6 +45,7 @@ internal fun TaskSection(
     modifier: Modifier = Modifier,
     state: MainState,
     isProfileSelected: Boolean,
+    onClickTask: (task: MainState.Task) -> Unit,
 ) {
     val lazyListState = rememberLazyListState()
     val isMe by remember {
@@ -103,6 +102,7 @@ internal fun TaskSection(
                     isDropDownHides[0] = isDropDownHides[0].not()
                 },
                 isMe = isMe,
+                onClickTask = onClickTask,
             )
         } else {
             TaskClassification.Whole.values().forEachIndexed { index, task ->
@@ -118,6 +118,7 @@ internal fun TaskSection(
                         isDropDownHides[index] = isDropDownHides[index].not()
                     },
                     isMe = false,
+                    onClickTask = onClickTask,
                 )
             }
         }
@@ -128,6 +129,7 @@ internal fun TaskSection(
 internal fun LazyListScope.taskDropBox(
     title: String,
     tasks: ImmutableList<MainState.Task>,
+    onClickTask: (task: MainState.Task) -> Unit,
     onClick: () -> Unit,
     isHide: Boolean,
     isMe: Boolean,
@@ -160,6 +162,7 @@ internal fun LazyListScope.taskDropBox(
     }
     itemsIndexed(
         items = tasks,
+        key = { _, item -> item.id }
     ) { index, taskItem ->
         AnimatedVisibility(visible = isHide) {
             TimiTaskCard(
@@ -171,6 +174,9 @@ internal fun LazyListScope.taskDropBox(
                 subContent = taskItem.title,
                 taskType = TaskType.Progress,
                 isMe = isMe,
+                onClick = {
+                    onClickTask(taskItem)
+                }
             )
         }
         if (index != tasks.lastIndex) {

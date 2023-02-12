@@ -12,16 +12,21 @@ sealed interface MainIntent : BaseIntent {
 
     object ClickGuideScreen : MainIntent
     data class Init(
-        val projectId: String,
+        val projectId: Int,
         val participants: ImmutableList<Participant> = persistentListOf(),
     ) : MainIntent
+
     object ClickBackButton : MainIntent
     object ClickEditButton : MainIntent
     object ClickNotificationButton : MainIntent
     object SelectAddProfile : MainIntent
-    object ClickFab : MainIntent
+    data class ClickFab(
+        val projectId: Int,
+    ) : MainIntent
 
-    data class ClickDropBox(val isExpanded: Boolean) : MainIntent
     data class SelectProfile(val index: Int) : MainIntent
-    data class ClickTaskItem(val index: Int) : MainIntent
+    data class ClickTaskItem(
+        val projectId: Int,
+        val taskId: Int,
+    ) : MainIntent
 }

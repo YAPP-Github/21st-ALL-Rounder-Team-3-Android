@@ -50,7 +50,7 @@ fun MainScreen(
                         onBackPressed()
                     }
 
-                    MainSingleEvent.NavigateToCreateTask -> {
+                    is MainSingleEvent.NavigateToCreateTask -> {
                         //TODO(EvergreenTree97)
                     }
 
@@ -66,12 +66,16 @@ fun MainScreen(
                         activity.startActivityWithAnimation<EditProjectActivity>()
                     }
 
-                    MainSingleEvent.NavigateToTaskDetail -> {
+                    is MainSingleEvent.NavigateToTaskDetail -> {
                         //TODO(EvergreenTree97)
                     }
                 }
             }
             .launchIn(this)
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.dispatch(MainIntent.Init(state.project.id))
     }
 
     Column(
@@ -103,6 +107,9 @@ fun MainScreen(
                 .padding(top = 22.dp),
             state = state,
             isProfileSelected = state.selectedProfileIndex > 0,
+            onClickTask = { item ->
+                viewModel.dispatch(MainIntent.ClickTaskItem(state.project.id, item.id))
+            }
         )
     }
 }
