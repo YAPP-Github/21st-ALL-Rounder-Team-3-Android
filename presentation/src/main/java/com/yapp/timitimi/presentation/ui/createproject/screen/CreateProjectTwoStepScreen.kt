@@ -69,7 +69,8 @@ fun CreateProjectTwoStepScreen(
         )
         Spacing(40.dp)
         ShareKakaoUrlButton {
-            viewModel.dispatch(CreateProjectIntent.ShareProjectDeeplink)
+            viewModel.shareUrl()
+
         }
         BottomLargeButton(
             title = "나중에 초대하기",

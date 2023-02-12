@@ -3,6 +3,7 @@ package com.yapp.timitimi.data.api
 import com.yapp.timitimi.data.base.Response
 import com.yapp.timitimi.data.request.PostProjectsBody
 import com.yapp.timitimi.data.response.ParticipantResponse
+import com.yapp.timitimi.data.response.ProjectIdResponse
 import com.yapp.timitimi.data.response.ProjectResponse
 import com.yapp.timitimi.data.response.UserProfileResponse
 import retrofit2.http.Body
@@ -20,7 +21,7 @@ interface TimiServiceApi {
     @POST("/projects")
     suspend fun postProjects(
         @Body body: PostProjectsBody
-    )
+    ): Response<ProjectIdResponse>
 
     @GET("/projects/{projectId}")
     suspend fun getProject(

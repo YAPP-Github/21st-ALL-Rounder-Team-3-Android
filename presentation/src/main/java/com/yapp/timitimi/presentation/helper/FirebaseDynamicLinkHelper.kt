@@ -49,18 +49,21 @@ class FirebaseDynamicLinkHelper @Inject constructor(
     }
 
     private fun getProjectDeepLink(projectCode: String) : Uri {
-        //todo: domain 수정 필요!
         return Uri.parse("http://timitimi.site?code=$projectCode");
     }
 
-    fun handleDynamicLinks() {
+    fun handleDynamicLinks(onSuccess: (String) -> Unit) {
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(activity.intent)
             .addOnSuccessListener { pendingDynamicLinkData: PendingDynamicLinkData? ->
                 if (pendingDynamicLinkData == null) return@addOnSuccessListener
 
-                val deepLink = pendingDynamicLinkData.link
-                Timber.d("deepLink is: $deepLink")
+                val projectId = pendingDynamicLinkData.link?.getQueryParameter("code")
+                    ?: return@addOnSuccessListener
+                onSuccess(projectId)
+
+                // example deepLink is: http://timitimi.site?code=507
+                Timber.e("deepLink is: ${pendingDynamicLinkData.link}")
             }
             .addOnFailureListener {
                 Timber.e(it.localizedMessage)
