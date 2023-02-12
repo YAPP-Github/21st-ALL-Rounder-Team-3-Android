@@ -41,10 +41,11 @@ class LoginWebViewClient(
 
     private fun getRefreshToken(cookies: String): String {
         val pairs = mutableMapOf<String, String>()
-        cookies.split(";").forEach {
+        cookies.replace(" ", "").split(";").forEach {
             val parts = it.split("=")
             pairs[parts[0]] = parts[1]
         }
+        Timber.e("refresh token is", pairs.getOrElse("refreshToken") { "" })
 
         return pairs.getOrElse("refreshToken") { "" }
     }
