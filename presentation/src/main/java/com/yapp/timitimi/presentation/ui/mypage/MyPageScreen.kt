@@ -82,6 +82,7 @@ fun MyPageScreen(
             .fillMaxSize()
             .background(Color.White)
     ) {
+        item { Spacing(24.dp) }
         item { ProfileCard(state.value.userProfile) }
         item { Spacing(4.dp) }
         item {
@@ -115,7 +116,7 @@ fun MyPageScreen(
                     backgroundColor = Color.White
                 ),
                 onClick = {
-                          viewModel.dispatch(MyPageIntent.ClickEditMyInfo)
+                    viewModel.dispatch(MyPageIntent.ClickEditMyInfo)
                 },
             ) {
 
@@ -238,12 +239,15 @@ fun ProfileCard(userProfile: UserProfile) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
             .padding(16.dp)
+            .height(80.dp)
+            .background(Color.White)
+
     ) {
-        if (userProfile.imageUrl.isBlank()){
+        if (userProfile.imageUrl.isBlank()) {
             Image(
                 modifier = Modifier
+                    .padding(horizontal = 8.dp)
                     .size(80.dp),
                 painter = painterResource(id = drawable.default_profile_image),
                 contentDescription = "kakao profile image"
@@ -264,7 +268,7 @@ fun ProfileCard(userProfile: UserProfile) {
 
         Column(
             modifier = Modifier
-                .padding(horizontal = 30.dp)
+                .padding(horizontal = 22.dp)
                 .fillMaxHeight(),
             verticalArrangement = Arrangement.Center
         ) {
@@ -278,5 +282,11 @@ fun ProfileCard(userProfile: UserProfile) {
 @Preview
 @Composable
 fun MyPageScreenPreview() {
-    MyPageScreen()
+    ProfileCard(
+        UserProfile(
+            email = "naver.com",
+            nickname = "kjkkkk",
+            imageUrl = ""
+        )
+    )
 }
