@@ -8,12 +8,12 @@ data class ParticipantResponse(
     val id: Int,
     val name: String,
     val imageUrl: String,
-    val leader: Int,
+    val leader: Boolean,
 )
 
 internal fun ParticipantResponse.toDomain() = Participant(
     id = id,
     name = name,
     imageUrl = imageUrl,
-    isLeader = leader == 1
+    isLeader = leader
 )
