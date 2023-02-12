@@ -1,5 +1,7 @@
 package com.yapp.timitimi.presentation.ui.mypage.edit
 
+import android.app.Activity
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -11,19 +13,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.BottomSheetState
-import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,17 +48,18 @@ import com.yapp.timitimi.presentation.ui.createproject.screen.BottomLargeButton
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
 import com.yapp.timitimi.presentation.ui.createproject.screen.TimiInputField
 import com.yapp.timitimi.presentation.ui.mypage.edit.redux.EditUserInfoIntent
+import com.yapp.timitimi.presentation.ui.mypage.edit.redux.EditUserInfoSingleEvent
 import com.yapp.timitimi.theme.Caption1_Regular
 import com.yapp.timitimi.theme.Gray200
 import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Purple500
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun EditUserInfoScreen(
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+    context: Context = LocalContext.current,
     viewModel: EditUserInfoViewModel = hiltViewModel()
 ) {
     val state = viewModel.viewState.collectAsState()
@@ -65,114 +67,124 @@ fun EditUserInfoScreen(
     val focusRequester by remember { mutableStateOf(FocusRequester()) }
     val focusManager = LocalFocusManager.current
 
-    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-        bottomSheetState = BottomSheetState(BottomSheetValue.Expanded)
-    )
+    val bottomSheetModalBottomSheetState =
+        rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
 
-    BottomSheetLayout(
-        bottomSheetScaffoldState = bottomSheetScaffoldState,
-        content = { ChangeProfileImageBottomSheetContent() }
-    )
+    LaunchedEffect(viewModel.singleEventFlow) {
+        viewModel.singleEventFlow
+            .onEach { event ->
+                when (event) {
+                    EditUserInfoSingleEvent.ShowBottomSheet -> {
+                        bottomSheetModalBottomSheetState.show()
+                    }
+
+                    EditUserInfoSingleEvent.NavigateToBackScreen -> {
+                        (context as Activity).finish()
+                    }
+                }
+            }
+            .launchIn(this)
+    }
 
     Scaffold(
         topBar = {
             TimiTopAppBar(
                 isTextCenterAlignment = true,
-                onClickBackButton = { /*TODO*/ },
+                onClickBackButton = {
+                    viewModel.dispatch(EditUserInfoIntent.ClickBackButton)
+                },
                 title = "프로필 수정",
             )
         }
     ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-                .background(Color.White),
-            horizontalAlignment = Alignment.CenterHorizontally
+        BottomSheetLayout(
+            modalBottomSheetState = bottomSheetModalBottomSheetState,
+            sheetContent = { ChangeProfileImageBottomSheetContent() }
         ) {
-            Spacing(24.dp)
-
-            if (state.value.userProfile.imageUrl.isBlank()) {
-                Image(
-                    modifier = Modifier
-                        .size(120.dp),
-                    painter = painterResource(id = R.drawable.default_profile_image),
-                    contentDescription = "kakao profile image"
-                )
-            } else {
-                AsyncImage(
-                    modifier = Modifier
-                        .size(120.dp)
-                        .clip(CircleShape),
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(state.value.userProfile.imageUrl)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "timitimi profile image",
-                )
-            }
-            Spacing(12.dp)
-            Text(
-                modifier = Modifier
-                    .timiClickable(onClick = {
-                        coroutineScope.launch {
-                            if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
-                                bottomSheetScaffoldState.bottomSheetState.expand()
-                            } else {
-                                bottomSheetScaffoldState.bottomSheetState.collapse()
-                            }
-                        }
-                    }),
-                text = "프로필 이미지 바꾸기",
-                style = Caption1_Regular,
-                color = Purple500,
-                textDecoration = TextDecoration.Underline
-            )
-
-            TimiInputField(
-                focusRequester = focusRequester,
-                focusManager = focusManager,
-                title = "이름",
-                placeholder = "가연",
-                strokeColor = if (state.value.hasNicknameFieldFocused) Purple500 else Gray200,
-                input = state.value.userProfile.nickname,
-                onFocusChanged = {
-                    viewModel.dispatch(EditUserInfoIntent.ChangeNicknameTextFieldFocused(it))
-                },
-                onTextCleared = {
-                    viewModel.dispatch(EditUserInfoIntent.ClearNicknameField)
-                },
-                onInputChange = {
-                    viewModel.dispatch(EditUserInfoIntent.SaveUserInfo)
-                }
-            )
-
-            Spacing()
-
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(horizontal = 16.dp)
+                    .padding(padding)
+                    .fillMaxSize()
+                    .background(Color.White),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TimiBody3Regular(
-                    text = "이메일"
+                Spacing(24.dp)
+
+                if (state.value.userProfile.imageUrl.isBlank()) {
+                    Image(
+                        modifier = Modifier
+                            .size(120.dp),
+                        painter = painterResource(id = R.drawable.default_profile_image),
+                        contentDescription = "kakao profile image"
+                    )
+                } else {
+                    AsyncImage(
+                        modifier = Modifier
+                            .size(120.dp)
+                            .clip(CircleShape),
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(state.value.userProfile.imageUrl)
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = "timitimi profile image",
+                    )
+                }
+                Spacing(12.dp)
+                Text(
+                    modifier = Modifier
+                        .timiClickable(onClick = {
+                            viewModel.dispatch(EditUserInfoIntent.ClickUserProfileImageChanged)
+                        }),
+                    text = "프로필 이미지 바꾸기",
+                    style = Caption1_Regular,
+                    color = Purple500,
+                    textDecoration = TextDecoration.Underline
                 )
+
+                TimiInputField(
+                    focusRequester = focusRequester,
+                    focusManager = focusManager,
+                    title = "이름",
+                    placeholder = "가연",
+                    strokeColor = if (state.value.hasNicknameFieldFocused) Purple500 else Gray200,
+                    input = state.value.userProfile.nickname,
+                    onFocusChanged = {
+                        viewModel.dispatch(EditUserInfoIntent.ChangeNicknameTextFieldFocused(it))
+                    },
+                    onTextCleared = {
+                        viewModel.dispatch(EditUserInfoIntent.ClearNicknameField)
+                    },
+                    onInputChange = {
+                        viewModel.dispatch(EditUserInfoIntent.SaveUserInfo)
+                    }
+                )
+
                 Spacing()
-                TimiBody1Medium(
-                    text = state.value.userProfile.email,
-                    color = Gray700
-                )
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(horizontal = 16.dp)
+                ) {
+                    TimiBody3Regular(
+                        text = "이메일"
+                    )
+                    Spacing()
+                    TimiBody1Medium(
+                        text = state.value.userProfile.email,
+                        color = Gray700
+                    )
+                }
             }
 
+            BottomLargeButton(
+                backgroundColor = Purple500,
+                title = "저장하기",
+                isEnabled = true,
+                onClick = { viewModel.dispatch(EditUserInfoIntent.SaveUserInfo) }
+            )
         }
-
-        BottomLargeButton(
-            backgroundColor = Purple500,
-            title = "저장하기",
-            isEnabled = true,
-            onClick = { viewModel.dispatch(EditUserInfoIntent.SaveUserInfo) }
-        )
     }
 }
 

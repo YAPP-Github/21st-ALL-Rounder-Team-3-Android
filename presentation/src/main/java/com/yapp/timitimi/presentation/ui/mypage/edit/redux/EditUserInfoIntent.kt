@@ -9,7 +9,10 @@ sealed class EditUserInfoIntent : BaseIntent {
         val userProfile: UserProfile = UserProfile.empty()
     ) : EditUserInfoIntent()
 
+    object ClickUserProfileImageChanged: EditUserInfoIntent()
     object ClickEditMyInfo : EditUserInfoIntent()
+
+    object ClickBackButton : EditUserInfoIntent()
 
     object ClearNicknameField: EditUserInfoIntent()
 

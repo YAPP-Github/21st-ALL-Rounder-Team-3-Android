@@ -86,20 +86,23 @@ fun MyPageScreen(
         item { ProfileCard(state.value.userProfile) }
         item { Spacing(4.dp) }
         item {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-                    .height(40.dp)
-                    .background(shape = RoundedCornerShape(8.dp), color = Gray100),
-                contentAlignment = Alignment.Center
-            ) {
-                TimiBody3Regular(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "ISTJ가 되고 싶은 ENFP 리더형인가 팔로워형인가",
-                    textAlign = TextAlign.Center,
-                    color = Gray600
-                )
+            // description 추가되면 수정 필요
+            if (false) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .height(40.dp)
+                        .background(shape = RoundedCornerShape(8.dp), color = Gray100),
+                    contentAlignment = Alignment.Center
+                ) {
+                    TimiBody3Regular(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "ISTJ가 되고 싶은 ENFP 리더형인가 팔로워형인가",
+                        textAlign = TextAlign.Center,
+                        color = Gray600
+                    )
+                }
             }
         }
         item {
