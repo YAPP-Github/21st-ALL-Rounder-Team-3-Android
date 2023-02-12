@@ -67,11 +67,7 @@ internal fun MyTaskScreen() {
                     useWideViewPort = true
                 }
                 addJavascriptInterface(
-                    MyTaskWebViewBridge(
-                        onReceiveTestMessage = {
-                            activity.startActivityWithAnimation<MainActivity>()
-                        }
-                    ),
+                    MyTaskWebViewBridge(),
                     MyTaskWebViewBridge.Name
                 )
             }
