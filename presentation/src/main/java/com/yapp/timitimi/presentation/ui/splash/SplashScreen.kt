@@ -90,16 +90,16 @@ fun SplashScreen(
             Image(
                 painter = painterResource(R.drawable.timitimi),
                 modifier = Modifier
-                    .padding(32.dp),
+                    .padding(horizontal = 80.dp),
                 contentDescription = null,
             )
 
             TimiBody2Medium(
+                modifier = Modifier.padding(top = 16.dp),
                 text = stringResource(id = R.string.onboarding_text),
                 color = Purple500,
                 textAlign = TextAlign.Center
             )
-
             Spacing(32.dp)
         }
 
