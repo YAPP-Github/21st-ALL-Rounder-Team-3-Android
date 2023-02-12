@@ -51,6 +51,7 @@
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.mytask.MyTaskActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.ui.mypage.edit.EditUserInfoActivity" />
 
     </application>
 
