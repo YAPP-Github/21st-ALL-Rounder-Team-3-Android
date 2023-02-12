@@ -64,6 +64,7 @@ fun CreateProjectScreen(
             .onEach { event ->
                 when (event) {
                     CreateProjectSingleEvent.NavigateToMain -> {
+                        viewModel.saveLastViewedProjectId()
                         activity.startActivityWithAnimation<MainActivity>(
                             withFinish = true
                         )

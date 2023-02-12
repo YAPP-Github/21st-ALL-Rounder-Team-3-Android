@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -21,11 +22,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.presentation.R
+import com.yapp.timitimi.presentation.helper.FirebaseDynamicLinkHelper
 import com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
 import com.yapp.timitimi.presentation.ui.intro.IntroActivity
@@ -34,15 +35,32 @@ import com.yapp.timitimi.presentation.ui.splash.redux.SplashSingleEvent
 import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.ui.startActivityWithAnimation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 @Composable
 fun SplashScreen(
+    firebaseDynamicLinkHelper: FirebaseDynamicLinkHelper,
     viewModel: SplashViewModel = hiltViewModel(),
-    context: Context = LocalContext.current
+    context: Context = LocalContext.current,
+    coroutineScope: CoroutineScope = rememberCoroutineScope()
 ) {
     val state = viewModel.viewState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        coroutineScope.launch {
+            coroutineScope.async {
+                firebaseDynamicLinkHelper.handleDynamicLinks {
+                    viewModel.setInvitedProjectId(it)
+                }
+            }.await()
+
+            coroutineScope.async { viewModel.initLogin() }.await()
+        }
+    }
 
     LaunchedEffect(viewModel.singleEventFlow) {
         viewModel.singleEventFlow
@@ -53,6 +71,7 @@ fun SplashScreen(
                             withFinish = true
                         )
                     }
+
                     SplashSingleEvent.NavigateToCreateProject -> {
                         (context as Activity).startActivityWithAnimation<CreateProjectActivity>(
                             withFinish = true
@@ -104,10 +123,4 @@ fun SplashScreen(
         }
 
     }
-}
-
-@Preview
-@Composable
-fun SplashScreenPreview() {
-    SplashScreen()
 }

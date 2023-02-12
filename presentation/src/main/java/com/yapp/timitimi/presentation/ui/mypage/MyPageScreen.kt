@@ -46,8 +46,8 @@ import com.yapp.timitimi.designsystem.R
 import com.yapp.timitimi.domain.entity.UserProfile
 import com.yapp.timitimi.modifier.timiClipBorder
 import com.yapp.timitimi.presentation.R.drawable
+import com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
-import com.yapp.timitimi.presentation.ui.mypage.edit.EditUserInfoActivity
 import com.yapp.timitimi.presentation.ui.mypage.redux.MyPageIntent
 import com.yapp.timitimi.presentation.ui.mypage.redux.MyPageSingleEvent
 import com.yapp.timitimi.theme.Gray100
@@ -70,7 +70,9 @@ fun MyPageScreen(
             .onEach { event ->
                 when (event) {
                     MyPageSingleEvent.NavigateToProfile -> {
-                        (context as Activity).startActivityWithAnimation<EditUserInfoActivity>()
+                        // 잠깐 테스트!!
+                        (context as Activity).startActivityWithAnimation<CreateProjectActivity>()
+                    //    (context as Activity).startActivityWithAnimation<EditUserInfoActivity>()
                     }
                 }
             }

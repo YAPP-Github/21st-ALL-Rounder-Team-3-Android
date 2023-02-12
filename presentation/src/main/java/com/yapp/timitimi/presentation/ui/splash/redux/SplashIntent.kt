@@ -7,4 +7,6 @@ sealed class SplashIntent : BaseIntent {
     object GetAccessTokenFailed : SplashIntent()
     object NeedRefreshToken : SplashIntent()
 
+    data class GetAccessTokenSucceedAndInvitedUser(val invitedId: String): SplashIntent()
+
 }
