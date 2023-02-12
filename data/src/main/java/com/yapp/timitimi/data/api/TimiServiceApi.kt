@@ -3,8 +3,10 @@ package com.yapp.timitimi.data.api
 import com.yapp.timitimi.data.base.Response
 import com.yapp.timitimi.data.request.PostProjectsBody
 import com.yapp.timitimi.data.response.ParticipantResponse
+import com.yapp.timitimi.data.response.UserProfileResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -63,5 +65,13 @@ interface TimiServiceApi {
     @GET("/tasks/{taskId}/feedbacks")
     suspend fun getTaskFeedbacks(
         @Path("taskId") projectId: String
+    )
+
+    @GET("/members")
+    suspend fun getUserInfo(): Response<UserProfileResponse>
+
+    @GET("/auth/refresh")
+    suspend fun refreshUserToken(
+        @Header("refreshToken") token: String,
     )
 }

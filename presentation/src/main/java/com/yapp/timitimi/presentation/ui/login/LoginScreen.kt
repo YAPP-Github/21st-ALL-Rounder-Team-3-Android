@@ -52,8 +52,8 @@ fun LoginScreen(
 
     val webViewClient = remember {
         LoginWebViewClient(
-            onLoginSucceed = { appToken ->
-                viewModel.dispatch(LoginIntent.KakaoLoginSucceed(appToken))
+            onLoginSucceed = { appToken, refreshToken ->
+                viewModel.dispatch(LoginIntent.KakaoLoginSucceed(appToken, refreshToken))
             },
             onLoginFailed = {
                 viewModel.dispatch(LoginIntent.KakaoLoginFailed)

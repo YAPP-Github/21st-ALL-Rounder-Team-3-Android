@@ -38,7 +38,7 @@ class SplashMiddleware @Inject constructor(
 
             filterIsInstance<SplashIntent.NeedRefreshToken>()
                 .onEach {
-                    Timber.e(it.toString())
+                    Timber.e("Need to change refresh token")
                     eventFlow.emit(SplashSingleEvent.RenewAccessToken)
                 }
                 .shareIn(scope, SharingStarted.Eagerly)
