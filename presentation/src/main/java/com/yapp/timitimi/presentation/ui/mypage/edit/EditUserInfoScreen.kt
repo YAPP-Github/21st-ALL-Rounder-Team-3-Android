@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomSheetState
 import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.Divider
@@ -25,14 +26,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.yapp.timitimi.component.BottomSheetLayout
 import com.yapp.timitimi.component.TimiBody1Medium
 import com.yapp.timitimi.component.TimiBody3Regular
@@ -97,8 +101,13 @@ fun EditUserInfoScreen(
                 )
             } else {
                 AsyncImage(
-                    modifier = Modifier.size(120.dp),
-                    model = state.value.userProfile.email,
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(CircleShape),
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(state.value.userProfile.imageUrl)
+                        .crossfade(true)
+                        .build(),
                     contentDescription = "timitimi profile image",
                 )
             }

@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.yapp.timitimi.border.TimiBorder
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.component.TimiBody3Regular
@@ -253,7 +254,10 @@ fun ProfileCard(userProfile: UserProfile) {
                 modifier = Modifier
                     .size(80.dp)
                     .clip(CircleShape),
-                model = userProfile.email,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(userProfile.imageUrl)
+                    .crossfade(true)
+                    .build(),
                 contentDescription = "timitimi profile image",
             )
         }
