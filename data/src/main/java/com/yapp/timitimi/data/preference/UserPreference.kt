@@ -40,6 +40,12 @@ class UserPreferenceImpl @Inject constructor(
         defaultValue = ""
     )
 
+    override var lastViewedProjectId: String by StringPreference(
+        preferences = prefs,
+        name = LAST_VIEWED_PROJECT_ID,
+        defaultValue = ""
+    )
+
     override fun getIsFirstProject(): Flow<Boolean> =
         flow { prefs.getBoolean(IS_FIRST_PROJECT, true) }
 
@@ -54,6 +60,7 @@ class UserPreferenceImpl @Inject constructor(
         private const val PREF_NAME = "token.pref"
         private const val ACCESS_TOKEN = "accessToken"
         private const val REFRESH_TOKEN = "refreshToken"
+        private const val LAST_VIEWED_PROJECT_ID = "lastViewedProjectId"
         private const val IS_FIRST_PROJECT = "isFirstProject"
     }
 }
