@@ -25,4 +25,6 @@
 
     <string name="main_total">전체</string>
     <string name="main_leader">팀장</string>
+    <string name="edit">편집</string>
+    <string name="project">프로젝트</string>
 </resources>
