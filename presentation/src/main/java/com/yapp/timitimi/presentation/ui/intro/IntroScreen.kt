@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.yapp.timitimi.component.TimiBody2Medium
+import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
 import com.yapp.timitimi.presentation.ui.login.LoginActivity
@@ -54,11 +54,12 @@ fun IntroScreen(
             Image(
                 painter = painterResource(R.drawable.timitimi),
                 modifier = Modifier
-                    .padding(32.dp),
+                    .padding(horizontal = 80.dp),
                 contentDescription = null,
             )
 
             TimiBody2Medium(
+                modifier = Modifier.padding(top = 16.dp),
                 text = stringResource(id = R.string.onboarding_text),
                 color = Purple500,
                 textAlign = TextAlign.Center
@@ -77,10 +78,10 @@ fun IntroScreen(
                 painter = painterResource(id = R.drawable.kakako_login_button),
                 modifier = Modifier
                     .wrapContentSize()
-                    .padding(16.dp)
-                    .clickable {
+                    .timiClickable(onClick = {
                         (context as Activity).startActivityWithAnimation<LoginActivity>()
-                    },
+                    }, rippleEnabled = false)
+                    .padding(16.dp),
                 contentDescription = "kakao login button",
                 tint = Color.Unspecified,
             )

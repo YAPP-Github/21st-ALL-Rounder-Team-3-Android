@@ -29,6 +29,7 @@ import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
 import com.yapp.timitimi.presentation.ui.intro.IntroActivity
+import com.yapp.timitimi.presentation.ui.main.MainActivity
 import com.yapp.timitimi.presentation.ui.splash.redux.SplashSingleEvent
 import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
@@ -48,6 +49,11 @@ fun SplashScreen(
             .onEach { event ->
                 when (event) {
                     SplashSingleEvent.NavigateToMain -> {
+                        (context as Activity).startActivityWithAnimation<MainActivity>(
+                            withFinish = true
+                        )
+                    }
+                    SplashSingleEvent.NavigateToCreateProject -> {
                         (context as Activity).startActivityWithAnimation<CreateProjectActivity>(
                             withFinish = true
                         )
@@ -84,16 +90,16 @@ fun SplashScreen(
             Image(
                 painter = painterResource(R.drawable.timitimi),
                 modifier = Modifier
-                    .padding(32.dp),
+                    .padding(horizontal = 80.dp),
                 contentDescription = null,
             )
 
             TimiBody2Medium(
+                modifier = Modifier.padding(top = 16.dp),
                 text = stringResource(id = R.string.onboarding_text),
                 color = Purple500,
                 textAlign = TextAlign.Center
             )
-
             Spacing(32.dp)
         }
 

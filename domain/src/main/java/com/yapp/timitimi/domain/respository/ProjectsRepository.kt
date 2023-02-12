@@ -1,12 +1,14 @@
 package com.yapp.timitimi.domain.respository
 
 import com.yapp.timitimi.domain.entity.CreateProjectsInfo
+import com.yapp.timitimi.domain.entity.Project
+import kotlinx.coroutines.flow.Flow
 
 interface ProjectsRepository {
     /**
      * 프로젝트 리스트 조회
      */
-    suspend fun getAllProject()
+    suspend fun getAllProject(): Flow<List<Project>>
 
     /**
      * 프로젝트 생성

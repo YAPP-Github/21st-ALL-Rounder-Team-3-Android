@@ -1,11 +1,13 @@
 package com.yapp.timitimi.presentation.ui.splash.redux
 
+import com.yapp.timitimi.domain.respository.ProjectsRepository
 import com.yapp.timitimi.redux.BaseMiddleware
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.shareIn
@@ -13,6 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SplashMiddleware @Inject constructor(
+    private val projectsRepository: ProjectsRepository
 ) : BaseMiddleware<SplashIntent, SplashSingleEvent> {
     override fun mutate(
         scope: CoroutineScope,
@@ -23,8 +26,13 @@ class SplashMiddleware @Inject constructor(
             merge(
                 filterIsInstance<SplashIntent.GetAccessTokenSucceed>()
                     .onEach {
-                        Timber.e(it.toString())
-                        eventFlow.emit(SplashSingleEvent.NavigateToMain)
+                        projectsRepository.getAllProject().onEach { projects ->
+                            if (projects.isEmpty()) {
+                                eventFlow.emit(SplashSingleEvent.NavigateToCreateProject)
+                            } else {
+                                eventFlow.emit(SplashSingleEvent.NavigateToMain)
+                            }
+                        }.launchIn(scope)
                     }
                     .shareIn(scope, SharingStarted.Eagerly),
 

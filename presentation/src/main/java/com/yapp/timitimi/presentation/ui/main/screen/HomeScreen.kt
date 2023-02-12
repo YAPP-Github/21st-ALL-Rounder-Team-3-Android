@@ -1,4 +1,4 @@
-package com.yapp.timitimi.presentation.ui.createproject
+package com.yapp.timitimi.presentation.ui.main.screen
 
 import android.app.Activity
 import android.content.Context
@@ -15,7 +15,6 @@ import com.yapp.timitimi.presentation.ui.main.GuideImage
 import com.yapp.timitimi.presentation.ui.main.MainViewModel
 import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
 import com.yapp.timitimi.presentation.ui.main.redux.ScreenStep
-import com.yapp.timitimi.presentation.ui.main.screen.MainScreen
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
