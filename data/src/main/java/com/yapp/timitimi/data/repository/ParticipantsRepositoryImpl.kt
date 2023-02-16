@@ -16,7 +16,7 @@ class ParticipantsRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun getProjectParticipants(projectId: String): Flow<List<Participant>> {
+    override suspend fun getProjectParticipants(projectId: Int): Flow<List<Participant>> {
         return apiCall(
             call = { timiService.getProjectParticipants(projectId) },
             mapper = { data ->

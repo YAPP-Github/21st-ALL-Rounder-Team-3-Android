@@ -47,8 +47,7 @@ import com.yapp.timitimi.component.TopBarNotificationIcon
 import com.yapp.timitimi.designsystem.R
 import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.modifier.timiClipBorder
-import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
-import com.yapp.timitimi.presentation.ui.main.redux.MainState
+import com.yapp.timitimi.presentation.ui.main.redux.Member
 import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Purple500
 import kotlinx.collections.immutable.ImmutableList
@@ -63,7 +62,7 @@ fun Header(
     dDay: String,
     notificationCount: Int,
     selectedProfileIndex: Int,
-    members: ImmutableList<MainState.Member>,
+    members: ImmutableList<Member>,
     onProfileSelected: (index: Int) -> Unit,
     onClickEditIcon: (() -> Unit)? = null,
 ) {
@@ -183,7 +182,7 @@ fun MainTopAppBar(
 fun MemberContents(
     title: String,
     selectedProfileIndex: Int,
-    members: ImmutableList<MainState.Member>,
+    members: ImmutableList<Member>,
     onProfileSelected: (index: Int) -> Unit,
 ) {
     Column(

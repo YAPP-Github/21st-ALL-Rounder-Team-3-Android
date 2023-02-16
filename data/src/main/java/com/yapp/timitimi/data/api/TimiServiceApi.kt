@@ -31,7 +31,7 @@ interface TimiServiceApi {
     //    PARTICIPANTS
     @GET("/projects/{projectId}/participants")
     suspend fun getProjectParticipants(
-        @Path("projectId") projectId: String
+        @Path("projectId") projectId: Int
     ): Response<List<ParticipantResponse>>
 
     @POST("/projects/{projectId}/participants")

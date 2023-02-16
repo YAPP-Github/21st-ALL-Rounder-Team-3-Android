@@ -1,6 +1,7 @@
 package com.yapp.timitimi.presentation.ui.main.redux
 
 import com.yapp.timitimi.component.TaskType
+import com.yapp.timitimi.domain.entity.Participant
 import com.yapp.timitimi.presentation.ui.main.screen.Me
 import com.yapp.timitimi.redux.BaseState
 import kotlinx.collections.immutable.ImmutableList
@@ -11,9 +12,9 @@ data class MainState(
     val notificationCount: Int = 0,
     val isFirstProject: Boolean = true,
     val project: Project = Project(),
-    val members: ImmutableList<Member> = dummyMembers,
+    val members: ImmutableList<Member> = persistentListOf(),
     val selectedProfileIndex: Int = 0,
-    val tasks: ImmutableList<Task> = dummyTasks,
+    val tasks: ImmutableList<Task> = persistentListOf(),
 ) : BaseState {
 
     data class Project(
@@ -39,13 +40,21 @@ data class MainState(
         val completionCount: Int = 0,
         val totalCount: Int = 0,
     )
-
-    data class Member(
-        val isLeader: Boolean = false,
-        val profile: String = "",
-        val name: String = "",
-    )
 }
+
+data class Member(
+    val id: Int = 0,
+    val isLeader: Boolean = false,
+    val profile: String = "",
+    val name: String = "",
+)
+
+fun Participant.toPresentationModel() = Member(
+    id = id,
+    isLeader = isLeader,
+    profile = imageUrl,
+    name = name,
+)
 
 enum class ScreenStep(private val index: Int) {
     First(0),

@@ -82,10 +82,6 @@ fun MainScreen(
             .launchIn(this)
     }
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.dispatch(MainIntent.Init(state.project.id))
-    }
-
     Column(
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection)
