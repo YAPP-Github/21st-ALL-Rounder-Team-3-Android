@@ -42,7 +42,14 @@ class ProjectRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getProject(projectId: String) {
-        TODO("Not yet implemented")
+    override suspend fun getProject(projectId: Int): Flow<Project> {
+        return apiCall(
+            call = {
+                timiService.getProject(projectId)
+            },
+            mapper = { data ->
+                data.toDomain()
+            }
+        )
     }
 }

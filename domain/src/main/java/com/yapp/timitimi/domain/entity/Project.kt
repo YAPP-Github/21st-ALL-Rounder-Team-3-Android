@@ -8,5 +8,9 @@ data class Project(
     val goal: String,
     val projectStatus: String,
     val progress: String,
-    val participantInfos: List<Participant>
+    val participantInfos: List<Participant>,
+    val projectThumbnailUrl: String,
+    val teamThumbnailUrl: String,
+    val myParticipantId: Int,
+    val dday: Int,
 )

@@ -18,5 +18,5 @@ interface ProjectsRepository {
     /**
      * 프로젝트 정보 조회
      */
-    suspend fun getProject(projectId: String)
+    suspend fun getProject(projectId: Int): Flow<Project>
 }
