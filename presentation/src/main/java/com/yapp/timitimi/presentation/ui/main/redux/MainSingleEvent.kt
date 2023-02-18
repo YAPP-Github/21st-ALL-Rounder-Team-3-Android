@@ -4,7 +4,10 @@ import com.yapp.timitimi.redux.BaseSingleEvent
 
 sealed interface MainSingleEvent : BaseSingleEvent {
     object NavigateToProjectList : MainSingleEvent
-    object NavigateToEditProject : MainSingleEvent
+    data class NavigateToEditProject(
+        val projectId: Int,
+    ) : MainSingleEvent
+
     object NavigateToNotificationList : MainSingleEvent
     data class NavigateToCreateTask(
         val projectId: Int,

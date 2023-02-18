@@ -77,7 +77,7 @@ class MainMiddleware @Inject constructor(
                 filterIsInstance<MainIntent.ClickEditButton>()
                     .onEach {
                         Timber.e(it.toString())
-                        eventFlow.emit(MainSingleEvent.NavigateToEditProject)
+                        eventFlow.emit(MainSingleEvent.NavigateToEditProject(it.projectId))
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 

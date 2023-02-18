@@ -62,13 +62,6 @@ data class Member(
     val name: String = "",
 )
 
-fun Participant.toPresentationModel() = Member(
-    id = id,
-    isLeader = isLeader,
-    profile = imageUrl,
-    name = name,
-)
-
 enum class ScreenStep(private val index: Int) {
     First(0),
     Second(1),

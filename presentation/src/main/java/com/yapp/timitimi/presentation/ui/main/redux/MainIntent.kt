@@ -19,7 +19,10 @@ sealed interface MainIntent : BaseIntent {
     ) : MainIntent
 
     object ClickBackButton : MainIntent
-    object ClickEditButton : MainIntent
+    data class ClickEditButton(
+        val projectId: Int,
+    ) : MainIntent
+
     object ClickNotificationButton : MainIntent
     object SelectAddProfile : MainIntent
     data class ClickFab(

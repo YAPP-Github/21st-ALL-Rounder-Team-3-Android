@@ -35,3 +35,10 @@ class MainReducer : Reducer<MainState> {
         }
     }
 }
+
+private fun Participant.toPresentationModel() = Member(
+    id = id,
+    isLeader = isLeader,
+    profile = imageUrl,
+    name = name,
+)

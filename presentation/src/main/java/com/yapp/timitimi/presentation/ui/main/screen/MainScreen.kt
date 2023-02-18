@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.germainkevin.collapsingtopbar.rememberCollapsingTopBarScrollBehavior
+import com.yapp.timitimi.presentation.constant.Extras
 import com.yapp.timitimi.presentation.ui.edit.EditProjectActivity
 import com.yapp.timitimi.presentation.ui.main.MainActivity
 import com.yapp.timitimi.presentation.ui.main.MainViewModel
@@ -70,8 +71,12 @@ fun MainScreen(
                         //TODO(EvergreenTree97)
                     }
 
-                    MainSingleEvent.NavigateToEditProject -> {
-                        activity.startActivityWithAnimation<EditProjectActivity>()
+                    is MainSingleEvent.NavigateToEditProject -> {
+                        activity.startActivityWithAnimation<EditProjectActivity>(
+                            intentBuilder = {
+                                putExtra(Extras.ProjectId, event.projectId)
+                            }
+                        )
                     }
 
                     is MainSingleEvent.NavigateToTaskDetail -> {
@@ -98,7 +103,7 @@ fun MainScreen(
             selectedProfileIndex = state.selectedProfileIndex,
             members = state.members,
             onProfileSelected = { viewModel.dispatch(MainIntent.SelectProfile(it)) },
-            onClickEditIcon = { viewModel.dispatch(MainIntent.ClickEditButton) }
+            onClickEditIcon = { viewModel.dispatch(MainIntent.ClickEditButton(state.project.id)) }
         )
         TaskSection(
             modifier = Modifier
