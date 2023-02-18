@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Scaffold
@@ -115,17 +116,24 @@ fun EditProjectScreen(
                 Spacing()
                 CreateProjectDueDate(
                     onStartDueDateClicked = {
-                        viewModel.dispatch(EditProjectIntent.OpenDueDateCalendar(
-                            CalenderDueDateType.START))
+                        viewModel.dispatch(
+                            EditProjectIntent.OpenDueDateCalendar(
+                                CalenderDueDateType.START
+                            )
+                        )
                     },
                     onEndDueDateClicked = {
-                        viewModel.dispatch(EditProjectIntent.OpenDueDateCalendar(
-                            CalenderDueDateType.END))
+                        viewModel.dispatch(
+                            EditProjectIntent.OpenDueDateCalendar(
+                                CalenderDueDateType.END
+                            )
+                        )
                     },
                     startDate = state.value.projectStartDate,
                     endDate = state.value.projectEndDate,
                     isStartDateInitialized = state.value.isNotInitializedStartDate(),
-                    isEndDateInitialized = state.value.isNotInitializedEndDate())
+                    isEndDateInitialized = state.value.isNotInitializedEndDate()
+                )
                 Spacing()
                 TimiInputField(
                     focusRequester = focusRequester,
@@ -150,7 +158,7 @@ fun EditProjectScreen(
                         .fillMaxWidth()
                         .addFocusCleaner(focusManager)
                         .padding(start = 16.dp, end = 16.dp, bottom = 10.dp),
-                    text = "팀원 (10명)",
+                    text = "팀원 (${state.value.participantList.size}명)",
                     color = Black,
                 )
 
@@ -159,15 +167,26 @@ fun EditProjectScreen(
                     modifier = Modifier.padding(top = 12.dp, bottom = 60.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp),
                 ) {
-                    items(10) {
+                    items(
+                        items = state.value.participantList,
+                        key = { it.id }
+                    ) { item ->
                         TeamMemberItem(
-                            profileUrl = "https://cdn.pixabay.com/photo/2013/03/20/23/20/butterfly-95364_1280.jpg",
+                            profileUrl = item.profileUrl,
                             onRemoveButtonClicked = {
                                 removeDialog = true
                             },
                             onEmpowermentButtonClicked = {
                                 leaderDialog = true
-                            }
+                            },
+                            nickName = {
+                                if (item.id == state.value.myId) {
+                                    "나"
+                                } else {
+                                    item.nickName
+                                }
+                            },
+                            isLeader = item.isLeader,
                         )
                     }
                 }
@@ -201,7 +220,8 @@ fun EditProjectScreen(
                 onDismissed = {
                     viewModel.dispatch(EditProjectIntent.CloseCalendar)
                 },
-                state.value.openCalendarType)
+                state.value.openCalendarType
+            )
         }
 
         if (leaderDialog) {
@@ -241,10 +261,18 @@ fun EditProjectScreen(
 @Composable
 fun TeamMemberItem(
     isLeader: Boolean = true,
+    nickName: () -> String,
     profileUrl: String,
     onRemoveButtonClicked: () -> Unit,
     onEmpowermentButtonClicked: () -> Unit,
 ) {
+    val name = nickName().let {
+        if (isLeader) {
+            "$it(팀장)"
+        } else {
+            it
+        }
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -270,11 +298,11 @@ fun TeamMemberItem(
             )
 
             TimiCaption1Regular(
-                text = "나(팀장)",
+                text = name,
                 color = Gray700
             )
         }
-        if (isLeader) {
+        if (isLeader.not()) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier

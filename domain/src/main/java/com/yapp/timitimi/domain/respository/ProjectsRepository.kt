@@ -19,4 +19,12 @@ interface ProjectsRepository {
      * 프로젝트 정보 조회
      */
     suspend fun getProject(projectId: Int): Flow<Project>
+
+    /**
+     * 프로젝트 수정
+     */
+    suspend fun putProject(
+        projectId: Int,
+        body: CreateProjectsInfo
+    ): Flow<Boolean>
 }

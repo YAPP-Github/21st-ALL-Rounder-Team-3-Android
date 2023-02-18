@@ -3,6 +3,7 @@ package com.yapp.timitimi.data.repository
 import com.yapp.timitimi.data.api.TimiServiceApi
 import com.yapp.timitimi.data.base.apiCall
 import com.yapp.timitimi.data.request.PostProjectsBody
+import com.yapp.timitimi.data.request.toData
 import com.yapp.timitimi.data.response.toDomain
 import com.yapp.timitimi.domain.entity.CreateProjectsInfo
 import com.yapp.timitimi.domain.entity.Project
@@ -50,6 +51,15 @@ class ProjectRepositoryImpl @Inject constructor(
             mapper = { data ->
                 data.toDomain()
             }
+        )
+    }
+
+    override suspend fun putProject(projectId: Int, body: CreateProjectsInfo): Flow<Boolean> {
+        return apiCall(
+            call = {
+                timiService.putProject(projectId, body.toData())
+            },
+            mapper = { it }
         )
     }
 }

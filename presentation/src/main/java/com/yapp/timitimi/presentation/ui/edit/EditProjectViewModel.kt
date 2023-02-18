@@ -1,6 +1,8 @@
 package com.yapp.timitimi.presentation.ui.edit
 
+import androidx.lifecycle.SavedStateHandle
 import com.yapp.timitimi.base.BaseViewModel
+import com.yapp.timitimi.presentation.constant.Extras
 import com.yapp.timitimi.presentation.ui.edit.redux.EditProjectIntent
 import com.yapp.timitimi.presentation.ui.edit.redux.EditProjectMiddleware
 import com.yapp.timitimi.presentation.ui.edit.redux.EditProjectReducer
@@ -12,6 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditProjectViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val middleware: EditProjectMiddleware,
     private val reducer: EditProjectReducer
 ) : BaseViewModel<EditProjectIntent,
@@ -30,5 +33,11 @@ class EditProjectViewModel @Inject constructor(
 
     init {
         start()
+        val projectId = savedStateHandle.getStateFlow(Extras.ProjectId, -1).value
+        if (projectId != -1) {
+            dispatch(EditProjectIntent.GetProject(projectId))
+        }else{
+            throw IllegalStateException("unexpected project id")
+        }
     }
 }

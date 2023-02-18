@@ -5,6 +5,7 @@ import com.yapp.timitimi.presentation.ui.edit.ParticipantItem
 import com.yapp.timitimi.redux.BaseState
 
 data class EditProjectState(
+    val myId: Int = 0,
     val projectName: String = "",
     val hasProjectNameFieldFocused: Boolean = false,
     val projectStartDate: String = "시작날",
@@ -16,7 +17,7 @@ data class EditProjectState(
     val isCalendarVisible: Boolean = false,
     val openCalendarType: CalenderDueDateType = CalenderDueDateType.NONE,
     val participantList: List<ParticipantItem> = emptyList()
-): BaseState {
+) : BaseState {
     fun isFilledAllField(): Boolean {
         return projectName.isNotBlank()
                 && projectStartDate != "시작날"

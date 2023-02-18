@@ -10,6 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 //todo@jsh-me response 객체 추가 필요
@@ -27,6 +28,13 @@ interface TimiServiceApi {
     suspend fun getProject(
         @Path("projectId") projectId: Int
     ) : Response<ProjectResponse>
+
+    @PUT("/projects/{projectId}")
+    suspend fun putProject(
+        @Path("projectId") projectId: Int,
+        @Body body: PostProjectsBody,
+    ) : Response<Boolean>
+
 
     //    PARTICIPANTS
     @GET("/projects/{projectId}/participants")
