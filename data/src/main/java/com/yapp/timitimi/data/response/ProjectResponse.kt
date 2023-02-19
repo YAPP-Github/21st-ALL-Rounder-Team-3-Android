@@ -10,9 +10,14 @@ data class ProjectResponse(
     val startDate: String,
     val dueDate: String,
     val goal: String,
+    val difficulty: String,
     val projectStatus: String,
     val progress: String,
-    val participantInfos: List<ParticipantResponse>
+    val participantInfos: List<ParticipantResponse>,
+    val projectThumbnailUrl: String,
+    val teamThumbnailUrl: String,
+    val myParticipantId: Int,
+    val dday: Int,
 )
 
 internal fun ProjectResponse.toDomain() = Project(
@@ -25,5 +30,9 @@ internal fun ProjectResponse.toDomain() = Project(
     progress = progress,
     participantInfos = participantInfos.map {
         it.toDomain()
-    }
+    },
+    projectThumbnailUrl = projectThumbnailUrl,
+    teamThumbnailUrl = teamThumbnailUrl,
+    myParticipantId = myParticipantId,
+    dday = dday,
 )

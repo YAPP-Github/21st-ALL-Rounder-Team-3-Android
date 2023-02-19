@@ -182,13 +182,15 @@ fun BottomLargeButton(
         Column {
             Divider(
                 modifier = Modifier
-                    .padding(bottom = 10.dp)
                     .fillMaxWidth()
                     .height(1.dp),
                 color = Gray300
             )
             Box(
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(
+                    vertical = 12.dp,
+                    horizontal = 16.dp
+                )
             ){
                 LargeButton(
                     text = title,

@@ -1,5 +1,7 @@
 package com.yapp.timitimi.presentation.ui.edit.redux
 
+import com.yapp.timitimi.domain.entity.Participant
+import com.yapp.timitimi.presentation.ui.edit.ParticipantItem
 import com.yapp.timitimi.redux.BaseIntent
 import com.yapp.timitimi.redux.Reducer
 import javax.inject.Inject
@@ -74,16 +76,32 @@ class EditProjectReducer @Inject constructor() : Reducer<EditProjectState> {
 
             is EditProjectIntent.SelectStartProjectDate -> {
                 newState = newState.copy(
-                    projectStartDate = action.date.toString(),
+                    projectStartDate = action.date,
                     isCalendarVisible = false
                 )
             }
 
             is EditProjectIntent.SelectEndProjectDate -> {
                 newState = newState.copy(
-                    projectEndDate = action.date.toString(),
+                    projectEndDate = action.date,
                     isCalendarVisible = false
                 )
+            }
+
+            is EditProjectIntent.GetProject -> {
+                action.project?.let {
+                    newState = newState.copy(
+                        projectName = it.name,
+                        projectStartDate = it.startDate,
+                        projectEndDate = it.dueDate,
+                        projectGoal = it.goal,
+                        participantList = it.participantInfos.map { participant ->
+                            participant.toPresentationModel()
+                        },
+                        myId = it.myParticipantId,
+                        projectId = it.id,
+                    )
+                }
             }
         }
 
@@ -94,3 +112,10 @@ class EditProjectReducer @Inject constructor() : Reducer<EditProjectState> {
         return newState
     }
 }
+
+private fun Participant.toPresentationModel() = ParticipantItem(
+    id = id,
+    isLeader = isLeader,
+    profileUrl = imageUrl,
+    nickName = name,
+)

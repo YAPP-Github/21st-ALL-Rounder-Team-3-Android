@@ -1,23 +1,19 @@
 package com.yapp.timitimi.data.request
 
-import com.yapp.timitimi.domain.entity.CreateProjectsInfo
+import com.yapp.timitimi.domain.entity.EditProjectInfo
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostProjectsBody(
+data class PutProjectBody(
     val name: String,
     val startDate: String,
     val dueDate: String,
     val goal: String,
-    val difficulty: Int,
-    val projectStatus: String
 )
 
-internal fun CreateProjectsInfo.toData() = PostProjectsBody(
+internal fun EditProjectInfo.toData() = PutProjectBody(
     name = name,
     startDate = startDate,
     dueDate = dueDate,
     goal = goal,
-    difficulty = difficulty,
-    projectStatus = projectStatus,
 )

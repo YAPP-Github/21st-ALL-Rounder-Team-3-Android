@@ -4,7 +4,9 @@ package com.yapp.timitimi.presentation.ui.main.redux
 
 import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.domain.respository.ParticipantsRepository
+import com.yapp.timitimi.domain.respository.ProjectsRepository
 import com.yapp.timitimi.redux.BaseMiddleware
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +23,7 @@ import javax.inject.Inject
 
 class MainMiddleware @Inject constructor(
     private val participantsRepository: ParticipantsRepository,
+    private val projectsRepository: ProjectsRepository,
     private val userPreference: UserPreference,
 ) : BaseMiddleware<MainIntent, MainSingleEvent> {
 
@@ -46,14 +49,22 @@ class MainMiddleware @Inject constructor(
                     .onEach {
                         Timber.e(it.toString())
                     }
-                    /*.flatMapConcat { intent -> //TODO 서버 통신으로 참여자 결과 가져와야함
+                    .flatMapConcat { intent ->
+                        projectsRepository.getProject(intent.projectId)
+                            .map { result ->
+                                intent.copy(
+                                    project = result
+                                )
+                            }
+                    }
+                    .flatMapConcat { intent ->
                         participantsRepository.getProjectParticipants(intent.projectId)
                             .map { result ->
                                 intent.copy(
                                     participants = result.toImmutableList()
                                 )
                             }
-                    }*/
+                    }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
                 filterIsInstance<MainIntent.ClickBackButton>()
@@ -66,7 +77,7 @@ class MainMiddleware @Inject constructor(
                 filterIsInstance<MainIntent.ClickEditButton>()
                     .onEach {
                         Timber.e(it.toString())
-                        eventFlow.emit(MainSingleEvent.NavigateToEditProject)
+                        eventFlow.emit(MainSingleEvent.NavigateToEditProject(it.projectId))
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
