@@ -6,6 +6,7 @@ import com.yapp.timitimi.redux.BaseState
 
 data class EditProjectState(
     val myId: Int = 0,
+    val projectId: Int = 0,
     val projectName: String = "",
     val hasProjectNameFieldFocused: Boolean = false,
     val projectStartDate: String = "시작날",
@@ -16,7 +17,9 @@ data class EditProjectState(
     val isDropDownVisible: Boolean = false,
     val isCalendarVisible: Boolean = false,
     val openCalendarType: CalenderDueDateType = CalenderDueDateType.NONE,
-    val participantList: List<ParticipantItem> = emptyList()
+    val participantList: List<ParticipantItem> = emptyList(),
+    val difficulty: Int = 0,
+    val projectStatus: String = "",
 ) : BaseState {
     fun isFilledAllField(): Boolean {
         return projectName.isNotBlank()

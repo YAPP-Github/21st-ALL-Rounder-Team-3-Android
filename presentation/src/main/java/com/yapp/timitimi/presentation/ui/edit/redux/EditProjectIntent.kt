@@ -1,8 +1,11 @@
 package com.yapp.timitimi.presentation.ui.edit.redux
 
+import com.yapp.timitimi.domain.entity.CreateProjectsInfo
+import com.yapp.timitimi.domain.entity.EditProjectInfo
 import com.yapp.timitimi.domain.entity.Project
 import com.yapp.timitimi.presentation.ui.createproject.screen.CalenderDueDateType
 import com.yapp.timitimi.redux.BaseIntent
+
 sealed interface EditProjectIntent : BaseIntent {
     data class GetProject(
         val projectId: Int,
@@ -22,7 +25,10 @@ sealed interface EditProjectIntent : BaseIntent {
     object CloseCalendar : EditProjectIntent
 
     object ClickBackButton : EditProjectIntent
-    object CompleteEdit : EditProjectIntent
+    data class CompleteEdit(
+        val projectId: Int,
+        val projectInfo: EditProjectInfo,
+    ) : EditProjectIntent
 
     data class SelectStartProjectDate(
         val date: String

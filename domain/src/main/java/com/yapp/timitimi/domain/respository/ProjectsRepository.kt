@@ -1,6 +1,7 @@
 package com.yapp.timitimi.domain.respository
 
 import com.yapp.timitimi.domain.entity.CreateProjectsInfo
+import com.yapp.timitimi.domain.entity.EditProjectInfo
 import com.yapp.timitimi.domain.entity.Project
 import kotlinx.coroutines.flow.Flow
 
@@ -25,6 +26,6 @@ interface ProjectsRepository {
      */
     suspend fun putProject(
         projectId: Int,
-        body: CreateProjectsInfo
-    ): Flow<Boolean>
+        body: EditProjectInfo,
+    ): Flow<String>
 }

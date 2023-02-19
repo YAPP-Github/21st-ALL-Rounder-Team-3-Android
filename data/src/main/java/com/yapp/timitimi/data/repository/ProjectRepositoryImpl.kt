@@ -6,6 +6,7 @@ import com.yapp.timitimi.data.request.PostProjectsBody
 import com.yapp.timitimi.data.request.toData
 import com.yapp.timitimi.data.response.toDomain
 import com.yapp.timitimi.domain.entity.CreateProjectsInfo
+import com.yapp.timitimi.domain.entity.EditProjectInfo
 import com.yapp.timitimi.domain.entity.Project
 import com.yapp.timitimi.domain.respository.ProjectsRepository
 import kotlinx.coroutines.flow.Flow
@@ -54,7 +55,7 @@ class ProjectRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun putProject(projectId: Int, body: CreateProjectsInfo): Flow<Boolean> {
+    override suspend fun putProject(projectId: Int, body: EditProjectInfo): Flow<String> {
         return apiCall(
             call = {
                 timiService.putProject(projectId, body.toData())

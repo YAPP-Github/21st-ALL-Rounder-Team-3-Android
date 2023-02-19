@@ -2,10 +2,8 @@
 
 package com.yapp.timitimi.presentation.ui.edit.redux
 
-import com.yapp.timitimi.domain.respository.ParticipantsRepository
 import com.yapp.timitimi.domain.respository.ProjectsRepository
 import com.yapp.timitimi.redux.BaseMiddleware
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +15,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.shareIn
-import kotlinx.coroutines.flow.zip
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -47,7 +44,11 @@ class EditProjectMiddleware @Inject constructor(
                 filterIsInstance<EditProjectIntent.CompleteEdit>()
                     .onEach {
                         Timber.e(it.toString())
-                        eventFlow.emit(EditProjectSingleEvent.NavigateToMain)
+                        projectsRepository.putProject(
+                            projectId = it.projectId,
+                            body = it.projectInfo,
+                        )
+                        eventFlow.emit(EditProjectSingleEvent.Exit)
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 

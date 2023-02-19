@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -38,6 +40,7 @@ import com.yapp.timitimi.component.TimiCaption1Regular
 import com.yapp.timitimi.component.TimiSmallRoundedBadge
 import com.yapp.timitimi.component.TimiTopAppBar
 import com.yapp.timitimi.component.TimiTwoButtonDialog
+import com.yapp.timitimi.domain.entity.EditProjectInfo
 import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.modifier.timiClipBorder
 import com.yapp.timitimi.presentation.R
@@ -49,6 +52,7 @@ import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
 import com.yapp.timitimi.presentation.ui.createproject.screen.TimiInputField
 import com.yapp.timitimi.presentation.ui.createproject.screen.addFocusCleaner
 import com.yapp.timitimi.presentation.ui.edit.redux.EditProjectIntent
+import com.yapp.timitimi.presentation.ui.edit.redux.EditProjectSingleEvent
 import com.yapp.timitimi.theme.Black
 import com.yapp.timitimi.theme.Gray200
 import com.yapp.timitimi.theme.Gray300
@@ -57,16 +61,32 @@ import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Purple100
 import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
+import com.yapp.timitimi.ui.finishWithAnimation
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun EditProjectScreen(
     viewModel: EditProjectViewModel = hiltViewModel(),
 ) {
+    val activity = LocalContext.current as EditProjectActivity
     val focusRequester by remember { mutableStateOf(FocusRequester()) }
     val focusManager = LocalFocusManager.current
     val lazyListState = rememberLazyListState()
 
     val state = viewModel.viewState.collectAsState()
+
+    LaunchedEffect(viewModel.singleEventFlow) {
+        viewModel.singleEventFlow
+            .onEach { event ->
+                when (event) {
+                    EditProjectSingleEvent.Exit -> {
+                        activity.finishWithAnimation()
+                    }
+                }
+            }
+            .launchIn(this)
+    }
 
     var leaderDialog by remember {
         mutableStateOf(false)
@@ -80,7 +100,7 @@ fun EditProjectScreen(
         topBar = {
             TimiTopAppBar(
                 isTextCenterAlignment = true,
-                onClickBackButton = { /*TODO*/ },
+                onClickBackButton = { activity.finish() },
                 title = "수정하기",
             )
         }
@@ -195,7 +215,21 @@ fun EditProjectScreen(
             BottomLargeButton(
                 backgroundColor = if (state.value.isButtonEnabled) Purple500 else Purple200,
                 isEnabled = state.value.isButtonEnabled,
-                onClick = { viewModel.dispatch(EditProjectIntent.CompleteEdit) },
+                onClick = {
+                    viewModel.dispatch(
+                        state.value.run {
+                            EditProjectIntent.CompleteEdit(
+                                projectId = projectId,
+                                projectInfo = EditProjectInfo(
+                                    name = projectName,
+                                    startDate = projectStartDate,
+                                    dueDate = projectEndDate,
+                                    goal = projectGoal,
+                                )
+                            )
+                        }
+                    )
+                },
                 title = "완료",
             )
         }

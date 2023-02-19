@@ -2,8 +2,6 @@ package com.yapp.timitimi.presentation.ui.edit.redux
 
 import com.yapp.timitimi.domain.entity.Participant
 import com.yapp.timitimi.presentation.ui.edit.ParticipantItem
-import com.yapp.timitimi.presentation.ui.main.redux.Member
-import com.yapp.timitimi.presentation.ui.main.redux.toPresentationModel
 import com.yapp.timitimi.redux.BaseIntent
 import com.yapp.timitimi.redux.Reducer
 import javax.inject.Inject
@@ -101,6 +99,7 @@ class EditProjectReducer @Inject constructor() : Reducer<EditProjectState> {
                             participant.toPresentationModel()
                         },
                         myId = it.myParticipantId,
+                        projectId = it.id,
                     )
                 }
             }

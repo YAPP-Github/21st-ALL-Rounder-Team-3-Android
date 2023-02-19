@@ -2,6 +2,7 @@ package com.yapp.timitimi.data.api
 
 import com.yapp.timitimi.data.base.Response
 import com.yapp.timitimi.data.request.PostProjectsBody
+import com.yapp.timitimi.data.request.PutProjectBody
 import com.yapp.timitimi.data.response.ParticipantResponse
 import com.yapp.timitimi.data.response.ProjectIdResponse
 import com.yapp.timitimi.data.response.ProjectResponse
@@ -27,13 +28,13 @@ interface TimiServiceApi {
     @GET("/projects/{projectId}")
     suspend fun getProject(
         @Path("projectId") projectId: Int
-    ) : Response<ProjectResponse>
+    ): Response<ProjectResponse>
 
     @PUT("/projects/{projectId}")
     suspend fun putProject(
         @Path("projectId") projectId: Int,
-        @Body body: PostProjectsBody,
-    ) : Response<Boolean>
+        @Body body: PutProjectBody,
+    ): Response<String>
 
 
     //    PARTICIPANTS
