@@ -165,7 +165,7 @@ internal fun LazyListScope.taskDropBox(
     ) { index, taskItem ->
         AnimatedVisibility(visible = isHide) {
             TimiTaskCard(
-                profile = taskItem.member.profile,
+                profile = (taskItem.member.profile ?: "") as String,
                 name = taskItem.member.name,
                 period = "${taskItem.startDate} ~ ${taskItem.endDate}",
                 badgeText = taskItem.dDay,
