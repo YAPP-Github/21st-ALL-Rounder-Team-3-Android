@@ -1,7 +1,7 @@
 package com.yapp.timitimi.presentation.ui.main.redux
 
+import androidx.compose.ui.graphics.painter.Painter
 import com.yapp.timitimi.component.TaskType
-import com.yapp.timitimi.domain.entity.Participant
 import com.yapp.timitimi.domain.entity.Project
 import com.yapp.timitimi.presentation.ui.main.screen.Me
 import com.yapp.timitimi.redux.BaseState
@@ -58,7 +58,7 @@ fun Project.toPresentationModel() = ProjectItem(
 data class Member(
     val id: Int = 0,
     val isLeader: Boolean = false,
-    val profile: String = "",
+    val profile: Any? = null,
     val name: String = "",
 )
 
