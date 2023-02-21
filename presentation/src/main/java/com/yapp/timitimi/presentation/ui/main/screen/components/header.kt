@@ -24,12 +24,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.germainkevin.collapsingtopbar.CollapsingTopBarScrollBehavior
@@ -65,6 +69,7 @@ fun Header(
     members: ImmutableList<Member>,
     onProfileSelected: (index: Int) -> Unit,
     onClickEditIcon: (() -> Unit)? = null,
+    addMemberOffset: ((Offset) -> Unit)? = null,
 ) {
     Card(
         modifier = Modifier.padding(bottom = 8.dp),
@@ -110,6 +115,7 @@ fun Header(
                 members = members,
                 selectedProfileIndex = selectedProfileIndex,
                 onProfileSelected = onProfileSelected,
+                addMemberOffset = addMemberOffset,
             )
             Spacer(modifier = Modifier.height(20.dp))
         }
@@ -184,6 +190,7 @@ fun MemberContents(
     selectedProfileIndex: Int,
     members: ImmutableList<Member>,
     onProfileSelected: (index: Int) -> Unit,
+    addMemberOffset: ((Offset) -> Unit)? = null,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(space = 6.dp)
@@ -212,6 +219,13 @@ fun MemberContents(
                     selected = selectedProfileIndex == profileIndex,
                     onClick = { onProfileSelected(profileIndex) },
                     isLeader = member.isLeader
+                )
+            }
+            item {
+                RoundedAddButton(
+                    modifier = Modifier.onGloballyPositioned {
+                        addMemberOffset?.invoke(it.positionInRoot())
+                    }
                 )
             }
         }
@@ -319,6 +333,30 @@ internal fun BadgeString(
         TimiBody2Medium(
             text = title,
             color = Gray700
+        )
+    }
+}
+
+@Composable
+internal fun RoundedAddButton(
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .size(size = 40.dp)
+            .timiClipBorder(
+                border = TimiBorder(
+                    width = 2.dp,
+                    color = Purple500
+                ),
+                shape = CircleShape,
+            )
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(id = com.yapp.timitimi.presentation.R.drawable.fab_plus_22),
+            contentDescription = "plus"
         )
     }
 }

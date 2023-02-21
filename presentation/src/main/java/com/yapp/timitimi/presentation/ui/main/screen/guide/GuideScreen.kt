@@ -15,10 +15,17 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -32,8 +39,10 @@ import com.yapp.timitimi.designsystem.R
 import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.presentation.ui.main.redux.MainState
 import com.yapp.timitimi.presentation.ui.main.redux.Member
+import com.yapp.timitimi.presentation.ui.main.redux.ScreenStep
 import com.yapp.timitimi.presentation.ui.main.screen.BottomNavigationItem
 import com.yapp.timitimi.presentation.ui.main.screen.components.Header
+import com.yapp.timitimi.presentation.ui.main.screen.components.RoundedAddButton
 import com.yapp.timitimi.presentation.ui.main.screen.components.TaskClassification
 import com.yapp.timitimi.presentation.ui.main.screen.components.taskDropBox
 import com.yapp.timitimi.theme.Gray200
@@ -41,20 +50,27 @@ import com.yapp.timitimi.theme.Purple500
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
-fun GuideScreen(onClose: () -> Unit) {
+fun GuideScreen(
+    onClose: () -> Unit,
+    currentStep: ScreenStep
+) {
     val items = listOf(
         BottomNavigationItem.HOME,
         BottomNavigationItem.MY_PAGE,
     )
+
     val uiController = rememberSystemUiController()
+    var addMemberOffset by remember { mutableStateOf(Offset.Zero) }
+    var fabOffset by remember { mutableStateOf(Offset.Zero) }
+
     SideEffect {
         uiController.setStatusBarColor(
             color = Color.Black.copy(alpha = 0.5f)
         )
     }
+
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         Scaffold(
             bottomBar = {
@@ -82,11 +98,46 @@ fun GuideScreen(onClose: () -> Unit) {
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(BottomNavigationItem.HOME.route) {
-                    GuideBackground(modifier = Modifier.padding(innerPadding))
+                    GuideBackground(
+                        modifier = Modifier.padding(innerPadding),
+                        addMemberOffset = {
+                            addMemberOffset = it
+                        },
+                        fabOffset = {
+                            fabOffset = it
+                        }
+                    )
                 }
             }
         }
         Dimmed(onClose = onClose)
+        if (currentStep == ScreenStep.First) {
+            RoundedAddButton(
+                modifier = Modifier.offset {
+                    IntOffset(
+                        addMemberOffset.x.toInt(),
+                        addMemberOffset.y.toInt()
+                    )
+                }
+            )
+        } else {
+            FloatingActionButton(
+                modifier = Modifier.offset {
+                    IntOffset(
+                        fabOffset.x.toInt(),
+                        fabOffset.y.toInt()
+                    )
+                },
+                onClick = { },
+                backgroundColor = Purple500,
+                contentColor = Color.White,
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.icon_plus),
+                    contentDescription = "create project"
+                )
+            }
+        }
     }
 }
 
@@ -115,6 +166,8 @@ fun guideMembers() = persistentListOf(
 @Composable
 private fun GuideBackground(
     modifier: Modifier = Modifier,
+    addMemberOffset: ((Offset) -> Unit)? = null,
+    fabOffset: ((Offset) -> Unit)? = null,
 ) {
     val scrollBehavior = rememberCollapsingTopBarScrollBehavior()
     val secondGuideProfile =
@@ -135,7 +188,8 @@ private fun GuideBackground(
             selectedProfileIndex = 0,
             members = guideMembers(),
             onProfileSelected = { },
-            onClickEditIcon = { }
+            onClickEditIcon = { },
+            addMemberOffset = addMemberOffset,
         )
         LazyColumn(
             modifier = Modifier
@@ -210,7 +264,11 @@ private fun GuideBackground(
         contentAlignment = Alignment.BottomEnd,
     ) {
         FloatingActionButton(
-            modifier = Modifier.padding(end = 12.dp, bottom = 12.dp),
+            modifier = Modifier
+                .padding(end = 12.dp, bottom = 12.dp)
+                .onGloballyPositioned {
+                    fabOffset?.invoke(it.positionInRoot())
+                },
             onClick = { },
             backgroundColor = Purple500,
             contentColor = Color.White,
@@ -232,7 +290,10 @@ private fun Dimmed(
     Canvas(
         Modifier
             .fillMaxSize()
-            .timiClickable(onClick = onClose)
+            .timiClickable(
+                onClick = onClose,
+                rippleEnabled = false
+            )
     ) {
         drawRect(color, alpha = alpha)
     }

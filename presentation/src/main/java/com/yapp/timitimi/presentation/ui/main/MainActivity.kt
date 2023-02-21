@@ -37,7 +37,8 @@ class MainActivity : ComponentActivity() {
                             GuideScreen(
                                 onClose = {
                                     viewModel.dispatch(MainIntent.ClickGuideScreen)
-                                }
+                                },
+                                currentStep = currentStep
                             )
                         }
 
@@ -45,7 +46,8 @@ class MainActivity : ComponentActivity() {
                             GuideScreen(
                                 onClose = {
                                     viewModel.dispatch(MainIntent.ClickGuideScreen)
-                                }
+                                },
+                                currentStep = currentStep,
                             )
                         }
 
