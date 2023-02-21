@@ -169,14 +169,15 @@ fun CreateProjectOneStepScreen(
 
 @Composable
 fun BottomLargeButton(
+    modifier: Modifier = Modifier
+        .fillMaxSize(),
     title: String,
     onClick: () -> Unit,
     backgroundColor: Color,
     isEnabled: Boolean,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = modifier,
         contentAlignment = Alignment.BottomCenter
     ) {
         Column {

@@ -5,5 +5,7 @@ import com.yapp.timitimi.redux.BaseSingleEvent
 sealed class EditUserInfoSingleEvent : BaseSingleEvent {
     object NavigateToBackScreen : EditUserInfoSingleEvent()
 
-    object ShowBottomSheet : EditUserInfoSingleEvent()
+    object ShowChangeProfileBottomSheet : EditUserInfoSingleEvent()
+
+    object ShowChangeTimiTimiImageBottomSheet: EditUserInfoSingleEvent()
 }

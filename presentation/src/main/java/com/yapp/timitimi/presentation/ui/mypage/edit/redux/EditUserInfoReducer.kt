@@ -14,6 +14,13 @@ class EditUserInfoReducer @Inject constructor() : Reducer<EditUserInfoState> {
                     userProfile = action.userProfile
                 )
             }
+
+            is EditUserInfoIntent.RevertDefaultUserProfileImage -> {
+                newState = newState.copy(
+                    isLoading = false,
+                    userProfile = newState.userProfile.copy(imageUrl = action.profileUrl)
+                )
+            }
         }
 
         return newState
