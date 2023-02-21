@@ -42,6 +42,7 @@ import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.component.TimiBody3Regular
 import com.yapp.timitimi.component.TimiCaption1Regular
 import com.yapp.timitimi.component.TimiCaption2Regular
+import com.yapp.timitimi.component.TimiCaption3Regular
 import com.yapp.timitimi.component.TimiH2SemiBold
 import com.yapp.timitimi.component.TimiH3SemiBold
 import com.yapp.timitimi.component.TimiHalfRoundedCaption3Badge
@@ -304,7 +305,7 @@ internal fun MemberProfile(
                     text = stringResource(id = R.string.leader),
                 )
             }
-            TimiCaption2Regular(
+            TimiCaption3Regular(
                 text = name,
                 color = fontColor
             )
