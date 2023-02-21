@@ -1,7 +1,9 @@
 package com.yapp.timitimi.presentation.ui.main.screen.guide
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -112,22 +114,10 @@ fun GuideScreen(
         }
         Dimmed(onClose = onClose)
         if (currentStep == ScreenStep.First) {
-            RoundedAddButton(
-                modifier = Modifier.offset {
-                    IntOffset(
-                        addMemberOffset.x.toInt(),
-                        addMemberOffset.y.toInt()
-                    )
-                }
-            )
-        } else {
+            RoundedAddButton(modifier = Modifier.offsetModifier(offset = addMemberOffset))
+        } else if (currentStep == ScreenStep.Second) {
             FloatingActionButton(
-                modifier = Modifier.offset {
-                    IntOffset(
-                        fabOffset.x.toInt(),
-                        fabOffset.y.toInt()
-                    )
-                },
+                modifier = Modifier.offsetModifier(offset = fabOffset),
                 onClick = { },
                 backgroundColor = Purple500,
                 contentColor = Color.White,
@@ -139,6 +129,18 @@ fun GuideScreen(
             }
         }
     }
+}
+
+
+fun Modifier.offsetModifier(offset: Offset) = if (offset.x != 0f && offset.y != 0f) {
+    this.offset {
+        IntOffset(
+            x = offset.x.toInt(),
+            y = offset.y.toInt()
+        )
+    }
+} else {
+    Modifier
 }
 
 @Composable
