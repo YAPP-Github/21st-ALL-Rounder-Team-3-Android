@@ -41,6 +41,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.yapp.timitimi.component.TaskType
 import com.yapp.timitimi.designsystem.R
 import com.yapp.timitimi.modifier.timiClickable
+import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
 import com.yapp.timitimi.presentation.ui.main.redux.MainState
 import com.yapp.timitimi.presentation.ui.main.redux.Member
 import com.yapp.timitimi.presentation.ui.main.redux.ScreenStep
@@ -228,6 +229,7 @@ private fun GuideBackground(
             onProfileSelected = { },
             onClickEditIcon = { },
             addMemberOffset = addMemberOffset,
+            onClickLeftArrow = { }
         )
         LazyColumn(
             modifier = Modifier
