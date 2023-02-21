@@ -1,6 +1,7 @@
 package com.yapp.timitimi.presentation.ui.splash.redux
 
 import com.yapp.timitimi.domain.preference.UserPreference
+import com.yapp.timitimi.domain.respository.ParticipantsRepository
 import com.yapp.timitimi.domain.respository.ProjectsRepository
 import com.yapp.timitimi.redux.BaseMiddleware
 import kotlinx.coroutines.CoroutineScope
@@ -17,6 +18,7 @@ import javax.inject.Inject
 
 class SplashMiddleware @Inject constructor(
     private val projectsRepository: ProjectsRepository,
+    private val participantsRepository: ParticipantsRepository,
     private val userPreference: UserPreference
 ) : BaseMiddleware<SplashIntent, SplashSingleEvent> {
     override fun mutate(
@@ -29,6 +31,8 @@ class SplashMiddleware @Inject constructor(
                 filterIsInstance<SplashIntent.GetAccessTokenSucceedAndInvitedUser>()
                     .onEach {
                         userPreference.lastViewedProjectId = it.invitedId
+                        // 참여자 추가 Post Api 통신 필요
+                        participantsRepository.postParticipants(userPreference.lastViewedProjectId)
                         eventFlow.emit(SplashSingleEvent.NavigateToMain)
                     }
                     .shareIn(scope, SharingStarted.Eagerly),
