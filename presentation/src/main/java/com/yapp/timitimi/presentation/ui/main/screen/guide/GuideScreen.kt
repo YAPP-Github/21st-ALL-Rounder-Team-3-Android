@@ -27,9 +27,11 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -62,8 +64,9 @@ fun GuideScreen(
     )
 
     val uiController = rememberSystemUiController()
-    var addMemberOffset by remember { mutableStateOf(Offset.Zero) }
-    var fabOffset by remember { mutableStateOf(Offset.Zero) }
+    var originOffset by remember { mutableStateOf(Offset.Zero) }
+    var buttonSize by remember { mutableStateOf(IntSize.Zero) }
+    var tooltipSize by remember { mutableStateOf(IntSize.Zero) }
 
     SideEffect {
         uiController.setStatusBarColor(
@@ -103,10 +106,14 @@ fun GuideScreen(
                     GuideBackground(
                         modifier = Modifier.padding(innerPadding),
                         addMemberOffset = {
-                            addMemberOffset = it
+                            if (currentStep == ScreenStep.First) {
+                                originOffset = it
+                            }
                         },
                         fabOffset = {
-                            fabOffset = it
+                            if (currentStep == ScreenStep.Second) {
+                                originOffset = it
+                            }
                         }
                     )
                 }
@@ -114,39 +121,62 @@ fun GuideScreen(
         }
         Dimmed(onClose = onClose)
         if (currentStep == ScreenStep.First) {
-            if (addMemberOffset.x != 0f && addMemberOffset.y != 0f) {
-                RoundedAddButton(modifier = Modifier.offsetModifier(offset = addMemberOffset))
-            }
-
-        } else if (currentStep == ScreenStep.Second) {
-            if (fabOffset.x != 0f && fabOffset.y != 0f) {
-                FloatingActionButton(
-                    modifier = Modifier.offsetModifier(offset = fabOffset),
-                    onClick = { },
-                    backgroundColor = Purple500,
-                    contentColor = Color.White,
+            if (originOffset.x != 0f && originOffset.y != 0f) {
+                Column(
+                    modifier = Modifier.offset {
+                        IntOffset(
+                            x = originOffset.x.toInt() - tooltipSize.width + buttonSize.width,
+                            y = originOffset.y.toInt()
+                        )
+                    },
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.icon_plus),
-                        contentDescription = "create project"
+                    RoundedAddButton(
+                        modifier = Modifier.onSizeChanged { buttonSize = it }
                     )
+                    Image(
+                        modifier = Modifier
+                            .onSizeChanged { tooltipSize = it }
+                            .offset { IntOffset(x = 16, y = 0) },
+                        painter = painterResource(id = com.yapp.timitimi.presentation.R.drawable.tooltip_invite_member),
+                        contentDescription = null,
+                    )
+                }
+            }
+        } else if (currentStep == ScreenStep.Second) {
+            if (originOffset.x != 0f && originOffset.y != 0f) {
+                Column(
+                    modifier = Modifier.offset {
+                        IntOffset(
+                            x = originOffset.x.toInt() - tooltipSize.width + buttonSize.width,
+                            y = originOffset.y.toInt() - buttonSize.height - 8.dp.toPx().toInt()
+                        )
+                    },
+                    horizontalAlignment = Alignment.End,
+                ) {
+                    Image(
+                        modifier = Modifier
+                            .onSizeChanged { tooltipSize = it },
+                        painter = painterResource(id = com.yapp.timitimi.presentation.R.drawable.tooltip_add_task),
+                        contentDescription = null,
+                    )
+                    FloatingActionButton(
+                        modifier = Modifier.onSizeChanged { buttonSize = it },
+                        onClick = { },
+                        backgroundColor = Purple500,
+                        contentColor = Color.White,
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.icon_plus),
+                            contentDescription = "create project"
+                        )
+                    }
                 }
             }
 
         }
     }
-}
-
-
-fun Modifier.offsetModifier(offset: Offset) = if (offset.x != 0f && offset.y != 0f) {
-    this.offset {
-        IntOffset(
-            x = offset.x.toInt(),
-            y = offset.y.toInt()
-        )
-    }
-} else {
-    Modifier
 }
 
 @Composable
