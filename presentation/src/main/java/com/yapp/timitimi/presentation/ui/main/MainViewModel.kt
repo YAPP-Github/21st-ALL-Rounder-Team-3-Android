@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel<MainIntent, MainState, MainSingleEvent>() {
     init {
         start()
-        //dispatch(MainIntent.Init(userPreference.lastViewedProjectId.toInt()))
+        dispatch(MainIntent.Init(userPreference.lastViewedProjectId.toInt()))
     }
 
     override fun registerMiddleware(): List<BaseMiddleware<MainIntent, MainSingleEvent>> {
