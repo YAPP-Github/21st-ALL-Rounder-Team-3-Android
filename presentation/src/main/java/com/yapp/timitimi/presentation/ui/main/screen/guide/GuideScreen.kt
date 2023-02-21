@@ -114,19 +114,25 @@ fun GuideScreen(
         }
         Dimmed(onClose = onClose)
         if (currentStep == ScreenStep.First) {
-            RoundedAddButton(modifier = Modifier.offsetModifier(offset = addMemberOffset))
-        } else if (currentStep == ScreenStep.Second) {
-            FloatingActionButton(
-                modifier = Modifier.offsetModifier(offset = fabOffset),
-                onClick = { },
-                backgroundColor = Purple500,
-                contentColor = Color.White,
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.icon_plus),
-                    contentDescription = "create project"
-                )
+            if (addMemberOffset.x != 0f && addMemberOffset.y != 0f) {
+                RoundedAddButton(modifier = Modifier.offsetModifier(offset = addMemberOffset))
             }
+
+        } else if (currentStep == ScreenStep.Second) {
+            if (fabOffset.x != 0f && fabOffset.y != 0f) {
+                FloatingActionButton(
+                    modifier = Modifier.offsetModifier(offset = fabOffset),
+                    onClick = { },
+                    backgroundColor = Purple500,
+                    contentColor = Color.White,
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.icon_plus),
+                        contentDescription = "create project"
+                    )
+                }
+            }
+
         }
     }
 }
