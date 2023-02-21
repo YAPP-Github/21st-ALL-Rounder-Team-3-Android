@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <resources>
+    <style name="Typography">
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Typography.Light" parent="Typography">
+        <item name="android:fontFamily">@font/notosans_light</item>
+    </style>
+
+    <style name="Typography.Medium" parent="Typography">
+        <item name="android:fontFamily">@font/notosans_medium</item>
+    </style>
+
+    <style name="Typography.Regular" parent="Typography">
+        <item name="android:fontFamily">@font/notosans_regular</item>
+    </style>
+
+    <style name="Typography.SemiBold" parent="Typography">
+        <item name="android:fontFamily">@font/notosans_semibold</item>
+    </style>
+
+    <style name="Typography.Bold" parent="Typography">
+        <item name="android:fontFamily">@font/notosans_bold</item>
+    </style>
+
+    <style name="Typography.SemiBold.H1" parent="Typography.SemiBold">
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="Typography.SemiBold.H2" parent="Typography.SemiBold">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="Typography.SemiBold.H3" parent="Typography.SemiBold">
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="Typography.SemiBold.H4" parent="Typography.SemiBold">
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="Typography.Medium.Body2" parent="Typography.Medium">
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="Typography.Regular.Caption1" parent="Typography.Regular">
+        <item name="android:textSize">12dp</item>
+    </style>
+
+    <style name="Typography.Regular.Body4" parent="Typography.Regular">
+        <item name="android:textSize">12dp</item>
+    </style>
+
+
+</resources>

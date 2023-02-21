@@ -2,5 +2,11 @@
 <resources>
     <color name="white">#FFFFFFFF</color>
     <color name="little_transparent_white">#33FFFFFF</color>
+
+    <color name="gray300">#EDEDED</color>
+    <color name="gray500">#999999</color>
     <color name="gray700">#FF333333</color>
+
+    <color name="black">#111111</color>
+    <color name="purple500">#8075F9</color>
 </resources>
