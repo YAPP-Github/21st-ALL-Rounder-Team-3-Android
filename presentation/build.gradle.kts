@@ -71,6 +71,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.databinding:databinding-common:7.4.1")
+    implementation("androidx.databinding:viewbinding:7.4.1")
     implementation("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
     kapt(libs.hilt.kapt)
