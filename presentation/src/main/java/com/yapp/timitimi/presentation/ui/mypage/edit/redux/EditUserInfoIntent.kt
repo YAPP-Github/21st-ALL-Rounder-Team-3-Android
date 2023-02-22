@@ -10,10 +10,17 @@ sealed class EditUserInfoIntent : BaseIntent {
     ) : EditUserInfoIntent()
 
     object ClickUserProfileImageChanged: EditUserInfoIntent()
+
+    object ClickDefaultProfileImageSection: EditUserInfoIntent()
+    data class RevertDefaultUserProfileImage(
+        val profileUrl: String
+    ): EditUserInfoIntent()
     object ClickEditMyInfo : EditUserInfoIntent()
 
     object ClickBackButton : EditUserInfoIntent()
 
+    object ClickDefaultProfileChanged: EditUserInfoIntent()
+    object ClickTimiTimiImageChanged: EditUserInfoIntent()
     object ClearNicknameField: EditUserInfoIntent()
 
     data class ChangeNicknameTextFieldFocused(
