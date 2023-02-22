@@ -19,7 +19,10 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
+        dataBinding = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
@@ -40,5 +43,7 @@ dependencies {
     implementation(libs.timber)
     implementation("androidx.appcompat:appcompat:1.6.0")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("androidx.databinding:databinding-runtime:7.1.2")
+    implementation("androidx.databinding:databinding-runtime:7.4.1")
+    implementation("androidx.databinding:databinding-common:7.4.1")
+    implementation("androidx.databinding:viewbinding:7.4.1")
 }

@@ -33,7 +33,6 @@ import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.germainkevin.collapsingtopbar.CollapsingTopBarScrollBehavior
@@ -71,6 +70,7 @@ fun Header(
     onProfileSelected: (index: Int) -> Unit,
     onClickEditIcon: (() -> Unit)? = null,
     addMemberOffset: ((Offset) -> Unit)? = null,
+    onClickLeftArrow: () -> Unit,
 ) {
     Card(
         modifier = Modifier.padding(bottom = 8.dp),
@@ -80,7 +80,7 @@ fun Header(
             Modifier.padding(horizontal = 16.dp),
         ) {
             MainTopAppBar(
-                onClickLeftArrow = {},
+                onClickLeftArrow = onClickLeftArrow,
                 onClickNotification = {},
                 leftContent = {
                     TimiH3SemiBold(
