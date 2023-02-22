@@ -21,7 +21,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.yapp.timitimi.designsystem.R
 import com.yapp.timitimi.presentation.ui.mypage.MyPageScreen
-import com.yapp.timitimi.ui.finishWithAnimation
+import com.yapp.timitimi.presentation.ui.projectlist.ProjectListActivity
+import com.yapp.timitimi.ui.startActivityWithAnimation
 
 @Composable
 fun MainContainerScreen() {
@@ -65,7 +66,9 @@ fun MainContainerScreen() {
         ) {
             composable(BottomNavigationItem.HOME.route) {
                 HomeScreen(
-                    onBackPressed = { activity.finishWithAnimation() }
+                    onBackPressed = {
+                        activity.startActivityWithAnimation<ProjectListActivity>()
+                    }
                 )
             }
             composable(BottomNavigationItem.MY_PAGE.route) { MyPageScreen() }

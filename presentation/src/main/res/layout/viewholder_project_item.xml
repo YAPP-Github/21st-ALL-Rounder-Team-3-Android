@@ -1,39 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/task_card_background">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/badge"
-        android:layout_width="wrap_content"
+    <data>
+        <variable
+            name="item"
+            type="com.yapp.timitimi.presentation.ui.projectlist.model.ProjectListItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:paddingHorizontal="7.5dp"
-        android:paddingVertical="2dp"
-        android:text="D-13"
-        android:background="@drawable/title_background"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:padding="20dp"
+        android:layout_marginVertical="8dp"
+        tools:background="@color/material_dynamic_tertiary50">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="2022-2 4차 산업 혁명의 이해 팀플"
-        app:layout_constraintLeft_toLeftOf="@id/badge"
-        app:layout_constraintTop_toBottomOf="@id/badge" />
+        <TextView
+            android:id="@+id/badge"
+            style="@style/Typography.Regular.Caption1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_background"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:text="@{ item.dday }"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="10.16 ~ 12.02"
-        app:layout_constraintLeft_toLeftOf="@id/title"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        <TextView
+            android:id="@+id/title"
+            style="@style/Typography.SemiBold.H3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{ item.title }"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="@id/badge"
+            app:layout_constraintTop_toBottomOf="@id/badge"
+            tools:textColor="@color/black" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/date"
+            style="@style/Typography.Medium.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@{ item.dueDate }"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/participantsView"
+            app:layout_constraintLeft_toLeftOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:textColor="@color/black" />
+
+        <FrameLayout
+            android:id="@+id/participantsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

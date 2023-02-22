@@ -39,6 +39,7 @@ import com.yapp.timitimi.border.TimiBorder
 import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.row.CenterVerticallyRow
 import com.yapp.timitimi.theme.Gray300
+import com.yapp.timitimi.theme.Gray400
 import com.yapp.timitimi.theme.Gray600
 import com.yapp.timitimi.theme.Gray700
 import com.yapp.timitimi.theme.Green100
@@ -72,8 +73,12 @@ fun TimiTaskCard(
             listOf(Green500, Green100.copy(alpha = 0.5f), Green100)
         }
 
-        else -> {
+        TaskType.NotStarted -> {
             listOf(Gray600, Gray300.copy(alpha = 0.5f), Gray300)
+        }
+
+        else -> {
+            listOf(Gray400, Gray300.copy(alpha = 0.5f), Gray300)
         }
     }
     val density = LocalDensity.current
@@ -123,7 +128,12 @@ fun TimiTaskCard(
                     color = Gray600,
                 )
                 TimiHalfRoundedCaption2Badge(
-                    text = badgeText,
+                    text = when(taskType){
+                        TaskType.NotStarted -> "시작 전"
+                        TaskType.Progress -> "진행 중"
+                        is TaskType.Request -> "피드백 요청 $badgeText"
+                        else -> "완료"
+                    },
                     border = TimiBorder(
                         color = borderColor
                     ),

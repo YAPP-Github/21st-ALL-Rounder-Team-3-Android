@@ -103,7 +103,8 @@ fun HomeScreen(
             selectedProfileIndex = state.selectedProfileIndex,
             members = state.members,
             onProfileSelected = { viewModel.dispatch(MainIntent.SelectProfile(it)) },
-            onClickEditIcon = { viewModel.dispatch(MainIntent.ClickEditButton(state.project.id)) }
+            onClickEditIcon = { viewModel.dispatch(MainIntent.ClickEditButton(state.project.id)) },
+            onClickLeftArrow = { viewModel.dispatch(MainIntent.ClickBackButton) }
         )
         TaskSection(
             modifier = Modifier

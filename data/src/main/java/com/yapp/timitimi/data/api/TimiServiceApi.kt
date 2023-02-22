@@ -83,6 +83,7 @@ interface TimiServiceApi {
 
     @GET("/auth/refresh")
     suspend fun refreshUserToken(
-        @Header("refreshToken") token: String,
+        @Header("appToken") appToken: String,
+        @Header("refreshToken") refreshToken: String,
     )
 }

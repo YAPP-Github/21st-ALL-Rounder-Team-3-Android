@@ -3,60 +3,92 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="state"
+            type="com.yapp.timitimi.presentation.ui.projectlist.ProjectListUiState" />
+
+        <import type="com.yapp.timitimi.presentation.ui.projectlist.ProjectListUiState"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
+            style="@style/Typography.SemiBold.H2"
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
+            android:textColor="@color/black"
             android:fontFamily="@font/notosans_semibold"
             android:text="@string/project"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/edit_button"
+        <TextView
+            android:id="@+id/editButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="@string/edit"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="10dp"
+            app:roundRadiusDp="@{ 16f }"
+            android:textColor="@color/gray500"
+            app:fillColor="@{ @color/gray300 }"
             app:layout_constraintBottom_toBottomOf="@id/title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/title" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/project_recyclerview"
+            android:id="@+id/projectRecyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            app:layout_constrainedHeight="true"
+            android:layout_marginTop="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:layout_editor_absoluteX="63dp" />
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            tools:listitem="@layout/viewholder_project_item" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:background="@color/gray300"
             android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toTopOf="@id/project_create_button" />
+            app:layout_constraintBottom_toTopOf="@id/buttonContainer" />
 
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/project_create_button"
+        <FrameLayout
+            android:id="@+id/buttonContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center"
-            android:text="@string/create_new_project"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                style="@style/Typography.SemiBold.H3"
+                android:id="@+id/createButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textColor="@color/white"
+                app:roundRadiusDp="@{ 16f }"
+                app:fillColor="@{ @color/purple500 }"
+                android:text="@string/create_new_project" />
+
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
