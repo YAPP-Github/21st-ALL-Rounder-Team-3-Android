@@ -101,7 +101,12 @@ fun EditUserInfoScreen(
             .onEach { event ->
                 when (event) {
                     EditUserInfoSingleEvent.ShowChangeProfileBottomSheet -> {
+                        bottomSheetType = EditUserInfoBottomSheetType.PROFILE_CHOICE
                         changeProfileBottomSheetState.show()
+                    }
+
+                    EditUserInfoSingleEvent.DismissBottomSheet -> {
+                        changeProfileBottomSheetState.hide()
                     }
 
                     EditUserInfoSingleEvent.NavigateToBackScreen -> {
@@ -110,6 +115,7 @@ fun EditUserInfoScreen(
 
                     EditUserInfoSingleEvent.ShowChangeTimiTimiImageBottomSheet -> {
                         bottomSheetType = EditUserInfoBottomSheetType.TIMITIMI_CHARACTER
+                        changeProfileBottomSheetState.show()
                     }
                 }
             }
@@ -133,7 +139,7 @@ fun EditUserInfoScreen(
                 if (bottomSheetType == EditUserInfoBottomSheetType.PROFILE_CHOICE) {
                     ChangeProfileImageBottomSheetContent(
                         changeDefaultProfileClicked = {
-                            viewModel.dispatch(EditUserInfoIntent.ClickDefaultProfileChanged)
+                            viewModel.dispatch(EditUserInfoIntent.ClickDefaultProfileImageSection)
                         },
                         changeTimiTimiProfileClicked = {
                             viewModel.dispatch(EditUserInfoIntent.ClickTimiTimiImageChanged)
@@ -174,7 +180,7 @@ fun EditUserInfoScreen(
                         contentDescription = "timitimi profile image",
                     )
                 }
-            }
+
                 Spacing(12.dp)
                 Text(
                     modifier = Modifier
@@ -232,7 +238,7 @@ fun EditUserInfoScreen(
             )
         }
     }
-
+}
 
 @Composable
 fun ChangeProfileImageBottomSheetContent(
@@ -328,8 +334,7 @@ fun ChangeTimiTimiImageBottomSheetContent(
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
+            .fillMaxSize()
             .background(color = Color.White),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -351,9 +356,9 @@ fun ChangeTimiTimiImageBottomSheetContent(
         Spacing(50.dp)
         LazyVerticalGrid(
             modifier = Modifier
-                .wrapContentSize()
+                .fillMaxSize()
                 .background(color = Gray100)
-                .padding(top = 16.dp, bottom = 72.dp, start = 11.dp, end = 11.dp),
+                .padding(16.dp),
             columns = GridCells.Fixed(4)
         ) {
             items(map) {
@@ -367,13 +372,6 @@ fun ChangeTimiTimiImageBottomSheetContent(
             }
         }
     }
-
-    BottomLargeButton(
-        backgroundColor = Purple500,
-        isEnabled = true,
-        onClick = onCompleteButtonClicked,
-        title = "선택완료",
-    )
 }
 
 @Composable
@@ -461,9 +459,11 @@ private fun MbtiImage(
                 brush = Brush.horizontalGradient(borderColors),
                 shape = CircleShape
             )
-            .clickable {
-                onClickCharacter(id)
-            },
+            .timiClickable(
+                onClick = { onClickCharacter(id) },
+                rippleEnabled = false
+            )
+            ,
         contentAlignment = Alignment.Center
     ) {
         Image(

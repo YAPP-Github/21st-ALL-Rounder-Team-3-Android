@@ -7,5 +7,7 @@ sealed class EditUserInfoSingleEvent : BaseSingleEvent {
 
     object ShowChangeProfileBottomSheet : EditUserInfoSingleEvent()
 
+    object DismissBottomSheet : EditUserInfoSingleEvent()
+
     object ShowChangeTimiTimiImageBottomSheet: EditUserInfoSingleEvent()
 }

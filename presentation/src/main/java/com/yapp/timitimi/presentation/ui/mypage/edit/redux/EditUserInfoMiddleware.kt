@@ -35,14 +35,14 @@ class EditUserInfoMiddleware @Inject constructor(
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-            filterIsInstance<EditUserInfoIntent.ClickUserProfileImageChanged>()
+            filterIsInstance<EditUserInfoIntent.ClickDefaultProfileImageSection>()
                 .onEach {
                     memberRepository.getUserInfo()
                         .onEach {
                             EditUserInfoIntent.RevertDefaultUserProfileImage(it.imageUrl)
                         }
                         .launchIn(scope)
-                    eventFlow.emit(EditUserInfoSingleEvent.NavigateToBackScreen)
+                    eventFlow.emit(EditUserInfoSingleEvent.DismissBottomSheet)
                 }
                 .shareIn(scope, SharingStarted.WhileSubscribed()),
 

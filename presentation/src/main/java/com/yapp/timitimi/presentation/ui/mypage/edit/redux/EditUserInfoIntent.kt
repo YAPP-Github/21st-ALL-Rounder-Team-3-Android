@@ -11,6 +11,7 @@ sealed class EditUserInfoIntent : BaseIntent {
 
     object ClickUserProfileImageChanged: EditUserInfoIntent()
 
+    object ClickDefaultProfileImageSection: EditUserInfoIntent()
     data class RevertDefaultUserProfileImage(
         val profileUrl: String
     ): EditUserInfoIntent()
