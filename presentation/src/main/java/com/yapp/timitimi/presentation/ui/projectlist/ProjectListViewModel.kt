@@ -2,6 +2,7 @@ package com.yapp.timitimi.presentation.ui.projectlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.domain.respository.ProjectsRepository
 import com.yapp.timitimi.presentation.ui.projectlist.model.toAllProjectItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProjectListViewModel @Inject constructor(
-    private val projectsRepository: ProjectsRepository
+    private val projectsRepository: ProjectsRepository,
+    private val userPreference: UserPreference
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<ProjectListUiState>(ProjectListUiState.UnInitialized)
     val uiState: StateFlow<ProjectListUiState> = _uiState
@@ -39,5 +41,9 @@ class ProjectListViewModel @Inject constructor(
                 }
                 .collect()
         }
+    }
+
+    fun setLastViewedProjectId(id: Int) {
+        userPreference.lastViewedProjectId = id.toString()
     }
 }

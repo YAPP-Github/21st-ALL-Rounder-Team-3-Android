@@ -30,7 +30,8 @@ import com.yapp.timitimi.presentation.ui.projectlist.model.ProjectListItem
 import com.yapp.timitimi.util.dp
 
 class ProjectsItemViewHolder private constructor(
-    private val binding: ViewholderProjectItemBinding
+    private val binding: ViewholderProjectItemBinding,
+    private val listener: ProjectListListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
@@ -41,6 +42,9 @@ class ProjectsItemViewHolder private constructor(
         binding.item = item
         bindParticipants(item.participant)
         bindBackground(item.background)
+        binding.container.setOnClickListener {
+            listener.onClickCard(item.id)
+        }
         binding.executePendingBindings()
     }
 
@@ -107,10 +111,10 @@ class ProjectsItemViewHolder private constructor(
     }
 
     companion object {
-        fun from(parent: ViewGroup): ProjectsItemViewHolder {
+        fun from(parent: ViewGroup, listener: ProjectListListener): ProjectsItemViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = ViewholderProjectItemBinding.inflate(layoutInflater, parent, false)
-            return ProjectsItemViewHolder(binding)
+            return ProjectsItemViewHolder(binding, listener)
         }
     }
 }

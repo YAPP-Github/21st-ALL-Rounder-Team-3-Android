@@ -22,7 +22,7 @@ fun Project.toAllProjectItem(index: Int): ProjectListItem {
         dday = convertdDay(startDate, dueDate),
         dueDate = convertDueDate(startDate, dueDate),
         background = projectThumbnailUrl,
-        title = goal,
+        title = name,
         participant = participants
     )
 }
