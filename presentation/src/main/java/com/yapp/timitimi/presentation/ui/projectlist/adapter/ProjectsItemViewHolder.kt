@@ -76,7 +76,7 @@ class ProjectsItemViewHolder private constructor(
                         false
                     ).apply {
                         crwon.isVisible = participant.isLeader
-                        profileImage.loadCircularImage(borderSize = 1.dp(root.context).toFloat(), model = participant.imageUrl)
+                        profileImage.loadCircularImage(borderSize = 2f, model = participant.imageUrl)
 
                         val layoutParams = root.layoutParams as FrameLayout.LayoutParams
                         //Thumbnail Image 크기(24dp) 만큼 End margin, thumbnail 끼리 겹칠 수 있도록 8dp 빼기
