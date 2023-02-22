@@ -19,7 +19,12 @@ class MainViewModel @Inject constructor(
     private val userPreference: UserPreference
 ) : BaseViewModel<MainIntent, MainState, MainSingleEvent>() {
     init {
+
         start()
+        loadData()
+    }
+
+    fun loadData() {
         dispatch(MainIntent.Init(userPreference.lastViewedProjectId.toInt()))
     }
 

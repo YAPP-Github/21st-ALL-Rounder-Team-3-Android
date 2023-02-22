@@ -50,6 +50,6 @@ class CreateProjectViewModel @Inject constructor(
     }
 
     fun shareUrl() {
-        dispatch(CreateProjectIntent.ShareProjectDeeplink(projectId = currentProjectId))
+        dispatch(CreateProjectIntent.ShareProjectDeeplink(projectId = currentProjectId.ifBlank { userPreference.lastViewedProjectId }))
     }
 }

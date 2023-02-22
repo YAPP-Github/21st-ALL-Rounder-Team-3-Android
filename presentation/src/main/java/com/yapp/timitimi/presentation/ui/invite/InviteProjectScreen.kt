@@ -25,6 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.component.TimiH1SemiBold
 import com.yapp.timitimi.presentation.R
+import com.yapp.timitimi.presentation.helper.FirebaseDynamicLinkHelper
 import com.yapp.timitimi.presentation.ui.createproject.redux.CreateProjectIntent
 import com.yapp.timitimi.presentation.ui.createproject.screen.AppBar
 import com.yapp.timitimi.presentation.ui.createproject.screen.BottomLargeButton
@@ -47,6 +48,7 @@ import kotlinx.coroutines.flow.onEach
 fun InviteProjectScreen(
     viewModel: InviteProjectViewModel = hiltViewModel(),
     context: Context = LocalContext.current,
+    firebaseDynamicLinkHelper: FirebaseDynamicLinkHelper
     ) {
     val focusRequester by remember { mutableStateOf(FocusRequester()) }
     val focusManager = LocalFocusManager.current
@@ -62,6 +64,14 @@ fun InviteProjectScreen(
 
                     InviteProjectSingleEvent.Exit -> {
                         (context as Activity).finish()
+                    }
+
+                    InviteProjectSingleEvent.ValidateUrl -> {
+                        firebaseDynamicLinkHelper.parseDynamicLinks(
+                            state.value.projectLinkUrl
+                        ) { projectId ->
+                            viewModel.participateProject(projectId)
+                        }
                     }
 
                 }
@@ -130,5 +140,5 @@ fun InviteProjectScreen(
 @Preview
 @Composable
 fun InviteProjectScreenPreview() {
-    InviteProjectScreen()
+   // InviteProjectScreen()
 }

@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.core.net.toUri
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData
@@ -50,6 +51,21 @@ class FirebaseDynamicLinkHelper @Inject constructor(
 
     private fun getProjectDeepLink(projectCode: String) : Uri {
         return Uri.parse("http://timitimi.site?code=$projectCode");
+    }
+
+    fun parseDynamicLinks(url: String, onSucceed: (String) -> Unit) {
+        FirebaseDynamicLinks.getInstance()
+            .getDynamicLink(url.toUri())
+            .addOnSuccessListener { pendingDynamicLinkData: PendingDynamicLinkData? ->
+                if (pendingDynamicLinkData == null) return@addOnSuccessListener
+
+                val projectId = pendingDynamicLinkData.link?.getQueryParameter("code")
+                    ?: return@addOnSuccessListener
+                onSucceed(projectId)
+            }
+            .addOnFailureListener {
+                Timber.e(it.localizedMessage)
+            }
     }
 
     fun handleDynamicLinks(onSuccess: (String) -> Unit) {

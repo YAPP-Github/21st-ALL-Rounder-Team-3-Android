@@ -7,7 +7,7 @@ interface ParticipantsRepository {
     /**
      * 참여자 추가
      */
-    suspend fun postParticipants(projectId: String)
+    suspend fun postParticipants(projectId: String): Flow<Unit>
 
     /**
      * 참여자 목록 조회
