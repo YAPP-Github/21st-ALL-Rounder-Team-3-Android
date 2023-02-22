@@ -40,7 +40,6 @@ import com.yapp.timitimi.border.TimiBorder
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.component.TimiBody3Regular
 import com.yapp.timitimi.component.TimiCaption1Regular
-import com.yapp.timitimi.component.TimiCaption2Regular
 import com.yapp.timitimi.component.TimiCaption3Regular
 import com.yapp.timitimi.component.TimiH2SemiBold
 import com.yapp.timitimi.component.TimiH3SemiBold
@@ -71,6 +70,7 @@ fun Header(
     onClickEditIcon: (() -> Unit)? = null,
     addMemberOffset: ((Offset) -> Unit)? = null,
     onClickLeftArrow: () -> Unit,
+    onInviteButtonClicked: () -> Unit,
 ) {
     Card(
         modifier = Modifier.padding(bottom = 8.dp),
@@ -117,6 +117,7 @@ fun Header(
                 selectedProfileIndex = selectedProfileIndex,
                 onProfileSelected = onProfileSelected,
                 addMemberOffset = addMemberOffset,
+                onInviteButtonClicked = onInviteButtonClicked
             )
             Spacer(modifier = Modifier.height(20.dp))
         }
@@ -192,6 +193,7 @@ fun MemberContents(
     members: ImmutableList<Member>,
     onProfileSelected: (index: Int) -> Unit,
     addMemberOffset: ((Offset) -> Unit)? = null,
+    onInviteButtonClicked: () -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(space = 6.dp)
@@ -226,7 +228,8 @@ fun MemberContents(
                 RoundedAddButton(
                     modifier = Modifier.onGloballyPositioned {
                         addMemberOffset?.invoke(it.positionInRoot())
-                    }
+                    },
+                    onClick = onInviteButtonClicked
                 )
             }
         }
@@ -341,6 +344,7 @@ internal fun BadgeString(
 @Composable
 internal fun RoundedAddButton(
     modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -352,6 +356,7 @@ internal fun RoundedAddButton(
                 ),
                 shape = CircleShape,
             )
+            .timiClickable(onClick = onClick)
             .background(Color.White),
         contentAlignment = Alignment.Center
     ) {

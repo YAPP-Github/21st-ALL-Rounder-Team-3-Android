@@ -27,6 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.germainkevin.collapsingtopbar.rememberCollapsingTopBarScrollBehavior
 import com.yapp.timitimi.presentation.constant.Extras
 import com.yapp.timitimi.presentation.ui.edit.EditProjectActivity
+import com.yapp.timitimi.presentation.ui.invite.InviteUserActivity
 import com.yapp.timitimi.presentation.ui.main.MainActivity
 import com.yapp.timitimi.presentation.ui.main.MainViewModel
 import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
@@ -104,7 +105,8 @@ fun HomeScreen(
             members = state.members,
             onProfileSelected = { viewModel.dispatch(MainIntent.SelectProfile(it)) },
             onClickEditIcon = { viewModel.dispatch(MainIntent.ClickEditButton(state.project.id)) },
-            onClickLeftArrow = { viewModel.dispatch(MainIntent.ClickBackButton) }
+            onClickLeftArrow = { viewModel.dispatch(MainIntent.ClickBackButton) },
+            onInviteButtonClicked = { activity.startActivityWithAnimation<InviteUserActivity>() }
         )
         TaskSection(
             modifier = Modifier
