@@ -63,6 +63,7 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:background="@color/gray300"
             android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toTopOf="@id/buttonContainer" />
 
@@ -84,8 +85,8 @@
                 android:gravity="center"
                 android:padding="12dp"
                 android:textColor="@color/white"
-                android:background="@color/purple500"
                 app:roundRadiusDp="@{ 16f }"
+                app:fillColor="@{ @color/purple500 }"
                 android:text="@string/create_new_project" />
 
         </FrameLayout>
