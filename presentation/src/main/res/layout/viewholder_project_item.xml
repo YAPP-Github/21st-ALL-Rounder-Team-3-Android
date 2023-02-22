@@ -10,10 +10,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        app:roundRadiusDp="@{ 16f }"
         android:layout_marginVertical="8dp"
         tools:background="@color/material_dynamic_tertiary50">
 
@@ -58,7 +58,7 @@
 
         <FrameLayout
             android:id="@+id/participantsView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

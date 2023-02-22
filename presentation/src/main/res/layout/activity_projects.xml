@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -29,8 +30,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/edit_button"
+        <TextView
+            android:id="@+id/editButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -45,7 +46,7 @@
             app:layout_constraintTop_toTopOf="@+id/title" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/project_recyclerview"
+            android:id="@+id/projectRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="16dp"
@@ -77,7 +78,7 @@
 
             <TextView
                 style="@style/Typography.SemiBold.H3"
-                android:id="@+id/project_create_button"
+                android:id="@+id/createButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

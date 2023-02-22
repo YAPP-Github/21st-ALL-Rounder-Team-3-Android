@@ -29,8 +29,8 @@ class ProjectListViewModel @Inject constructor(
             projectsRepository.getAllProject()
                 .onEach { list ->
                     _uiState.value = ProjectListUiState.Succeed(
-                        list.map { project ->
-                            project.toAllProjectItem()
+                        list.mapIndexed { index, project ->
+                            project.toAllProjectItem(index)
                         }
                     )
                 }

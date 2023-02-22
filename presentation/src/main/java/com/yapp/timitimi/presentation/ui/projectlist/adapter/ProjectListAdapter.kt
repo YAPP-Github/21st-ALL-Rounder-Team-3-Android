@@ -12,7 +12,6 @@ class ProjectListAdapter: ListAdapter<ProjectListItem, ProjectsItemViewHolder>(D
     ): ProjectsItemViewHolder {
         return ProjectsItemViewHolder.from(parent)
     }
-
     override fun onBindViewHolder(holder: ProjectsItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }

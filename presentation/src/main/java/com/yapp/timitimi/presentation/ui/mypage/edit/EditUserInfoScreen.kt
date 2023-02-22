@@ -129,6 +129,7 @@ fun EditUserInfoScreen(
                         contentDescription = "timitimi profile image",
                     )
                 }
+            }
                 Spacing(12.dp)
                 Text(
                     modifier = Modifier
@@ -186,7 +187,6 @@ fun EditUserInfoScreen(
             )
         }
     }
-}
 
 
 @Composable

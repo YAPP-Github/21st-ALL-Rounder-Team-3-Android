@@ -3,12 +3,14 @@ package com.yapp.timitimi.presentation.ui.projectlist
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.yapp.timitimi.presentation.R
 import com.yapp.timitimi.presentation.databinding.ActivityProjectsBinding
 import com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity
 import com.yapp.timitimi.presentation.ui.projectlist.adapter.ProjectListAdapter
 import com.yapp.timitimi.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
@@ -27,7 +29,7 @@ class ProjectListActivity: BaseActivity<ActivityProjectsBinding>(R.layout.activi
 
     private fun initViews() {
         binding.projectRecyclerview.adapter = projectsAdapter
-        binding.projectCreateButton.setOnClickListener {
+        binding.createButton.setOnClickListener {
             startActivity(Intent(this, CreateProjectActivity::class.java))
         }
     }
@@ -45,6 +47,7 @@ class ProjectListActivity: BaseActivity<ActivityProjectsBinding>(R.layout.activi
                     else -> Unit
                 }
             }
+            .launchIn(lifecycleScope)
     }
 
 }
