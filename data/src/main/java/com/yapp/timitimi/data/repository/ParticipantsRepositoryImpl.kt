@@ -11,8 +11,8 @@ import javax.inject.Inject
 class ParticipantsRepositoryImpl @Inject constructor(
     private val timiService: TimiServiceApi
 ) : ParticipantsRepository {
-    override suspend fun postParticipants(projectId: String) {
-        timiService.postProjectParticipants(projectId)
+    override suspend fun postParticipants(projectId: String): Flow<Unit> {
+        return timiService.postProjectParticipants(projectId)
     }
 
     override suspend fun getProjectParticipants(projectId: Int): Flow<List<Participant>> {

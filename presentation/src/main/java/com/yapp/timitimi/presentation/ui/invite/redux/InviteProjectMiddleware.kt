@@ -27,7 +27,7 @@ class InviteProjectMiddleware @Inject constructor() : BaseMiddleware<InviteProje
 
                 filterIsInstance<InviteProjectIntent.ClickCompleteButton>()
                     .onEach {
-                        eventFlow.emit(InviteProjectSingleEvent.NavigateToMain)
+                        eventFlow.emit(InviteProjectSingleEvent.ValidateUrl)
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
             )

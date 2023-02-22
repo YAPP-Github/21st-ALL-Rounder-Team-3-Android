@@ -7,6 +7,7 @@ import com.yapp.timitimi.data.response.ParticipantResponse
 import com.yapp.timitimi.data.response.ProjectIdResponse
 import com.yapp.timitimi.data.response.ProjectResponse
 import com.yapp.timitimi.data.response.UserProfileResponse
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -43,10 +44,10 @@ interface TimiServiceApi {
         @Path("projectId") projectId: Int
     ): Response<List<ParticipantResponse>>
 
-    @POST("/projects/{projectId}/participants")
+    @POST("/projects/{projectId}")
     suspend fun postProjectParticipants(
         @Path("projectId") projectId: String
-    )
+    ): Flow<Unit>
 
     @GET("/participants")
     suspend fun getParticipants()

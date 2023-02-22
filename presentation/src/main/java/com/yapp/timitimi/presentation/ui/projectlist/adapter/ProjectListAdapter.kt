@@ -5,12 +5,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.yapp.timitimi.presentation.ui.projectlist.model.ProjectListItem
 
-class ProjectListAdapter: ListAdapter<ProjectListItem, ProjectsItemViewHolder>(DiffCallback()) {
+class ProjectListAdapter(
+    private val listener: ProjectListListener
+): ListAdapter<ProjectListItem, ProjectsItemViewHolder>(DiffCallback()) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ProjectsItemViewHolder {
-        return ProjectsItemViewHolder.from(parent)
+        return ProjectsItemViewHolder.from(parent, listener)
     }
     override fun onBindViewHolder(holder: ProjectsItemViewHolder, position: Int) {
         holder.bind(getItem(position))

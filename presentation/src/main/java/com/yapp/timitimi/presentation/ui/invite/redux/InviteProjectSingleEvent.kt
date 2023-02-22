@@ -4,5 +4,7 @@ import com.yapp.timitimi.redux.BaseSingleEvent
 
 sealed interface InviteProjectSingleEvent : BaseSingleEvent {
     object NavigateToMain : InviteProjectSingleEvent
+
+    object ValidateUrl: InviteProjectSingleEvent
     object Exit : InviteProjectSingleEvent
 }
