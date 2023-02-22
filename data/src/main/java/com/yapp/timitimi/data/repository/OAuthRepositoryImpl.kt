@@ -11,6 +11,7 @@ class OAuthRepositoryImpl @Inject constructor(
 ): OAuthRepository {
     override suspend fun refreshUserToken() {
         timiService.refreshUserToken(
+            userPreference.accessToken,
             userPreference.refreshToken
         )
     }
