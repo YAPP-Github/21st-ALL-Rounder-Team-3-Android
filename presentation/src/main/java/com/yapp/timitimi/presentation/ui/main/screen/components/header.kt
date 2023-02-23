@@ -84,6 +84,10 @@ fun Header(
                 onClickNotification = {},
                 leftContent = {
                     TimiH3SemiBold(
+                        modifier = Modifier.padding(
+                            start = 44.dp,
+                            bottom = 4.dp
+                        ),
                         text = title,
                         color = Color.Black
                     )
@@ -140,6 +144,23 @@ fun MainTopAppBar(
             .height(height = 48.dp)
             .background(color = Color.White)
     ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = if (collapsed) {
+                Alignment.CenterStart
+            } else {
+                Alignment.Center
+            }
+        ) {
+            if (collapsed) {
+                leftContent()
+            } else {
+                Image(
+                    painter = painterResource(id = com.yapp.timitimi.presentation.R.drawable.logo),
+                    contentDescription = "logo"
+                )
+            }
+        }
         Row(
             modifier = Modifier
                 .fillMaxSize(),
@@ -147,29 +168,10 @@ fun MainTopAppBar(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
-                modifier = Modifier.clickable(
-                    onClick = onClickLeftArrow
-                ),
+                modifier = Modifier.clickable(onClick = onClickLeftArrow),
                 painter = painterResource(id = R.drawable.icon_arrow_left),
                 contentDescription = "leftArrow"
             )
-            Row(
-                modifier = Modifier.weight(1f),
-                horizontalArrangement = if (collapsed) {
-                    Arrangement.Start
-                } else {
-                    Arrangement.Center
-                }
-            ) {
-                if (collapsed) {
-                    leftContent()
-                } else {
-                    Image(
-                        painter = painterResource(id = com.yapp.timitimi.presentation.R.drawable.logo),
-                        contentDescription = "logo"
-                    )
-                }
-            }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
             ) {
