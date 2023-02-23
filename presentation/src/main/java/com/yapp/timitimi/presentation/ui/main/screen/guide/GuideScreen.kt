@@ -41,9 +41,9 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.yapp.timitimi.component.TaskType
 import com.yapp.timitimi.designsystem.R
 import com.yapp.timitimi.modifier.timiClickable
-import com.yapp.timitimi.presentation.ui.main.redux.MainState
 import com.yapp.timitimi.presentation.ui.main.redux.Member
 import com.yapp.timitimi.presentation.ui.main.redux.ScreenStep
+import com.yapp.timitimi.presentation.ui.main.redux.TaskItem
 import com.yapp.timitimi.presentation.ui.main.screen.BottomNavigationItem
 import com.yapp.timitimi.presentation.ui.main.screen.components.Header
 import com.yapp.timitimi.presentation.ui.main.screen.components.RoundedAddButton
@@ -247,8 +247,8 @@ private fun GuideBackground(
                     title = task.text,
                     tasks = when (task) {
                         TaskClassification.Whole.My -> persistentListOf(
-                            MainState.Task(
-                                taskType = TaskType.Progress,
+                            TaskItem(
+                                taskType = TaskType.InProgress,
                                 id = 0,
                                 startDate = "11.01",
                                 endDate = "11.09",
@@ -258,9 +258,8 @@ private fun GuideBackground(
                         )
 
                         TaskClassification.Whole.Other -> persistentListOf(
-                            MainState.Task(
-                                taskType = TaskType.Request(
-                                    confirmationPeriod = 3,
+                            TaskItem(
+                                taskType = TaskType.FeedBack(
                                     currentConfirmation = 1,
                                     totalConfirmation = 2,
                                 ),
@@ -279,11 +278,8 @@ private fun GuideBackground(
                         )
 
                         TaskClassification.Whole.Done -> persistentListOf(
-                            MainState.Task(
-                                taskType = TaskType.Done(
-                                    completedTask = 2,
-                                    notYetTask = 3
-                                ),
+                            TaskItem(
+                                taskType = TaskType.Done,
                                 id = 2,
                                 startDate = "10.24",
                                 endDate = "11.01",
