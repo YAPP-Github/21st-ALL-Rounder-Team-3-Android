@@ -21,6 +21,7 @@ android {
         debug {
             buildConfigField("String", "TIMITIMI_DYNAMIC_LINK", "\"https://timitimi.page.link\"")
             buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"http://timitimi.site/oauth2/authorization/kakao\"")
+            buildConfigField("String", "WEB_URL", "\"http://10.0.2.2:8081\"")
         }
         release {
             isMinifyEnabled = false
@@ -31,6 +32,7 @@ android {
 
             buildConfigField("String", "TIMITIMI_DYNAMIC_LINK", "\"https://timitimi.page.link\"")
             buildConfigField("String", "KAKAO_LOGIN_AUTH_URL", "\"http://timitimi.site/oauth2/authorization/kakao\"")
+            buildConfigField("String", "WEB_URL", "\"http://10.0.2.2:8081\"")
         }
     }
     compileOptions {
