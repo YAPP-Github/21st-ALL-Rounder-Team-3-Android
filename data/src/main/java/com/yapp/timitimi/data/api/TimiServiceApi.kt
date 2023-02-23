@@ -56,8 +56,8 @@ interface TimiServiceApi {
     //    TASKS
     @GET("/projects/{projectId}/tasks")
     suspend fun getProjectTasks(
-        @Path("projectId") projectId: String
-    ): Response<TaskResponse>
+        @Path("projectId") projectId: Int
+    ): Response<List<TaskResponse>>
 
     @POST("/projects/{projectId}/tasks")
     suspend fun postProjectTasks(

@@ -3,6 +3,7 @@ package com.yapp.timitimi.data.response
 import com.yapp.timitimi.domain.entity.Representative
 import com.yapp.timitimi.domain.entity.Task
 import com.yapp.timitimi.domain.entity.TaskContent
+import com.yapp.timitimi.domain.entity.TaskStatus
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -44,7 +45,7 @@ internal fun TaskResponse.toDomain() = Task(
     representative = representative.toDomain(),
     startDate = startDate,
     taskContents = taskContents.map(TaskContentResponse::toDomain),
-    taskStatus = taskStatus,
+    taskStatus = TaskStatus.valueOf(taskStatus),
     title = title
 )
 

@@ -6,6 +6,7 @@ import com.yapp.timitimi.domain.entity.Project
 import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.domain.respository.ParticipantsRepository
 import com.yapp.timitimi.domain.respository.ProjectsRepository
+import com.yapp.timitimi.domain.respository.TasksRepository
 import com.yapp.timitimi.redux.BaseMiddleware
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
@@ -25,6 +26,7 @@ import javax.inject.Inject
 class MainMiddleware @Inject constructor(
     private val participantsRepository: ParticipantsRepository,
     private val projectsRepository: ProjectsRepository,
+    private val tasksRepository: TasksRepository,
     private val userPreference: UserPreference,
 ) : BaseMiddleware<MainIntent, MainSingleEvent> {
 
@@ -62,7 +64,16 @@ class MainMiddleware @Inject constructor(
                         participantsRepository.getProjectParticipants(intent.projectId)
                             .map { result ->
                                 intent.copy(
-                                    participants = result.getOrDefault(emptyList()).toImmutableList()
+                                    participants = result.getOrDefault(emptyList())
+                                        .toImmutableList()
+                                )
+                            }
+                    }
+                    .flatMapConcat { intent ->
+                        tasksRepository.getProjectTasks(intent.projectId)
+                            .map { result ->
+                                intent.copy(
+                                    tasks = result.getOrDefault(emptyList()).toImmutableList()
                                 )
                             }
                     }

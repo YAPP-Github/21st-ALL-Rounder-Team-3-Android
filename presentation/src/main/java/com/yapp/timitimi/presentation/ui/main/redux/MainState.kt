@@ -1,9 +1,7 @@
 package com.yapp.timitimi.presentation.ui.main.redux
 
-import androidx.compose.ui.graphics.painter.Painter
 import com.yapp.timitimi.component.TaskType
 import com.yapp.timitimi.domain.entity.Project
-import com.yapp.timitimi.presentation.ui.main.screen.Me
 import com.yapp.timitimi.redux.BaseState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -15,22 +13,19 @@ data class MainState(
     val project: ProjectItem = ProjectItem(),
     val members: ImmutableList<Member> = persistentListOf(),
     val selectedProfileIndex: Int = 0,
-    val tasks: ImmutableList<Task> = persistentListOf(),
-) : BaseState {
+    val tasks: ImmutableList<TaskItem> = persistentListOf(),
+) : BaseState
 
-    data class Task(
-        val taskType: TaskType = TaskType.NotStarted,
-        val id: Int,
-        val member: Member = Member(),
-        val startDate: String = "",
-        val endDate: String = "",
-        val dDay: String = "",
-        val title: String = "",
-        val memo: String = "",
-        val completionCount: Int = 0,
-        val totalCount: Int = 0,
-    )
-}
+data class TaskItem(
+    val taskType: TaskType = TaskType.Before,
+    val id: Int,
+    val member: Member = Member(),
+    val startDate: String = "",
+    val endDate: String = "",
+    val dDay: String = "",
+    val title: String = "",
+    val memo: String = "",
+)
 
 data class ProjectItem(
     val id: Int = 1,

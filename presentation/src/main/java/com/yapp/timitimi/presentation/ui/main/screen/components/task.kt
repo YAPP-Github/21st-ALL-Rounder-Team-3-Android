@@ -26,6 +26,7 @@ import com.yapp.timitimi.kotlin.immutableFilter
 import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
 import com.yapp.timitimi.presentation.ui.main.redux.MainState
+import com.yapp.timitimi.presentation.ui.main.redux.TaskItem
 import com.yapp.timitimi.presentation.ui.main.screen.Me
 import com.yapp.timitimi.theme.Gray600
 import kotlinx.collections.immutable.ImmutableList
@@ -45,7 +46,7 @@ internal fun TaskSection(
     modifier: Modifier = Modifier,
     state: MainState,
     isProfileSelected: Boolean,
-    onClickTask: (task: MainState.Task, isMe: Boolean) -> Unit,
+    onClickTask: (task: TaskItem, isMe: Boolean) -> Unit,
 ) {
     val lazyListState = rememberLazyListState()
     val isMe by remember {
@@ -128,8 +129,8 @@ internal fun TaskSection(
 
 internal fun LazyListScope.taskDropBox(
     title: String,
-    tasks: ImmutableList<MainState.Task>,
-    onClickTask: (task: MainState.Task, isMe: Boolean) -> Unit,
+    tasks: ImmutableList<TaskItem>,
+    onClickTask: (task: TaskItem, isMe: Boolean) -> Unit,
     onClick: () -> Unit,
     isHide: Boolean,
     isMe: Boolean,
@@ -171,7 +172,7 @@ internal fun LazyListScope.taskDropBox(
                 badgeText = taskItem.dDay,
                 content = taskItem.title,
                 subContent = taskItem.title,
-                taskType = TaskType.Progress,
+                taskType = taskItem.taskType,
                 isMe = isMe,
                 onClick = {
                     onClickTask(taskItem, isMe)

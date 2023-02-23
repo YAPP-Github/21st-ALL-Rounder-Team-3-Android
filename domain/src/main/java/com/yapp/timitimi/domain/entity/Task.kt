@@ -10,9 +10,17 @@ data class Task(
     val representative: Representative,
     val startDate: String,
     val taskContents: List<TaskContent>,
-    val taskStatus: String,
+    val taskStatus: TaskStatus,
     val title: String
 )
+
+enum class TaskStatus {
+    BEFORE,
+    INPROGRESS,
+    FEEDBACK,
+    DONE,
+    LATE
+}
 
 data class TaskContent(
     val taskContentId: Int,

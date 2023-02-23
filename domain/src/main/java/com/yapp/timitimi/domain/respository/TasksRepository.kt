@@ -12,7 +12,7 @@ interface TasksRepository {
     /**
      * 프로젝트 내 테스크 리스트 조회
      */
-    suspend fun getProjectTasks(projectId: String): Flow<Result<Task>>
+    suspend fun getProjectTasks(projectId: Int): Flow<Result<List<Task>>>
 
     /**
      * 프로젝트 내 테스크 정보 조회
