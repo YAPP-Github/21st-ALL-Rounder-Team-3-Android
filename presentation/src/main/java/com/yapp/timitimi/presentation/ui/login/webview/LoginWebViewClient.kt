@@ -34,7 +34,6 @@ class LoginWebViewClient(
             } else {
                 onLoginFailed()
             }
-            return false
         }
         return false
     }

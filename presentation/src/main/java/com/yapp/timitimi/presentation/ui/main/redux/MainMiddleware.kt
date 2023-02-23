@@ -66,7 +66,9 @@ class MainMiddleware @Inject constructor(
                             .map { result ->
                                 intent.copy(
                                     tasks = result.getOrDefault(emptyList()).toImmutableList()
-                                )
+                                ).also {
+                                    Timber.e(result.toString())
+                                }
                             }
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),

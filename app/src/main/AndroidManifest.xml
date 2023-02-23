@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:theme="@style/Theme.AllRounder3"
         android:usesCleartextTraffic="true"
         tools:ignore="MissingApplicationIcon">
         <activity
@@ -45,15 +45,18 @@
         </activity>
 
         <activity android:name="com.yapp.timitimi.presentation.ui.projectlist.ProjectListActivity" />
-        <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteUserActivity"/>
+        <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteUserActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.edit.EditProjectActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.login.LoginActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity" />
-        <activity android:name="com.yapp.timitimi.presentation.ui.mytask.MyTaskActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.mypage.edit.EditUserInfoActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.web.edittask.EditTaskActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.web.feedback.FeedbackActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.web.taskdetail.TaskDetailActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.web.createtask.CreateTaskActivity" />
 
     </application>
 

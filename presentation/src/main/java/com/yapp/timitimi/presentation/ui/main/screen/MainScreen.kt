@@ -38,14 +38,15 @@ import com.yapp.timitimi.presentation.ui.main.redux.MainIntent
 import com.yapp.timitimi.presentation.ui.main.redux.MainSingleEvent
 import com.yapp.timitimi.presentation.ui.main.screen.components.Header
 import com.yapp.timitimi.presentation.ui.main.screen.components.TaskSection
-import com.yapp.timitimi.presentation.ui.mytask.MyTaskActivity
+import com.yapp.timitimi.presentation.web.createtask.CreateTaskActivity
+import com.yapp.timitimi.presentation.web.taskdetail.TaskDetailActivity
 import com.yapp.timitimi.theme.Gray200
 import com.yapp.timitimi.theme.Purple500
 import com.yapp.timitimi.ui.startActivityWithAnimation
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-const val Me = "상록" //TODO 내 정보에 대해 Toplevel로 관리할 지?
+const val Me = "최상록" //TODO 내 정보에 대해 Toplevel로 관리할 지?
 
 @Composable
 fun HomeScreen(
@@ -81,11 +82,15 @@ fun HomeScreen(
                     }
 
                     is MainSingleEvent.NavigateToCreateTask -> {
-                        activity.startActivityWithAnimation<MyTaskActivity>()
+                        activity.startActivityWithAnimation<CreateTaskActivity>(
+                            intentBuilder = {
+                                putExtra(Extras.ProjectId, event.projectId)
+                            }
+                        )
                     }
 
                     MainSingleEvent.NavigateToInviteMember -> {
-                        //TODO(EvergreenTree97)
+                        activity.startActivityWithAnimation<InviteUserActivity>()
                     }
 
                     MainSingleEvent.NavigateToNotificationList -> {
@@ -101,7 +106,13 @@ fun HomeScreen(
                     }
 
                     is MainSingleEvent.NavigateToTaskDetail -> {
-                        activity.startActivityWithAnimation<MyTaskActivity>()
+                        activity.startActivityWithAnimation<TaskDetailActivity>(
+                            intentBuilder = {
+                                putExtra(Extras.ProjectId, event.projectId)
+                                putExtra(Extras.TaskId, event.taskId)
+                                putExtra(Extras.IsMe, event.isMe)
+                            }
+                        )
                     }
                 }
             }
@@ -126,7 +137,7 @@ fun HomeScreen(
             onProfileSelected = { viewModel.dispatch(MainIntent.SelectProfile(it)) },
             onClickEditIcon = { viewModel.dispatch(MainIntent.ClickEditButton(state.project.id)) },
             onClickLeftArrow = { viewModel.dispatch(MainIntent.ClickBackButton) },
-            onInviteButtonClicked = { activity.startActivityWithAnimation<InviteUserActivity>() }
+            onInviteButtonClicked = { viewModel.dispatch(MainIntent.SelectAddProfile) }
         )
         TaskSection(
             modifier = Modifier
