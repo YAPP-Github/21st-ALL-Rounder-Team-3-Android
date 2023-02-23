@@ -6,6 +6,7 @@ import com.yapp.timitimi.data.request.PutProjectBody
 import com.yapp.timitimi.data.response.ParticipantResponse
 import com.yapp.timitimi.data.response.ProjectIdResponse
 import com.yapp.timitimi.data.response.ProjectResponse
+import com.yapp.timitimi.data.response.TaskResponse
 import com.yapp.timitimi.data.response.UserProfileResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.Body
@@ -56,7 +57,7 @@ interface TimiServiceApi {
     @GET("/projects/{projectId}/tasks")
     suspend fun getProjectTasks(
         @Path("projectId") projectId: String
-    )
+    ): Response<TaskResponse>
 
     @POST("/projects/{projectId}/tasks")
     suspend fun postProjectTasks(
@@ -85,6 +86,6 @@ interface TimiServiceApi {
     @GET("/auth/refresh")
     suspend fun refreshUserToken(
         @Header("appToken") appToken: String,
-        @Header("refreshToken") refreshToken: String,
-    )
+        @Header("refreshToken") token: String,
+    ): Response<Boolean>
 }

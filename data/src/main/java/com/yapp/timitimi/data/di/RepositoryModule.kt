@@ -5,11 +5,13 @@ import com.yapp.timitimi.data.repository.MemberRepositoryImpl
 import com.yapp.timitimi.data.repository.OAuthRepositoryImpl
 import com.yapp.timitimi.data.repository.ParticipantsRepositoryImpl
 import com.yapp.timitimi.data.repository.ProjectRepositoryImpl
+import com.yapp.timitimi.data.repository.TasksRepositoryImpl
 import com.yapp.timitimi.domain.respository.FeedbackRepository
 import com.yapp.timitimi.domain.respository.MemberRepository
 import com.yapp.timitimi.domain.respository.OAuthRepository
 import com.yapp.timitimi.domain.respository.ParticipantsRepository
 import com.yapp.timitimi.domain.respository.ProjectsRepository
+import com.yapp.timitimi.domain.respository.TasksRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -48,5 +50,11 @@ abstract class RepositoryModule {
     abstract fun bindsOAuthRepositoryImpl(
         oauthRepositoryImpl: OAuthRepositoryImpl,
     ): OAuthRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsTaskRepositoryImpl(
+        tasksRepository: TasksRepositoryImpl,
+    ): TasksRepository
 }
 
