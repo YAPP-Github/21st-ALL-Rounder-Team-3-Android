@@ -8,9 +8,12 @@ val Purple300 = Color(0xFFB8B1F9)
 val Purple200 = Color(0xFFD4CFFC)
 val Purple100 = Color(0xFFF1EBFF)
 
-val Error = Color(0xFFF15B46)
+val Error = Color(0xFFF4693D)
+val Error300 = Color(0xFFFFC8C8)
+val Error200 = Color(0xFFFFEFEF)
 
 val Green500 = Color(0xFF1AC694)
+val Green300 = Color(0xFFC6EBE1)
 val Green100 = Color(0xFFF1FAF7)
 
 val Black = Color(0xFF111111)
