@@ -60,7 +60,7 @@ class EditProjectMiddleware @Inject constructor(
                         projectsRepository.getProject(intent.projectId)
                             .map { result ->
                                 intent.copy(
-                                    project = result
+                                    project = result.getOrNull()
                                 )
                             }
                     }

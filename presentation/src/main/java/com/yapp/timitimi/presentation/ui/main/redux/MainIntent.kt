@@ -15,7 +15,7 @@ sealed interface MainIntent : BaseIntent {
     data class Init(
         val projectId: Int,
         val participants: ImmutableList<Participant> = persistentListOf(),
-        val project: Project? = null,
+        val project: Project = Project.empty(),
     ) : MainIntent
 
     object ClickBackButton : MainIntent

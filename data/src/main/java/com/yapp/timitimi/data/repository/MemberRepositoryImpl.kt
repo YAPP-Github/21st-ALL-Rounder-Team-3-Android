@@ -11,10 +11,9 @@ import javax.inject.Inject
 class MemberRepositoryImpl @Inject constructor(
     private val timiService: TimiServiceApi
 ): MemberRepository {
-    override suspend fun getUserInfo(): Flow<UserProfile> {
+    override suspend fun getUserInfo(): Flow<Result<UserProfile>> {
         return apiCall(
-            call = { timiService.getUserInfo() },
-            mapper = { data -> data.toDomain() }
-        )
+            call = { timiService.getUserInfo() }
+        ) { data -> data.toDomain() }
     }
 }

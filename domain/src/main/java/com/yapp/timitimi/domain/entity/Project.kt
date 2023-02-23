@@ -13,4 +13,23 @@ data class Project(
     val teamThumbnailUrl: String,
     val myParticipantId: Int,
     val dday: Int,
-)
+) {
+    companion object {
+        fun empty(): Project {
+            return Project(
+                id = 0,
+                name = "",
+                startDate = "",
+                dueDate = "",
+                goal = "",
+                projectStatus = "",
+                progress = "",
+                participantInfos = emptyList(),
+                projectThumbnailUrl = "",
+                teamThumbnailUrl = "",
+                myParticipantId = 0,
+                dday = 0,
+            )
+        }
+    }
+}

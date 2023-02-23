@@ -2,6 +2,7 @@
 
 package com.yapp.timitimi.presentation.ui.main.redux
 
+import com.yapp.timitimi.domain.entity.Project
 import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.domain.respository.ParticipantsRepository
 import com.yapp.timitimi.domain.respository.ProjectsRepository
@@ -53,7 +54,7 @@ class MainMiddleware @Inject constructor(
                         projectsRepository.getProject(intent.projectId)
                             .map { result ->
                                 intent.copy(
-                                    project = result
+                                    project = result.getOrDefault(Project.empty())
                                 )
                             }
                     }
@@ -61,7 +62,7 @@ class MainMiddleware @Inject constructor(
                         participantsRepository.getProjectParticipants(intent.projectId)
                             .map { result ->
                                 intent.copy(
-                                    participants = result.toImmutableList()
+                                    participants = result.getOrDefault(emptyList()).toImmutableList()
                                 )
                             }
                     }

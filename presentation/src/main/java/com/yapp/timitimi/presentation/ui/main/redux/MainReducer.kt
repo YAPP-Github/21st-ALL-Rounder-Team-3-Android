@@ -10,9 +10,9 @@ class MainReducer : Reducer<MainState> {
         return when (action) {
             is MainIntent.Init -> {
                 state.copy(
-                    project = action.project?.toPresentationModel()?.copy(
+                    project = action.project.toPresentationModel().copy(
                         memberCount = state.members.size
-                    ) ?: ProjectItem(),
+                    ),
                     members = action.participants.immutableMap(Participant::toPresentationModel),
                 )
             }

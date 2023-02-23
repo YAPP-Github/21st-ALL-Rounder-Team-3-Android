@@ -2,6 +2,7 @@ package com.yapp.timitimi.presentation.ui.mypage.edit
 
 import androidx.lifecycle.viewModelScope
 import com.yapp.timitimi.base.BaseViewModel
+import com.yapp.timitimi.domain.entity.UserProfile
 import com.yapp.timitimi.domain.respository.MemberRepository
 import com.yapp.timitimi.presentation.ui.mypage.edit.redux.EditUserInfoIntent
 import com.yapp.timitimi.presentation.ui.mypage.edit.redux.EditUserInfoMiddleware
@@ -23,12 +24,13 @@ class EditUserInfoViewModel @Inject constructor(
     private val middleware: EditUserInfoMiddleware,
     private val reducer: EditUserInfoReducer,
     private val memberRepository: MemberRepository
-): BaseViewModel<
+) : BaseViewModel<
         EditUserInfoIntent,
         EditUserInfoState,
         EditUserInfoSingleEvent>() {
 
-    override fun registerMiddleware(): List<BaseMiddleware<EditUserInfoIntent, EditUserInfoSingleEvent>> = listOf(middleware)
+    override fun registerMiddleware(): List<BaseMiddleware<EditUserInfoIntent, EditUserInfoSingleEvent>> =
+        listOf(middleware)
 
     override fun registerReducer(): Reducer<EditUserInfoState> = reducer
 
@@ -46,7 +48,14 @@ class EditUserInfoViewModel @Inject constructor(
     private fun loadUserInfo() {
         viewModelScope.launch {
             memberRepository.getUserInfo().onEach {
-                dispatch(EditUserInfoIntent.LoadScreen(isLoading = true, userProfile = it))
+                dispatch(
+                    EditUserInfoIntent.LoadScreen(
+                        isLoading = true,
+                        userProfile = it.getOrDefault(
+                            UserProfile.empty()
+                        )
+                    )
+                )
             }
                 .catch {
 
