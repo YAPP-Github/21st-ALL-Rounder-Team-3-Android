@@ -1,5 +1,8 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -11,6 +14,19 @@ plugins {
 android {
     namespace = "com.yapp.timitimi.app"
     compileSdk = 33
+
+    signingConfigs {
+        create("release") {
+            val configFile = project.rootProject.file("signingconfig.properties")
+            val properties = Properties()
+            properties.load(FileInputStream(configFile))
+
+            storeFile = project.rootProject.file(properties["storeFile"] as String)
+            storePassword = properties["storePassword"] as String
+            keyAlias = properties["keyAlias"] as String
+            keyPassword = properties["keyPassword"] as String
+        }
+    }
 
     defaultConfig {
         with(libs.versions) {
@@ -31,6 +47,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )

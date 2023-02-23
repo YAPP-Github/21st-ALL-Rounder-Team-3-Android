@@ -9,3 +9,6 @@
 .cxx
 local.properties
 /designsystem/report
+signingconfig.properties
+*.jks
+*.pepk

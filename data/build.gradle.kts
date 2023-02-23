@@ -17,7 +17,7 @@ android {
             buildConfigField("String", "BASE_URL", "\"http://timitimi.site\"")
         }
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String", "BASE_URL", "\"http://timitimi.site\"")
         }
