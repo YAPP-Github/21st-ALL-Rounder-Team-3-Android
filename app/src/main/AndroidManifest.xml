@@ -44,7 +44,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.yapp.timitimi.presentation.ui.projectlist.ProjectListActivity" />
+        <activity
+            android:name="com.yapp.timitimi.presentation.ui.projectlist.ProjectListActivity"
+            tools:ignore="Instantiatable" />
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteUserActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.edit.EditProjectActivity" />
