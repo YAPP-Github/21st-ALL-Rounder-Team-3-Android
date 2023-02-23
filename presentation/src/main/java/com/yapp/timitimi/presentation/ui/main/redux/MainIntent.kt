@@ -10,6 +10,7 @@ import kotlinx.collections.immutable.persistentListOf
 sealed interface MainIntent : BaseIntent {
     data class CheckNewUser(
         val isFirstUser: Boolean = true,
+        val step: ScreenStep = ScreenStep.First,
     ) : MainIntent
 
     object ClickGuideScreen : MainIntent

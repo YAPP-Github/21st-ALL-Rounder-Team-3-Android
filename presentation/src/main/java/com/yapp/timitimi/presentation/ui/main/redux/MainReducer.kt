@@ -1,5 +1,3 @@
-@file:RequiresApi(Build.VERSION_CODES.O)
-
 package com.yapp.timitimi.presentation.ui.main.redux
 
 import android.os.Build
@@ -17,6 +15,7 @@ import com.yapp.timitimi.util.toDotDate
 import com.yapp.timitimi.util.toStringDday
 
 class MainReducer : Reducer<MainState> {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun invoke(action: BaseIntent, state: MainState): MainState {
         return when (action) {
             is MainIntent.Init -> {
@@ -32,6 +31,12 @@ class MainReducer : Reducer<MainState> {
             is MainIntent.SelectProfile -> {
                 state.copy(
                     selectedProfileIndex = action.index
+                )
+            }
+
+            is MainIntent.CheckNewUser -> {
+                state.copy(
+                    currentStep = ScreenStep.Main
                 )
             }
 
@@ -56,6 +61,7 @@ private fun Participant.toPresentationModel() = Member(
 )
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 private fun Task.toPresentationModel() = TaskItem(
     taskType = when (taskStatus) {
         TaskStatus.BEFORE -> TaskType.Before
