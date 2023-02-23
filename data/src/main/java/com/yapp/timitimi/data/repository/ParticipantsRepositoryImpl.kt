@@ -15,13 +15,12 @@ class ParticipantsRepositoryImpl @Inject constructor(
         return timiService.postProjectParticipants(projectId)
     }
 
-    override suspend fun getProjectParticipants(projectId: Int): Flow<List<Participant>> {
+    override suspend fun getProjectParticipants(projectId: Int): Flow<Result<List<Participant>>> {
         return apiCall(
-            call = { timiService.getProjectParticipants(projectId) },
-            mapper = { data ->
-                data.map { it.toDomain() }
-            }
-        )
+            call = { timiService.getProjectParticipants(projectId) }
+        ) { data ->
+            data.map { it.toDomain() }
+        }
     }
 
 

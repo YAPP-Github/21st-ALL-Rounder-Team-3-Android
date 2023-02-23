@@ -2,9 +2,10 @@
 
 package com.yapp.timitimi.presentation.ui.main.redux
 
+import com.yapp.timitimi.domain.entity.Project
 import com.yapp.timitimi.domain.preference.UserPreference
-import com.yapp.timitimi.domain.respository.ParticipantsRepository
 import com.yapp.timitimi.domain.respository.ProjectsRepository
+import com.yapp.timitimi.domain.respository.TasksRepository
 import com.yapp.timitimi.redux.BaseMiddleware
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineScope
@@ -22,8 +23,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MainMiddleware @Inject constructor(
-    private val participantsRepository: ParticipantsRepository,
     private val projectsRepository: ProjectsRepository,
+    private val tasksRepository: TasksRepository,
     private val userPreference: UserPreference,
 ) : BaseMiddleware<MainIntent, MainSingleEvent> {
 
@@ -52,16 +53,19 @@ class MainMiddleware @Inject constructor(
                     .flatMapConcat { intent ->
                         projectsRepository.getProject(intent.projectId)
                             .map { result ->
-                                intent.copy(
-                                    project = result
-                                )
+                                result.getOrDefault(Project.empty()).let {
+                                    intent.copy(
+                                        project = it,
+                                        participants = it.participantInfos.toImmutableList()
+                                    )
+                                }
                             }
                     }
                     .flatMapConcat { intent ->
-                        participantsRepository.getProjectParticipants(intent.projectId)
+                        tasksRepository.getProjectTasks(intent.projectId)
                             .map { result ->
                                 intent.copy(
-                                    participants = result.toImmutableList()
+                                    tasks = result.getOrDefault(emptyList()).toImmutableList()
                                 )
                             }
                     }

@@ -40,7 +40,7 @@ class SplashMiddleware @Inject constructor(
                 filterIsInstance<SplashIntent.GetAccessTokenSucceed>()
                     .onEach {
                         projectsRepository.getAllProject().onEach { projects ->
-                            if (projects.isEmpty()) {
+                            if (projects.getOrDefault(emptyList()).isEmpty()) {
                                 eventFlow.emit(SplashSingleEvent.NavigateToCreateProject)
                             } else {
                                 eventFlow.emit(SplashSingleEvent.NavigateToMain)
@@ -49,12 +49,12 @@ class SplashMiddleware @Inject constructor(
                     }
                     .shareIn(scope, SharingStarted.Eagerly),
 
-            filterIsInstance<SplashIntent.GetAccessTokenFailed>()
-                .onEach {
-                    Timber.e(it.toString())
-                    eventFlow.emit(SplashSingleEvent.NavigateToLogin)
-                }
-                .shareIn(scope, SharingStarted.Eagerly)
+                filterIsInstance<SplashIntent.GetAccessTokenFailed>()
+                    .onEach {
+                        Timber.e(it.toString())
+                        eventFlow.emit(SplashSingleEvent.NavigateToLogin)
+                    }
+                    .shareIn(scope, SharingStarted.Eagerly)
             )
 
             filterIsInstance<SplashIntent.NeedRefreshToken>()

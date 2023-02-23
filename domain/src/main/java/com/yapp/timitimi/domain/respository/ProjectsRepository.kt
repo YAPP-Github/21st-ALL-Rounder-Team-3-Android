@@ -9,17 +9,17 @@ interface ProjectsRepository {
     /**
      * 프로젝트 리스트 조회
      */
-    suspend fun getAllProject(): Flow<List<Project>>
+    suspend fun getAllProject(): Flow<Result<List<Project>>>
 
     /**
      * 프로젝트 생성
      */
-    suspend fun postProjects(body: CreateProjectsInfo): Flow<Int>
+    suspend fun postProjects(body: CreateProjectsInfo): Flow<Result<Int>>
 
     /**
      * 프로젝트 정보 조회
      */
-    suspend fun getProject(projectId: Int): Flow<Project>
+    suspend fun getProject(projectId: Int): Flow<Result<Project>>
 
     /**
      * 프로젝트 수정
@@ -27,5 +27,5 @@ interface ProjectsRepository {
     suspend fun putProject(
         projectId: Int,
         body: EditProjectInfo,
-    ): Flow<String>
+    ): Flow<Result<String>>
 }

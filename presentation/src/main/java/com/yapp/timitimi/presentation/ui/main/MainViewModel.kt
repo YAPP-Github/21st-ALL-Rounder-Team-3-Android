@@ -19,7 +19,6 @@ class MainViewModel @Inject constructor(
     private val userPreference: UserPreference
 ) : BaseViewModel<MainIntent, MainState, MainSingleEvent>() {
     init {
-
         start()
         loadData()
     }

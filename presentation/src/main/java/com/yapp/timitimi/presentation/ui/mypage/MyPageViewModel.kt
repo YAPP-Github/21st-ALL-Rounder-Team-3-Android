@@ -2,6 +2,7 @@ package com.yapp.timitimi.presentation.ui.mypage
 
 import androidx.lifecycle.viewModelScope
 import com.yapp.timitimi.base.BaseViewModel
+import com.yapp.timitimi.domain.entity.UserProfile
 import com.yapp.timitimi.domain.respository.MemberRepository
 import com.yapp.timitimi.presentation.ui.mypage.redux.MyPageIntent
 import com.yapp.timitimi.presentation.ui.mypage.redux.MyPageMiddleware
@@ -22,11 +23,12 @@ class MyPageViewModel @Inject constructor(
     private val myPageMiddleware: MyPageMiddleware,
     private val myPageReducer: MyPageReducer,
     private val memberRepository: MemberRepository
-): BaseViewModel<
+) : BaseViewModel<
         MyPageIntent,
         MyPageState,
         MyPageSingleEvent>() {
-    override fun registerMiddleware(): List<BaseMiddleware<MyPageIntent, MyPageSingleEvent>> = listOf(myPageMiddleware)
+    override fun registerMiddleware(): List<BaseMiddleware<MyPageIntent, MyPageSingleEvent>> =
+        listOf(myPageMiddleware)
 
     override fun registerReducer() = myPageReducer
 
@@ -44,7 +46,14 @@ class MyPageViewModel @Inject constructor(
     private fun loadUserInfo() {
         viewModelScope.launch {
             memberRepository.getUserInfo().onEach {
-                dispatch(MyPageIntent.LoadScreen(isLoading = true, userProfile = it))
+                dispatch(
+                    MyPageIntent.LoadScreen(
+                        isLoading = true,
+                        userProfile = it.getOrDefault(
+                            UserProfile.empty()
+                        )
+                    )
+                )
             }
                 .catch {
 

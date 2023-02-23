@@ -10,6 +10,7 @@ import com.yapp.timitimi.presentation.ui.splash.redux.SplashReducer
 import com.yapp.timitimi.presentation.ui.splash.redux.SplashSingleEvent
 import com.yapp.timitimi.presentation.ui.splash.redux.SplashState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import timber.log.Timber
 import javax.inject.Inject
 

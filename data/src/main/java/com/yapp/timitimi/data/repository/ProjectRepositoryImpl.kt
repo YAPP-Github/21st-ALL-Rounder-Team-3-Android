@@ -15,16 +15,15 @@ import javax.inject.Inject
 class ProjectRepositoryImpl @Inject constructor(
     private val timiService: TimiServiceApi
 ) : ProjectsRepository {
-    override suspend fun getAllProject(): Flow<List<Project>> {
+    override suspend fun getAllProject(): Flow<Result<List<Project>>> {
         return apiCall(
-            call = { timiService.getAllProject() },
-            mapper = { data ->
-                data.map { it.toDomain() }
-            }
-        )
+            call = { timiService.getAllProject() }
+        ) { data ->
+            data.map { it.toDomain() }
+        }
     }
 
-    override suspend fun postProjects(body: CreateProjectsInfo): Flow<Int> {
+    override suspend fun postProjects(body: CreateProjectsInfo): Flow<Result<Int>> {
         return apiCall(
             call = {
                 timiService.postProjects(
@@ -37,30 +36,27 @@ class ProjectRepositoryImpl @Inject constructor(
                         body.projectStatus
                     )
                 )
-            },
-            mapper = { data ->
-                data.projectId
             }
-        )
+        ) { data ->
+            data.projectId
+        }
     }
 
-    override suspend fun getProject(projectId: Int): Flow<Project> {
+    override suspend fun getProject(projectId: Int): Flow<Result<Project>> {
         return apiCall(
             call = {
                 timiService.getProject(projectId)
-            },
-            mapper = { data ->
-                data.toDomain()
             }
-        )
+        ) { data ->
+            data.toDomain()
+        }
     }
 
-    override suspend fun putProject(projectId: Int, body: EditProjectInfo): Flow<String> {
+    override suspend fun putProject(projectId: Int, body: EditProjectInfo): Flow<Result<String>> {
         return apiCall(
             call = {
                 timiService.putProject(projectId, body.toData())
-            },
-            mapper = { it }
-        )
+            }
+        ) { it }
     }
 }

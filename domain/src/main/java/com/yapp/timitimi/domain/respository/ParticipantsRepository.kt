@@ -12,7 +12,7 @@ interface ParticipantsRepository {
     /**
      * 참여자 목록 조회
      */
-    suspend fun getProjectParticipants(projectId: Int): Flow<List<Participant>>
+    suspend fun getProjectParticipants(projectId: Int): Flow<Result<List<Participant>>>
 
     /**
      * 참여자 정보 조회

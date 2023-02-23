@@ -4,5 +4,5 @@ import com.yapp.timitimi.domain.entity.UserProfile
 import kotlinx.coroutines.flow.Flow
 
 interface MemberRepository {
-    suspend fun getUserInfo(): Flow<UserProfile>
+    suspend fun getUserInfo(): Flow<Result<UserProfile>>
 }
