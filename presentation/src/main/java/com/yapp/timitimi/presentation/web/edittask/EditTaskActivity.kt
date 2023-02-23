@@ -16,6 +16,7 @@ import com.yapp.timitimi.presentation.web.taskdetail.TaskDetailActivity
 import com.yapp.timitimi.theme.AllRounder3Theme
 import com.yapp.timitimi.ui.startActivityWithAnimation
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class EditTaskActivity : ComponentActivity() {

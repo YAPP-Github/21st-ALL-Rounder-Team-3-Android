@@ -30,7 +30,9 @@ internal fun WebViewScreen(
     val webViewClient = remember { AccompanistWebViewClient() }
     val webViewNavigator = rememberWebViewNavigator()
     val webViewState = rememberWebViewState(
-        url = url,
+        url = url.also {
+            Timber.e(it+"됐냐")
+        },
         additionalHttpHeaders = mapOf(),
     )
 

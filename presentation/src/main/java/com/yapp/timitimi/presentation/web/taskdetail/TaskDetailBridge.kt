@@ -17,8 +17,8 @@ class TaskDetailBridge(
 
     @JavascriptInterface
     fun navigateToEdit(
-        projectId: Int,
-        taskId: Int,
+        projectId: String,
+        taskId: String,
         managerId: String,
         managerValue: String,
         title: String,
@@ -26,8 +26,9 @@ class TaskDetailBridge(
         startDate: String,
         dueDate: String
     ) {
+        Timber.e("데이터 잘 받아왔는가 $projectId $taskId")
         onNavigateToEdit(
-            projectId, taskId,
+            projectId.toInt(), taskId.toInt(),
             EditTaskParam(managerId, managerValue, title, memo, startDate, dueDate)
         )
     }

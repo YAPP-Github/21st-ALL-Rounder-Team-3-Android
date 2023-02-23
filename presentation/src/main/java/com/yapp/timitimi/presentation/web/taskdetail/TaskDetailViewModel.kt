@@ -5,6 +5,7 @@ import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.presentation.constant.Extras
 import com.yapp.timitimi.presentation.web.webview.WebViewViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,6 +18,7 @@ class TaskDetailViewModel @Inject constructor(
         val projectId = savedStateHandle.getStateFlow(Extras.ProjectId, -1).value
         val taskId = savedStateHandle.getStateFlow(Extras.TaskId, -1).value
         val isMe = savedStateHandle.getStateFlow(Extras.IsMe, false).value
+        Timber.e("나 $isMe")
         _url.value = getUrl(
             isMe = isMe,
             projectId = projectId,

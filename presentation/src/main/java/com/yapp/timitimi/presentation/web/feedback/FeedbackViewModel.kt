@@ -5,6 +5,7 @@ import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.presentation.constant.Extras
 import com.yapp.timitimi.presentation.web.webview.WebViewViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
