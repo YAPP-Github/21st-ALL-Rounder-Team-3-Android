@@ -39,8 +39,7 @@ class InviteProjectViewModel @Inject constructor(
     }
 
     fun participateProject(projectId: String) = viewModelScope.launch {
-        participantsRepository
-            .postParticipants(projectId)
+        participantsRepository.postParticipants(projectId)
             .onEach {
                 userPreference.lastViewedProjectId = projectId
             }

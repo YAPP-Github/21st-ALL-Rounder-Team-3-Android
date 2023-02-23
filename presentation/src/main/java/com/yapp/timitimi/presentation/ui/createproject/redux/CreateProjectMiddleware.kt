@@ -51,8 +51,12 @@ class CreateProjectMiddleware @Inject constructor(
                     .onEach {
                         Timber.e(it.toString())
                         projectsRepository.postProjects(it.state.toCreateProjectsInfoEntity())
-                            .onEach { id ->
-                                eventFlow.emit(CreateProjectSingleEvent.NavigateToTwoStepPage(id.toString()))
+                            .onEach { result ->
+                                eventFlow.emit(
+                                    CreateProjectSingleEvent.NavigateToTwoStepPage(
+                                        result.getOrDefault(0).toString()
+                                    )
+                                )
                             }
                             .launchIn(scope)
                     }

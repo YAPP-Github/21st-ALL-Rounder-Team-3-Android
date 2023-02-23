@@ -1,5 +1,6 @@
 package com.yapp.timitimi.presentation.ui.mypage.edit.redux
 
+import com.yapp.timitimi.domain.entity.UserProfile
 import com.yapp.timitimi.domain.respository.MemberRepository
 import com.yapp.timitimi.redux.BaseMiddleware
 import kotlinx.coroutines.CoroutineScope
@@ -35,16 +36,20 @@ class EditUserInfoMiddleware @Inject constructor(
                     }
                     .shareIn(scope, SharingStarted.WhileSubscribed()),
 
-            filterIsInstance<EditUserInfoIntent.ClickDefaultProfileImageSection>()
-                .onEach {
-                    memberRepository.getUserInfo()
-                        .onEach {
-                            EditUserInfoIntent.RevertDefaultUserProfileImage(it.imageUrl)
-                        }
-                        .launchIn(scope)
-                    eventFlow.emit(EditUserInfoSingleEvent.DismissBottomSheet)
-                }
-                .shareIn(scope, SharingStarted.WhileSubscribed()),
+                filterIsInstance<EditUserInfoIntent.ClickDefaultProfileImageSection>()
+                    .onEach {
+                        memberRepository.getUserInfo()
+                            .onEach {
+                                EditUserInfoIntent.RevertDefaultUserProfileImage(
+                                    it.getOrDefault(
+                                        UserProfile.empty()
+                                    ).imageUrl
+                                )
+                            }
+                            .launchIn(scope)
+                        eventFlow.emit(EditUserInfoSingleEvent.DismissBottomSheet)
+                    }
+                    .shareIn(scope, SharingStarted.WhileSubscribed()),
 
                 filterIsInstance<EditUserInfoIntent.ClickTimiTimiImageChanged>()
                     .onEach {
