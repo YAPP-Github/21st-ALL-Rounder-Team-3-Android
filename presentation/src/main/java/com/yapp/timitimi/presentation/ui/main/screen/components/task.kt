@@ -49,20 +49,20 @@ internal fun TaskSection(
     onClickTask: (task: TaskItem, isMe: Boolean) -> Unit,
 ) {
     val lazyListState = rememberLazyListState()
-    val isMe by remember {
+    val isMe by remember(state.members) {
         derivedStateOf {
             state.members.isNotEmpty()
                     && state.members[state.selectedProfileIndex].name == Me
         }
     }
-    val myTasks by remember {
+    val myTasks by remember(state.members) {
         derivedStateOf {
-            state.tasks.immutableFilter { it.member.name == "상록" }
+            state.tasks.immutableFilter { it.member.name == Me }
         }
     }
-    val otherTasks by remember {
+    val otherTasks by remember(state.members) {
         derivedStateOf {
-            state.tasks.immutableFilter { it.member.name != "상록" }
+            state.tasks.immutableFilter { it.member.name != Me }
         }
     }
     val doneTasks by remember {
@@ -86,7 +86,7 @@ internal fun TaskSection(
                 } else {
                     TaskClassification.Whole.values().size
                 },
-                init = { false }
+                init = { true }
             )
         )
     }
@@ -102,7 +102,6 @@ internal fun TaskSection(
                 onClick = {
                     isDropDownHides[0] = isDropDownHides[0].not()
                 },
-                isMe = isMe,
                 onClickTask = onClickTask,
             )
         } else {
@@ -118,7 +117,6 @@ internal fun TaskSection(
                     onClick = {
                         isDropDownHides[index] = isDropDownHides[index].not()
                     },
-                    isMe = false,
                     onClickTask = onClickTask,
                 )
             }
@@ -133,7 +131,6 @@ internal fun LazyListScope.taskDropBox(
     onClickTask: (task: TaskItem, isMe: Boolean) -> Unit,
     onClick: () -> Unit,
     isHide: Boolean,
-    isMe: Boolean,
 ) {
     item {
         Column(
@@ -141,11 +138,11 @@ internal fun LazyListScope.taskDropBox(
         ) {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .timiClickable(
                         onClick = onClick,
-                        rippleEnabled = false
-                    ),
+                        rippleEnabled = true,
+                    )
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -173,9 +170,9 @@ internal fun LazyListScope.taskDropBox(
                 content = taskItem.title,
                 subContent = taskItem.title,
                 taskType = taskItem.taskType,
-                isMe = isMe,
+                isMe = taskItem.member.name == Me,
                 onClick = {
-                    onClickTask(taskItem, isMe)
+                    onClickTask(taskItem, taskItem.member.name == Me)
                 }
             )
         }

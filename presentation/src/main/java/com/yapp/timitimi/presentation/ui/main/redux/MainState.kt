@@ -3,6 +3,7 @@ package com.yapp.timitimi.presentation.ui.main.redux
 import com.yapp.timitimi.component.TaskType
 import com.yapp.timitimi.domain.entity.Project
 import com.yapp.timitimi.redux.BaseState
+import com.yapp.timitimi.util.toDotDate
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -41,8 +42,8 @@ fun Project.toPresentationModel() = ProjectItem(
     id = id,
     name = name,
     memo = goal,
-    startDate = startDate,
-    endDate = dueDate,
+    startDate = startDate.toDotDate(),
+    endDate = dueDate.toDotDate(),
     dDay = when {
         dday == 0 -> "D-Day"
         dday > 0 -> "D-$dday"

@@ -4,20 +4,21 @@ import com.yapp.timitimi.domain.entity.Representative
 import com.yapp.timitimi.domain.entity.Task
 import com.yapp.timitimi.domain.entity.TaskContent
 import com.yapp.timitimi.domain.entity.TaskStatus
+import kotlinx.serialization.SerialInfo
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class TaskResponse(
     val confirmCount: Int,
     val dueDate: String,
-    val feedbackDueDate: String,
+    val feedbackDueDate: String = "2022-02-02",
     val feedbackRequiredPersonnel: Int,
     val id: Int,
     val memo: String,
     val representative: RepresentativeResponse,
     val startDate: String,
     val taskContents: List<TaskContentResponse>,
-    val taskStatus: String,
+    val taskStatus: String = "BEFORE",
     val title: String
 )
 

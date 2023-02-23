@@ -27,39 +27,40 @@ class TaskDetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val url by viewModel.url.collectAsStateWithLifecycle()
+            val accessToken by viewModel.accessToken.collectAsStateWithLifecycle()
             LaunchedEffect(key1 = Unit) {
                 viewModel.init()
             }
             AllRounder3Theme {
-                val url by viewModel.url.collectAsStateWithLifecycle()
-                val accessToken by viewModel.accessToken.collectAsStateWithLifecycle()
-                WebViewScreen(
-                    urlParam = url,
-                    accessToken = accessToken,
-                    bridge = object : TaskDetailBridge {
-                        override fun navigateToMain() {
-                            startActivityWithAnimation<MainActivity>()
-                        }
-
-                        override fun navigateToEdit(projectId: Int, taskId: Int) {
-                            startActivityWithAnimation<EditTaskActivity>(
-                                intentBuilder = {
-                                    putExtra(Extras.ProjectId, projectId)
-                                    putExtra(Extras.TaskId, taskId)
-                                }
-                            )
-                        }
-
-                        override fun navigateToFeedback(projectId: Int, taskId: Int) {
-                            startActivityWithAnimation<FeedbackActivity>(
-                                intentBuilder = {
-                                    putExtra(Extras.ProjectId, projectId)
-                                    putExtra(Extras.TaskId, taskId)
-                                }
-                            )
-                        }
-                    }
-                )
+                if (url.isNotEmpty() && accessToken.isNotEmpty()) {
+                    WebViewScreen(
+                        urlParam = url,
+                        accessToken = accessToken,
+                        bridge = TaskDetailBridge(
+                            onNavigateToEdit = { projectId, taskId, editTaskParam ->
+                                startActivityWithAnimation<EditTaskActivity>(
+                                    intentBuilder = {
+                                        putExtra(Extras.ProjectId, projectId)
+                                        putExtra(Extras.TaskId, taskId)
+                                        putExtra(Extras.EditTask, editTaskParam)
+                                    }
+                                )
+                            },
+                            onNavigateToFeedback = { projectId, taskId ->
+                                startActivityWithAnimation<FeedbackActivity>(
+                                    intentBuilder = {
+                                        putExtra(Extras.ProjectId, projectId)
+                                        putExtra(Extras.TaskId, taskId)
+                                    }
+                                )
+                            },
+                            onNavigateToMain = {
+                                startActivityWithAnimation<MainActivity>()
+                            }
+                        )
+                    )
+                }
             }
         }
     }

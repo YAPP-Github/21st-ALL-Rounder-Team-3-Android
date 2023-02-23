@@ -4,11 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import com.yapp.timitimi.domain.preference.UserPreference
 import com.yapp.timitimi.presentation.constant.Extras
 import com.yapp.timitimi.presentation.web.webview.WebViewViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class TaskDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     preference: UserPreference
@@ -18,7 +17,11 @@ class TaskDetailViewModel @Inject constructor(
         val projectId = savedStateHandle.getStateFlow(Extras.ProjectId, -1).value
         val taskId = savedStateHandle.getStateFlow(Extras.TaskId, -1).value
         val isMe = savedStateHandle.getStateFlow(Extras.IsMe, false).value
-        _url.value = getUrl(isMe, taskId, projectId)
+        _url.value = getUrl(
+            isMe = isMe,
+            projectId = projectId,
+            taskId = taskId,
+        )
     }
 
     private companion object {

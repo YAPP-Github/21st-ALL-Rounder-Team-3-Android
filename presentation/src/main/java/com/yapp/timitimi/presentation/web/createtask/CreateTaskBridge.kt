@@ -3,7 +3,11 @@ package com.yapp.timitimi.presentation.web.createtask
 import android.webkit.JavascriptInterface
 import com.yapp.timitimi.presentation.web.webview.Bridge
 
-interface CreateTaskBridge : Bridge {
+class CreateTaskBridge(
+    val onBackPressed: () -> Unit,
+) : Bridge {
     @JavascriptInterface
-    fun navigateToMain()
+    fun navigateToMain() {
+        onBackPressed()
+    }
 }

@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-fun String.toDotDate() = drop(4).replace("-", ".")
+fun String.toDotDate() = drop(5).replace("-", ".")
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun String.getDdayFromToday(): Int {

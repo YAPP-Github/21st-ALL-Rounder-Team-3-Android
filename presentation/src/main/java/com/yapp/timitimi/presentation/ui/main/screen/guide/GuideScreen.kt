@@ -290,7 +290,6 @@ private fun GuideBackground(
                     },
                     isHide = false,
                     onClick = {},
-                    isMe = false,
                     onClickTask = { _, _ -> },
                 )
             }

@@ -46,7 +46,7 @@ import com.yapp.timitimi.ui.startActivityWithAnimation
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-const val Me = "상록" //TODO 내 정보에 대해 Toplevel로 관리할 지?
+const val Me = "최상록" //TODO 내 정보에 대해 Toplevel로 관리할 지?
 
 @Composable
 fun HomeScreen(

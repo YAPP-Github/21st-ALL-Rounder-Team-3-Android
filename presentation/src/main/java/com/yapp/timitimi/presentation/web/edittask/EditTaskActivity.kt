@@ -25,26 +25,27 @@ class EditTaskActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val url by viewModel.url.collectAsStateWithLifecycle()
+            val accessToken by viewModel.accessToken.collectAsStateWithLifecycle()
             LaunchedEffect(key1 = Unit) {
                 viewModel.init()
             }
             AllRounder3Theme {
-                val url by viewModel.url.collectAsStateWithLifecycle()
-                val accessToken by viewModel.accessToken.collectAsStateWithLifecycle()
-                WebViewScreen(
-                    urlParam = url,
-                    accessToken = accessToken,
-                    bridge = object : EditTaskBridge {
-                        override fun navigateToMyTask(projectId: Int, taskId: Int) {
+                if (url.isNotEmpty() && accessToken.isNotEmpty()) {
+                    WebViewScreen(
+                        urlParam = url,
+                        accessToken = accessToken,
+                        bridge = EditTaskBridge { projectId, taskId ->
                             startActivityWithAnimation<TaskDetailActivity>(
                                 intentBuilder = {
                                     putExtra(Extras.ProjectId, projectId)
                                     putExtra(Extras.TaskId, taskId)
+                                    putExtra(Extras.IsMe, true)
                                 }
                             )
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }
