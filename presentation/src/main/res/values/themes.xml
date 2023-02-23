@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.AllRounder3" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.AllRounder3" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:statusBarColor">@color/white</item>
+    </style>
 
     <style name="CustomDay" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textColor">#000000</item>
     </style>
+
     <style name="CustomWeek" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textColor">#000000</item>
     </style>
+
     <style name="CustomCalendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="android:textColorPrimary">#000000</item>
         <item name="colorAccent">#FF8075F9</item>
