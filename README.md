@@ -1,1 +1,1 @@
-# 21st-ALL-Rounder-Team-3-Android
+TimiTimi - 팀플 관리 플랫폼
