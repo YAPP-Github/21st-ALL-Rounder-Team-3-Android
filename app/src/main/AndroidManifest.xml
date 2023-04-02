@@ -27,6 +27,17 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="oauth"
+                    android:scheme="kakao4a81c848b641ec8de75cbf5f529d13cc" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="com.yapp.timitimi.presentation.ui.main.MainActivity"
             android:exported="true">
@@ -48,9 +59,10 @@
             android:name="com.yapp.timitimi.presentation.ui.projectlist.ProjectListActivity"
             tools:ignore="Instantiatable" />
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteUserActivity" />
-        <activity android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity" />
+        <activity android:name="com.yapp.timitimi.presentation.ui.intro.IntroActivity"
+            android:exported="true"/>
+
         <activity android:name="com.yapp.timitimi.presentation.ui.edit.EditProjectActivity" />
-        <activity android:name="com.yapp.timitimi.presentation.ui.login.LoginActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.invite.InviteProjectActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.onboarding.OnboardingActivity" />
         <activity android:name="com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity" />

@@ -1,8 +1,5 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
-import org.jetbrains.kotlin.konan.properties.Properties
-import java.io.FileInputStream
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -45,6 +42,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "KAKAO_KEY", "\"4a81c848b641ec8de75cbf5f529d13cc\"")
+        }
+
         release {
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("release")
@@ -63,4 +64,5 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.kapt)
     implementation("com.jakewharton.threetenabp:threetenabp:1.3.0")
+    implementation("com.kakao.sdk:v2-user:2.13.0")
 }
