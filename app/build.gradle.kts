@@ -1,4 +1,5 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.konan.properties.Properties
 import java.io.FileInputStream
 
@@ -36,6 +37,7 @@ android {
             versionCode = app.version.code.get().toInt()
             versionName = app.version.name.get()
         }
+        manifestPlaceholders["KAKAO_MANIFEST_SCHEME"] = gradleLocalProperties(rootDir).getProperty("KAKAO_MANIFEST_SCHEME")
     }
 
     buildFeatures {
