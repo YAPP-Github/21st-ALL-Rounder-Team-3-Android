@@ -40,7 +40,6 @@ class TaskDetailActivity : ComponentActivity() {
                         accessToken = accessToken,
                         bridge = TaskDetailBridge(
                             onNavigateToEdit = { projectId, taskId, editTaskParam ->
-                                Timber.e("데이터 잘 보내는가 $projectId $taskId")
                                 startActivityWithAnimation<EditTaskActivity>(
                                     intentBuilder = {
                                         putExtra(Extras.ProjectId, projectId)

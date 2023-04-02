@@ -23,7 +23,7 @@ class InviteProjectViewModel @Inject constructor(
     private val reducer: InviteProjectReducer,
     private val participantsRepository: ParticipantsRepository,
     private val userPreference: UserPreference
-): BaseViewModel<InviteProjectIntent,
+) : BaseViewModel<InviteProjectIntent,
         InviteProjectState,
         InviteProjectSingleEvent>() {
 
@@ -41,8 +41,8 @@ class InviteProjectViewModel @Inject constructor(
     fun participateProject(projectId: String) = viewModelScope.launch {
         participantsRepository.postParticipants(projectId)
             .onEach {
-                userPreference.lastViewedProjectId = projectId
-            }
+                    userPreference.lastViewedProjectId = projectId
+                }
             .catch {
                 Timber.e("유효하지 않은 Project Id")
             }
