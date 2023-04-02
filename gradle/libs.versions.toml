@@ -3,7 +3,7 @@
 compile-sdk = "33"
 min-sdk = "23"
 target-sdk = "33"
-app-version-code = "1"
+app-version-code = "3"
 app-version-name = "1.0"
 app-id = "com.yapp.timitimi"
 
