@@ -1,5 +1,6 @@
 package com.yapp.timitimi.presentation.ui.intro
 
+import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -28,12 +29,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.yapp.timitimi.component.TimiBody2Medium
 import com.yapp.timitimi.modifier.timiClickable
 import com.yapp.timitimi.presentation.R
+import com.yapp.timitimi.presentation.ui.createproject.CreateProjectActivity
 import com.yapp.timitimi.presentation.ui.createproject.screen.Spacing
 import com.yapp.timitimi.presentation.ui.intro.kakao.KakaoLoginProvider
 import com.yapp.timitimi.presentation.ui.intro.redux.IntroIntent
 import com.yapp.timitimi.presentation.ui.intro.redux.IntroSingleEvent
 import com.yapp.timitimi.theme.Purple200
 import com.yapp.timitimi.theme.Purple500
+import com.yapp.timitimi.ui.startActivityWithAnimation
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -53,7 +56,9 @@ fun IntroScreen(
                         viewModel.login(state)
                     }
                     is IntroSingleEvent.NavigateToCreateProject -> {
-
+                        (context as Activity).startActivityWithAnimation<CreateProjectActivity>(
+                            withFinish = true
+                        )
                     }
 
                     is IntroSingleEvent.LoginFailed -> {

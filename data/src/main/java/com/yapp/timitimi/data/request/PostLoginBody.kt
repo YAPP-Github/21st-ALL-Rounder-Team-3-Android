@@ -5,11 +5,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PostLoginBody(
-    val appToken: String,
+    val accessToken: String,
     val provider: String
 )
 
 internal fun LoginProviderInfo.toData() = PostLoginBody(
-    appToken = appToken,
+    accessToken = appToken,
     provider = provider
 )
