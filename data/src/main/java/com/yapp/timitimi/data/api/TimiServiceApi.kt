@@ -1,8 +1,10 @@
 package com.yapp.timitimi.data.api
 
 import com.yapp.timitimi.data.base.Response
+import com.yapp.timitimi.data.request.PostLoginBody
 import com.yapp.timitimi.data.request.PostProjectsBody
 import com.yapp.timitimi.data.request.PutProjectBody
+import com.yapp.timitimi.data.response.LoginResponse
 import com.yapp.timitimi.data.response.ParticipantResponse
 import com.yapp.timitimi.data.response.ProjectIdResponse
 import com.yapp.timitimi.data.response.ProjectResponse
@@ -88,4 +90,9 @@ interface TimiServiceApi {
         @Header("appToken") appToken: String,
         @Header("refreshToken") token: String,
     ): Response<Boolean>
+
+    @POST("/auth/sign-in")
+    suspend fun login(
+        @Body body: PostLoginBody
+    ): Response<LoginResponse>
 }
