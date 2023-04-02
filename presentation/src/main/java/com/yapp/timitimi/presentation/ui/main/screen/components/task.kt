@@ -49,12 +49,6 @@ internal fun TaskSection(
     onClickTask: (task: TaskItem, isMe: Boolean) -> Unit,
 ) {
     val lazyListState = rememberLazyListState()
-    val isMe by remember(state.members) {
-        derivedStateOf {
-            state.members.isNotEmpty()
-                    && state.members[state.selectedProfileIndex].name == Me
-        }
-    }
     val myTasks by remember(state.members) {
         derivedStateOf {
             state.tasks.immutableFilter { it.member.name == Me }
